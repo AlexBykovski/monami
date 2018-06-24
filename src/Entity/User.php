@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -29,11 +30,35 @@ abstract class User extends BaseUser
     protected $id;
 
     /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $phone;
+
+    /**
      * @var string
      *
-     * @ORM\Column(type="string", unique=true)
+     * @ORM\Column(type="string")
      */
-    private $login;
+    private $apiId;
+
+    /**
+     * @var DateTime|null
+     *
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * User constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->createdAt = new DateTime();
+    }
 
     /**
      * @return int
@@ -54,22 +79,6 @@ abstract class User extends BaseUser
     /**
      * @return string
      */
-    public function getLogin(): string
-    {
-        return $this->login;
-    }
-
-    /**
-     * @param string $login
-     */
-    public function setLogin(string $login): void
-    {
-        $this->login = $login;
-    }
-
-    /**
-     * @return string
-     */
     public function getPassword(): string
     {
         return $this->password;
@@ -81,5 +90,53 @@ abstract class User extends BaseUser
     public function setPassword($password): void
     {
         $this->password = $password;
+    }
+
+    /**
+     * @return string
+     */
+    public function getApiId(): string
+    {
+        return $this->apiId;
+    }
+
+    /**
+     * @param string $apiId
+     */
+    public function setApiId(string $apiId): void
+    {
+        $this->apiId = $apiId;
+    }
+
+    /**
+     * @return DateTime|null
+     */
+    public function getCreatedAt(): ?DateTime
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param DateTime|null $createdAt
+     */
+    public function setCreatedAt(?DateTime $createdAt): void
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    /**
+     * @param null|string $phone
+     */
+    public function setPhone(?string $phone): void
+    {
+        $this->phone = $phone;
     }
 }

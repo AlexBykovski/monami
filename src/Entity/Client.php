@@ -2,8 +2,8 @@
 
 namespace App\Entity;
 
-
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -12,34 +12,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Client extends User
 {
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(type="string", nullable=true)
-     */
-    private $email;
-
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(type="string", nullable=true)
-     */
-    private $phone;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string")
-     */
-    private $apiId;
-
-    /**
-     * @var DateTime|null
-     *
-     * @ORM\Column(type="datetime")
-     */
-    private $createdAt;
-
     /**
      * @var Manager|null
      *
@@ -57,78 +29,20 @@ class Client extends User
     private $contrAgent;
 
     /**
-     * @ORM\Column(type="string")
+     * @var ArrayCollection
+     *
+     * One Product has Many Purchases.
+     * @ORM\OneToMany(targetEntity="Purchase", mappedBy="client", cascade={"remove"})
      */
-    private $purchaseHistories; //@@todo need Entity
+    private $purchases;
 
     /**
-     * @ORM\Column(type="string")
+     * @var Basket
+     *
+     * One Client has One Basket.
+     * @ORM\OneToOne(targetEntity="Basket", mappedBy="client", cascade={"persist", "remove"})
      */
-    private $basket; //@@todo need Entity
-
-    /**
-     * @return null|string
-     */
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    /**
-     * @param null|string $email
-     */
-    public function setEmail($email): void
-    {
-        $this->email = $email;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getPhone(): ?string
-    {
-        return $this->phone;
-    }
-
-    /**
-     * @param null|string $phone
-     */
-    public function setPhone(?string $phone): void
-    {
-        $this->phone = $phone;
-    }
-
-    /**
-     * @return string
-     */
-    public function getApiId(): string
-    {
-        return $this->apiId;
-    }
-
-    /**
-     * @param string $apiId
-     */
-    public function setApiId(string $apiId): void
-    {
-        $this->apiId = $apiId;
-    }
-
-    /**
-     * @return DateTime|null
-     */
-    public function getCreatedAt(): ?DateTime
-    {
-        return $this->createdAt;
-    }
-
-    /**
-     * @param DateTime|null $createdAt
-     */
-    public function setCreatedAt(?DateTime $createdAt): void
-    {
-        $this->createdAt = $createdAt;
-    }
+    private $basket;
 
     /**
      * @return Manager|null
@@ -160,5 +74,37 @@ class Client extends User
     public function setContrAgent(?string $contrAgent): void
     {
         $this->contrAgent = $contrAgent;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getPurchases(): ArrayCollection
+    {
+        return $this->purchases;
+    }
+
+    /**
+     * @param ArrayCollection $purchases
+     */
+    public function setPurchases(ArrayCollection $purchases): void
+    {
+        $this->purchases = $purchases;
+    }
+
+    /**
+     * @return Basket
+     */
+    public function getBasket(): Basket
+    {
+        return $this->basket;
+    }
+
+    /**
+     * @param Basket $basket
+     */
+    public function setBasket(Basket $basket): void
+    {
+        $this->basket = $basket;
     }
 }

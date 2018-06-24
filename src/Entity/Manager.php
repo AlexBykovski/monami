@@ -36,27 +36,6 @@ class Manager
     private $fullName;
 
     /**
-     * @var string|null
-     *
-     * @ORM\Column(type="string", nullable=true)
-     */
-    private $phone;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="integer")
-     */
-    private $apiId;
-
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(type="string", nullable=true)
-     */
-    private $email;
-
-    /**
      * @var ArrayCollection
      *
      * One Manager has Many Clients.
@@ -118,54 +97,6 @@ class Manager
     public function setFullName(?string $fullName): void
     {
         $this->fullName = $fullName;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getPhone(): ?string
-    {
-        return $this->phone;
-    }
-
-    /**
-     * @param null|string $phone
-     */
-    public function setPhone(?string $phone): void
-    {
-        $this->phone = $phone;
-    }
-
-    /**
-     * @return string
-     */
-    public function getApiId(): string
-    {
-        return $this->apiId;
-    }
-
-    /**
-     * @param string $apiId
-     */
-    public function setApiId(string $apiId): void
-    {
-        $this->apiId = $apiId;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    /**
-     * @param null|string $email
-     */
-    public function setEmail(?string $email): void
-    {
-        $this->email = $email;
     }
 
     /**

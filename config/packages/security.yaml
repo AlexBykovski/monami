@@ -38,6 +38,6 @@ security:
             # https://symfony.com/doc/current/security/form_login_setup.html
 
     access_control:
-        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin, roles: [ROLE_SUPER_ADMIN] }
+        #- { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        #- { path: ^/admin, roles: [ROLE_SUPER_ADMIN] }
         - { path: ^/., roles: IS_AUTHENTICATED_ANONYMOUSLY }

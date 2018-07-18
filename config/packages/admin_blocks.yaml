@@ -1,0 +1,7 @@
+services:
+    admin.general.vacancy:
+        class: App\Admin\VacancyAdmin
+        arguments: [~, App\Entity\Vacancy, ~]
+        tags:
+            - { name: sonata.admin, group: Общее, manager_type: orm, label: Вакансии }
+        public: true

@@ -3,15 +3,13 @@
 namespace App\Entity;
 
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="vacancy")
+ * @ORM\Table(name="vacancy_block")
  */
-class Vacancy
+class VacancyBlock
 {
     /**
      * @var integer
@@ -30,21 +28,20 @@ class Vacancy
     private $title;
 
     /**
-     * @var Collection
+     * @var string|null
      *
-     * One Vacancy has Many VacancyBlocks.
-     * @ORM\OneToMany(targetEntity="VacancyBlock", mappedBy="vacancy", cascade={"persist"})
+     * @ORM\Column(type="text")
      */
-    private $vacancyBlocks;
+    private $description;
 
     /**
-     * Vacancy constructor.
+     * @var Vacancy
+     *
+     * Many VacancyBlocks have One Vacancy.
+     * @ORM\ManyToOne(targetEntity="Vacancy", inversedBy="vacancyBlocks"))
+     * @ORM\JoinColumn(name="vacancy", referencedColumnName="id")
      */
-    public function __construct()
-    {
-        $this->vacancyBlocks = new ArrayCollection();
-    }
-
+    private $vacancy;
 
     /**
      * @return int
@@ -79,18 +76,34 @@ class Vacancy
     }
 
     /**
-     * @return Collection
+     * @return null|string
      */
-    public function getVacancyBlocks(): Collection
+    public function getDescription(): ?string
     {
-        return $this->vacancyBlocks;
+        return $this->description;
     }
 
     /**
-     * @param Collection $vacancyBlocks
+     * @param null|string $description
      */
-    public function setVacancyBlocks(Collection $vacancyBlocks): void
+    public function setDescription(?string $description): void
     {
-        $this->vacancyBlocks = $vacancyBlocks;
+        $this->description = $description;
+    }
+
+    /**
+     * @return Vacancy
+     */
+    public function getVacancy(): Vacancy
+    {
+        return $this->vacancy;
+    }
+
+    /**
+     * @param Vacancy $vacancy
+     */
+    public function setVacancy(Vacancy $vacancy): void
+    {
+        $this->vacancy = $vacancy;
     }
 }

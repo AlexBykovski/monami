@@ -7,10 +7,10 @@ sonata_admin:
 #              position: right
 #              type: sonata.block.service.text
 
-    security:
-        handler: sonata.admin.security.handler.role
+#    security:
+#        handler: sonata.admin.security.handler.role
 
-        role_super_admin: ROLE_SUPER_ADMIN
+#        role_super_admin: ROLE_SUPER_ADMIN
 
 #    assets:
 #        extra_stylesheets:

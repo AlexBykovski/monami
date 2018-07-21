@@ -11,3 +11,9 @@ services:
         tags:
             - { name: sonata.admin, group: Общее, manager_type: orm, label: Главная }
         public: true
+    admin.general.contacts_page:
+        class: App\Admin\ContactsPageAdmin
+        arguments: [~, App\Entity\ContactsPage, ~]
+        tags:
+            - { name: sonata.admin, group: Общее, manager_type: orm, label: Контакты }
+        public: true

@@ -17,3 +17,9 @@ services:
         tags:
             - { name: sonata.admin, group: Общее, manager_type: orm, label: Контакты }
         public: true
+    admin.general.promocode:
+        class: App\Admin\PromoCodeAdmin
+        arguments: [~, App\Entity\PromoCode, ~]
+        tags:
+            - { name: sonata.admin, group: Товары, manager_type: orm, label: Промокод }
+        public: true

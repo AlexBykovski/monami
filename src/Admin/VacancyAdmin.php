@@ -2,8 +2,6 @@
 
 namespace App\Admin;
 
-use App\Entity\Vacancy;
-use App\Entity\VacancyBlock;
 use App\Form\Type\VacancyBlockForm;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -58,6 +56,6 @@ class VacancyAdmin extends AbstractAdmin
 
     protected function configureRoutes(RouteCollection $collection)
     {
-        $collection->clearExcept(['list', 'edit', 'create']);
+        $collection->clearExcept(['list', 'edit', 'create', 'delete']);
     }
 }

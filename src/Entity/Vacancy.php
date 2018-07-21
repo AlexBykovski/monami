@@ -33,7 +33,7 @@ class Vacancy
      * @var Collection
      *
      * One Vacancy has Many VacancyBlocks.
-     * @ORM\OneToMany(targetEntity="VacancyBlock", mappedBy="vacancy", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="VacancyBlock", mappedBy="vacancy", cascade={"persist", "remove"})
      */
     private $vacancyBlocks;
 

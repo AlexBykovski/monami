@@ -5,3 +5,9 @@ services:
         tags:
             - { name: sonata.admin, group: Общее, manager_type: orm, label: Вакансии }
         public: true
+    admin.general.main_page:
+        class: App\Admin\MainPageAdmin
+        arguments: [~, App\Entity\MainPage, ~, "@app.file_upload"]
+        tags:
+            - { name: sonata.admin, group: Общее, manager_type: orm, label: Главная }
+        public: true

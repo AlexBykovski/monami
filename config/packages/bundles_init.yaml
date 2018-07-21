@@ -1,0 +1,10 @@
+knp_gaufrette:
+    adapters:
+        local_storage:
+            local:
+                directory: '%upload_directory%'
+
+    filesystems:
+        bar:
+            adapter:    local_storage
+            alias:      images_filesystem

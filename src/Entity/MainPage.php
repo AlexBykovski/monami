@@ -2,8 +2,8 @@
 
 namespace App\Entity;
 
-
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -22,13 +22,13 @@ class MainPage
     private $id;
 
     /**
-     * @var ArrayCollection
+     * @var Collection
      *
-     * Many MainPage have Many linkImages.
-     * @ORM\ManyToMany(targetEntity="LinkImage")
+     * Many MainPage have Many LinkImages.
+     * @ORM\ManyToMany(targetEntity="LinkImage", cascade={"persist"})
      * @ORM\JoinTable(name="main_page_link_images",
-     *      joinColumns={@ORM\JoinColumn(name="main_page", referencedColumnName="id", unique=true)},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="link_image", referencedColumnName="id")}
+     *      joinColumns={@ORM\JoinColumn(name="main_page", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="link_image", referencedColumnName="id", unique=true)}
      *      )
      */
     private $linkImages;
@@ -58,17 +58,17 @@ class MainPage
     }
 
     /**
-     * @return ArrayCollection
+     * @return Collection
      */
-    public function getLinkImages(): ArrayCollection
+    public function getLinkImages(): Collection
     {
         return $this->linkImages;
     }
 
     /**
-     * @param ArrayCollection $linkImages
+     * @param Collection $linkImages
      */
-    public function setLinkImages(ArrayCollection $linkImages): void
+    public function setLinkImages(Collection $linkImages): void
     {
         $this->linkImages = $linkImages;
     }

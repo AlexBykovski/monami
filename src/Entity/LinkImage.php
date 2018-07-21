@@ -27,9 +27,9 @@ class LinkImage
     private $image;
 
     /**
-     * @var string
+     * @var string|null
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $link;
 
@@ -66,17 +66,17 @@ class LinkImage
     }
 
     /**
-     * @return string
+     * @return null|string
      */
-    public function getLink(): string
+    public function getLink(): ?string
     {
         return $this->link;
     }
 
     /**
-     * @param string $link
+     * @param null|string $link
      */
-    public function setLink(string $link): void
+    public function setLink(?string $link): void
     {
         $this->link = $link;
     }

@@ -20,7 +20,7 @@ class VacancyAdmin extends AbstractAdmin
             'entry_type' => VacancyBlockForm::class,
             'allow_delete' => true,
             'allow_add' => true,
-            'by_reference' => false
+            'by_reference' => true
         ]);
     }
 

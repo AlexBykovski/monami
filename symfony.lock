@@ -62,8 +62,20 @@
     "egulias/email-validator": {
         "version": "2.1.4"
     },
+    "friendsofsymfony/ckeditor-bundle": {
+        "version": "1.1.0"
+    },
+    "gaufrette/local-adapter": {
+        "version": "v0.4.0"
+    },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
+    },
+    "knplabs/gaufrette": {
+        "version": "v0.6.0"
+    },
+    "knplabs/knp-gaufrette-bundle": {
+        "version": "v0.5.3"
     },
     "knplabs/knp-menu": {
         "version": "2.3.0"
@@ -115,6 +127,9 @@
     },
     "sonata-project/datagrid-bundle": {
         "version": "2.3.1"
+    },
+    "sonata-project/doctrine-orm-admin-bundle": {
+        "version": "3.6.1"
     },
     "sonata-project/exporter": {
         "version": "1.9.1"

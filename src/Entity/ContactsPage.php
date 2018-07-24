@@ -20,22 +20,23 @@ class ContactsPage
     private $id;
 
     /**
-     * @var string
+     * @var string|null
      *
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $contacts;
 
     /**
-     * @var string
+     * @var string|null
      *
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $requisites;
 
     /**
-     * @var string
-     * @ORM\Column(type="text")
+     * @var string|null
+     *
+     * @ORM\Column(type="text", nullable=true)
      */
     private $map;
 
@@ -56,49 +57,49 @@ class ContactsPage
     }
 
     /**
-     * @return string
+     * @return null|string
      */
-    public function getContacts(): string
+    public function getContacts(): ?string
     {
         return $this->contacts;
     }
 
     /**
-     * @param string $contacts
+     * @param null|string $contacts
      */
-    public function setContacts(string $contacts): void
+    public function setContacts(?string $contacts): void
     {
         $this->contacts = $contacts;
     }
 
     /**
-     * @return string
+     * @return null|string
      */
-    public function getRequisites(): string
+    public function getRequisites(): ?string
     {
         return $this->requisites;
     }
 
     /**
-     * @param string $requisites
+     * @param null|string $requisites
      */
-    public function setRequisites(string $requisites): void
+    public function setRequisites(?string $requisites): void
     {
         $this->requisites = $requisites;
     }
 
     /**
-     * @return string
+     * @return null|string
      */
-    public function getMap(): string
+    public function getMap(): ?string
     {
         return $this->map;
     }
 
     /**
-     * @param string $map
+     * @param null|string $map
      */
-    public function setMap(string $map): void
+    public function setMap(?string $map): void
     {
         $this->map = $map;
     }

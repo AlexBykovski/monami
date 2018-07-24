@@ -2,13 +2,14 @@
 
 namespace App\Entity;
 
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="cooperation_block")
+ * @ORM\Table(name="vacancy_block")
  */
-class CooperationBlock
+class VacancyBlock
 {
     /**
      * @var integer
@@ -34,18 +35,18 @@ class CooperationBlock
     private $description;
 
     /**
-     * @var Cooperation
+     * @var Vacancy
      *
-     * Many CooperationBlock have One Cooperation.
-     * @ORM\ManyToOne(targetEntity="Cooperation", inversedBy="blocks")
-     * @ORM\JoinColumn(name="cooperation", referencedColumnName="id")
+     * Many VacancyBlocks have One Vacancy.
+     * @ORM\ManyToOne(targetEntity="Vacancy", inversedBy="vacancyBlocks"))
+     * @ORM\JoinColumn(name="vacancy", referencedColumnName="id")
      */
-    private $cooperation;
+    private $vacancy;
 
     /**
-     * @return null|int
+     * @return int
      */
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }
@@ -91,18 +92,18 @@ class CooperationBlock
     }
 
     /**
-     * @return Cooperation
+     * @return Vacancy
      */
-    public function getCooperation(): Cooperation
+    public function getVacancy(): Vacancy
     {
-        return $this->cooperation;
+        return $this->vacancy;
     }
 
     /**
-     * @param Cooperation $cooperation
+     * @param Vacancy $vacancy
      */
-    public function setCooperation(Cooperation $cooperation): void
+    public function setVacancy(Vacancy $vacancy): void
     {
-        $this->cooperation = $cooperation;
+        $this->vacancy = $vacancy;
     }
 }

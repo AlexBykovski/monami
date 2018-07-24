@@ -4,10 +4,22 @@ namespace App\Entity;
 
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
+ * @UniqueEntity("code", message="Этот код уже использовался.")
+ *
  * @ORM\Entity
  * @ORM\Table(name="promo_code")
+ * @ORM\AttributeOverrides({
+ *      @ORM\AttributeOverride(name="code",
+ *          column=@ORM\Column(
+ *              name     = "code",
+ *              length   = 191,
+ *              unique   = true
+ *          )
+ *      )
+ * })
  */
 class PromoCode
 {
@@ -21,16 +33,16 @@ class PromoCode
     private $id;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @ORM\Column(type="string")
      */
     private $code;
 
     /**
-     * @var float
+     * @var float|null
      *
-     * @ORM\Column(type="decimal")
+     * @ORM\Column(type="decimal", scale=2)
      */
     private $discount;
 
@@ -73,33 +85,33 @@ class PromoCode
     }
 
     /**
-     * @return string
+     * @return null|string
      */
-    public function getCode(): string
+    public function getCode(): ?string
     {
         return $this->code;
     }
 
     /**
-     * @param string $code
+     * @param null|string $code
      */
-    public function setCode(string $code): void
+    public function setCode(?string $code): void
     {
         $this->code = $code;
     }
 
     /**
-     * @return float
+     * @return float|null
      */
-    public function getDiscount(): float
+    public function getDiscount(): ?float
     {
         return $this->discount;
     }
 
     /**
-     * @param float $discount
+     * @param float|null $discount
      */
-    public function setDiscount(float $discount): void
+    public function setDiscount(?float $discount): void
     {
         $this->discount = $discount;
     }

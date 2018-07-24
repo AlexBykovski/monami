@@ -32,3 +32,4 @@ framework:
         engines: ['twig', 'php']
 
     translator: { fallbacks: ["%locale%"] }
+    default_locale: ru

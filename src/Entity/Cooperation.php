@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -28,11 +29,11 @@ class Cooperation
     private $schedule;
 
     /**
-     * @var ArrayCollection
+     * @var Collection
      *
      * One Cooperation has Many CooperationBlocks.
      *
-     * @ORM\OneToMany(targetEntity="CooperationBlock", mappedBy="cooperation")
+     * @ORM\OneToMany(targetEntity="CooperationBlock", mappedBy="cooperation", cascade={"persist"}, orphanRemoval=true)
      */
     private $blocks;
 
@@ -77,17 +78,17 @@ class Cooperation
     }
 
     /**
-     * @return ArrayCollection
+     * @return Collection
      */
-    public function getBlocks(): ArrayCollection
+    public function getBlocks(): Collection
     {
         return $this->blocks;
     }
 
     /**
-     * @param ArrayCollection $blocks
+     * @param Collection $blocks
      */
-    public function setBlocks(ArrayCollection $blocks): void
+    public function setBlocks(Collection $blocks): void
     {
         $this->blocks = $blocks;
     }

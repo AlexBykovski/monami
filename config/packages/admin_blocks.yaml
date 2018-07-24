@@ -23,3 +23,9 @@ services:
         tags:
             - { name: sonata.admin, group: Товары, manager_type: orm, label: Промокод }
         public: true
+    admin.general.cooperation:
+        class: App\Admin\CooperationAdmin
+        arguments: [~, App\Entity\Cooperation, ~]
+        tags:
+            - { name: sonata.admin, group: Общее, manager_type: orm, label: Сотрудничество }
+        public: true

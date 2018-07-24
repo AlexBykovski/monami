@@ -29,3 +29,9 @@ services:
         tags:
             - { name: sonata.admin, group: Общее, manager_type: orm, label: Сотрудничество }
         public: true
+    admin.general.discounted_item_page:
+        class: App\Admin\DiscountedItemPageAdmin
+        arguments: [~, App\Entity\DiscountedItemPage, ~]
+        tags:
+            - { name: sonata.admin, group: Общее, manager_type: orm, label: Уценённый товар }
+        public: true

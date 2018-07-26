@@ -1,0 +1,599 @@
+// Bourbon mixins
+@import "bourbon"
+
+// Css libs
+@import "libs"
+
+// Fonts
+@import "fonts"
+
+// Sass variables
+@import "vars"
+
+// Display managing
+@import "display"
+
+// Flex classes
+@import "flex"
+
+// Spacing
+@import "spacing"
+
+// Text aligning
+@import "text"
+
+
+*, *::before, *::after 
+	box-sizing: border-box
+
+*::-webkit-input-placeholder
+	color: $dim-grey
+	font-size: 14px
+	font-family: $base_font
+	font-weight: 400
+	font-style: italic
+	opacity: 1
+
+body input:focus:required:invalid,
+body textarea:focus:required:invalid
+	color: #666
+body input:required:valid,
+body textarea:required:valid
+	color: #666
+
+body
+	position: relative
+	min-width: 320px
+	margin: 0
+	padding: 0
+	font-family: $base_font
+	font-weight: normal
+	color: $dim-grey
+	background-color: $ghost-white
+	font-size: 16px
+	line-height: 20px
+	overflow-x: hidden
+	overflow-y: scroll
+
+main
+	min-height: 50vh
+
+section
+	padding: 35px 0
+	&:first-child
+		padding-top: 20px
+	.sect-title
+		margin-bottom: 45px
+		text-align: center
+		h1, h2, h3, h4, h5, h6
+			margin: 0
+
+h1, h2, h3, h4, h5, h6
+	margin: 10px 0
+	line-height: 1
+	font-weight: 600
+	&:first-child
+		margin-top: 0
+	&:last-child
+		margin-bottom: 0
+
+h1
+	font-size: 40px
+h2
+	font-size: 30px
+h3
+	font-size: 24px
+h4
+	font-size: 18px
+h5
+	font-size: 17px
+h6
+	font-size: 16px
+
+p
+	margin: 10px 0
+	&:first-child
+		margin-top: 0
+	&:last-child
+		margin-bottom: 0
+
+a
+	color: $slate-grey
+	&:hover
+		text-decoration: none
+
+hr
+	height: 1px
+	border: 0
+	background-color: darken($ghost-white, 5%)
+
+img
+	&.img-fluid
+		display: inline-block
+		max-width: 100%
+
+b
+	font-weight: 600
+
+.highlight-text
+	color: $sky-blue
+
+
+// Forms
+fieldset.form-group
+	min-width: 0
+	padding: 0
+	margin: 0
+	margin-bottom: 16px
+	border: 0
+	&:last-child
+		margin-bottom: 0
+	&.is-invalid
+		.fg-invalid-msg
+			display: block
+	.fg-label
+		margin-bottom: 6px
+
+.fg-label
+	display: block
+	font-size: 15px
+	font-weight: 600
+
+.fg-input
+	display: inline-block
+	width: 200px
+	padding: 7px 15px
+	padding-top: 7px
+	color: $slate-grey
+	background-color: #fff
+	font-size: 14px
+	border: 1px solid $dim-grey
+	border-radius: 15px
+	appearance: none
+	&:focus
+		outline: none
+	&.input-block
+		display: block
+		width: 100%
+	&.input-bg-filled
+		background-color: lighten($white-smoke, 1%)
+	&.input-highlight
+		background-color: lighten($spring-green, 50%)
+	&.input-rounded
+		border-radius: 20px
+	&.is-invalid
+		border-color: $luminous-red !important
+		&~.fg-invalid-msg
+			display: block
+
+.fg-invalid-msg
+	display: none
+	margin-top: 6px
+	font-weight: 300
+	color: $luminous-red
+
+select
+	&.fg-input
+		position: relative
+		display: block
+		padding-top: 6px
+		padding-right: 40px
+		line-height: 1.6
+		appearance: none
+		background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjUxMnB4IiBoZWlnaHQ9IjUxMnB4IiB2aWV3Qm94PSIwIDAgMjkyLjM2MiAyOTIuMzYyIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCAyOTIuMzYyIDI5Mi4zNjI7IiB4bWw6c3BhY2U9InByZXNlcnZlIiBjbGFzcz0iIj48Zz48Zz4KCTxwYXRoIGQ9Ik0yODYuOTM1LDY5LjM3N2MtMy42MTQtMy42MTctNy44OTgtNS40MjQtMTIuODQ4LTUuNDI0SDE4LjI3NGMtNC45NTIsMC05LjIzMywxLjgwNy0xMi44NSw1LjQyNCAgIEMxLjgwNyw3Mi45OTgsMCw3Ny4yNzksMCw4Mi4yMjhjMCw0Ljk0OCwxLjgwNyw5LjIyOSw1LjQyNCwxMi44NDdsMTI3LjkwNywxMjcuOTA3YzMuNjIxLDMuNjE3LDcuOTAyLDUuNDI4LDEyLjg1LDUuNDI4ICAgczkuMjMzLTEuODExLDEyLjg0Ny01LjQyOEwyODYuOTM1LDk1LjA3NGMzLjYxMy0zLjYxNyw1LjQyNy03Ljg5OCw1LjQyNy0xMi44NDdDMjkyLjM2Miw3Ny4yNzksMjkwLjU0OCw3Mi45OTgsMjg2LjkzNSw2OS4zNzd6IiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBjbGFzcz0iYWN0aXZlLXBhdGgiIGRhdGEtb2xkX2NvbG9yPSIjIzY2Nzg4ZmlsbDojIzY2Nzg4ZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojNzI0NjQ2ZmlsbDojMDAwMDAwZmlsbDojN0M0OTQ5ZmlsbDojMDAwMDAwZmlsbDojODU0QjRCZmlsbDojMDAwMDAwZmlsbDojOTA0QzRDZmlsbDojMDAwMDAwZmlsbDojOTc0QTRBZmlsbDojMDAwMDAwZmlsbDojOUY0NDQ0ZmlsbDojMDAwMDAwZmlsbDojQTUzRTNFZmlsbDojMDAwMDAwZmlsbDojQjEyQzJDZmlsbDojMDAwMDAwZmlsbDojQjUyOTI5ZmlsbDojMDAwMDAwZmlsbDojQjgyODI4ZmlsbDojMDAwMDAwZmlsbDojQkIyODI4ZmlsbDojMDAwMDAwZmlsbDojQkYyOTI5ZmlsbDojMDAwMDAwZmlsbDojQzAyOTI5ZmlsbDojMDAwMDAwZmlsbDojQzEyOTI5ZmlsbDojMDAwMDAwZmlsbDojQzQyOTI5ZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojQzQyOTI5ZmlsbDojQzQyOTI5ZmlsbDojQzQyOTI5ZmlsbDojMDAwMDAwZmlsbDojRDEyNjI2ZmlsbDojRDEyNjI2ZmlsbDojRDEyNjI2ZmlsbDojMDAwMDAwZmlsbDojREIxRDFEZmlsbDojREIxRDFEZmlsbDojREIxRDFEZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojIzY2Nzg4ZmlsbDojIzY2Nzg4ZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDBGRjUxZmlsbDojMDBGRjUxZmlsbDojMDBGRjUxZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojIzY2Nzg4ZmlsbDojIzY2Nzg4ZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojNjY3ODgwZmlsbDojNjY3ODgwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwZmlsbDojMDAwMDAwIiBmaWxsPSIjNjY3ODgwIi8+CjwvZz48L2c+IDwvc3ZnPgo=')
+		background-size: 8px 8px
+		background-repeat: no-repeat
+		background-position: right 15px center
+
+textarea
+	resize: vertical
+	font-family: $base_font
+	&.fg-input
+		height: auto
+
+
+// Card box
+.card-box
+	position: relative
+	padding: 20px 15px
+	border-radius: 15px
+	box-shadow: 0 0 9px 4px rgba(0, 0, 0, .05)
+
+
+// Text box
+.text-box
+	padding: 25px
+	background-color: #FAFAFC
+	border-radius: 20px
+	p:first-child
+		margin-top: 0
+	p:last-child
+		margin-bottom: 0
+
+
+// List group
+ul.list-group
+	margin: 0
+	padding: 0
+	list-style-type: none
+	li
+		position: relative
+		padding-left: 15px
+		&::before
+			position: absolute
+			content: ''
+			top: 8px
+			left: 5px
+			display: inline-block
+			width: 6px
+			height: 6px
+			background-color: $sky-blue
+			border-radius: 100%
+		&:not(:last-child)
+			margin-bottom: 10px
+
+
+// Socials
+.socials-list
+	display: inline-block
+	margin: 0
+	padding: 0
+	list-style-type: none
+	li 
+		display: inline-block
+		&:not(:last-child)
+			margin-right: 20px
+
+.social-link 
+	position: relative
+	display: inline-flex
+	align-items: center
+	justify-content: center
+	text-align: center
+	cursor: pointer
+	text-decoration: none
+	i 
+		color: #595757
+		font-size: 25px
+		+mt(.2s)
+	&:hover
+		i
+			color: #fff
+
+
+// Buttons
+$border_width: 1px
+
+.bttn
+	position: relative
+	display: -webkit-inline-flex
+	display:     -ms-inline-flexbox
+	display:         inline-flex
+	align-items: center
+	justify-content: center
+	padding: 12px
+	font-size: 14px
+	font-family: $base_font
+	font-weight: 600
+	line-height: 1
+	white-space: nowrap
+	text-decoration: none
+	background-color: inherit
+	border: $border_width solid transparent
+	transition: background-color .2s ease, color .2s ease
+	&:hover
+		box-shadow: 3px 4px 26px -9px $slate-grey
+	i
+		position: relative
+		line-height: 1
+
+a.bttn
+	cursor: pointer
+
+button.bttn
+	outline: 0
+	cursor: pointer
+	appearance: none
+
+.bttn-block
+	width: 100%
+
+.bttn-lg
+	padding: 10.5px 36px
+	font-size: 24px
+	border-radius: 13px
+	i
+		font-size: 24px
+	&.bttn-rounded
+		border-radius: 25px
+.bttn-md
+	padding: 5px 21px
+	font-size: 20px
+	border-radius: 11px
+	i
+		font-size: 19px
+	&.bttn-rounded
+		border-radius: 22px
+.bttn-sm
+	padding: 7px 12px
+	font-size: 16px
+	border-radius: 10px
+	i
+		font-size: 19px
+	&.bttn-rounded
+		border-radius: 20px
+.bttn-xs
+	padding: 2px 8px
+	font-size: 16px
+	border-radius: 10px
+	i
+		font-size: 16px
+	&.bttn-rounded
+		border-radius: 15px
+
+.bttn-blue-gradient
+	color: #fff
+	background: linear-gradient(to right, $steel-blue, $sky-blue)
+	border-color: $sky-blue
+	&:hover
+		box-shadow: 3px 4px 26px -9px $sky-blue
+	&.bttn-border
+		color: $sky-blue
+		background: transparent
+		&:hover
+			color: #fff
+			background: linear-gradient(to right, $steel-blue, $sky-blue)
+.bttn-sky-blue-gradient
+	color: #fff
+	background: linear-gradient($sky-blue, lighten($sky-blue, 13%), $sky-blue)
+	border-color: $sky-blue
+	&:hover
+		box-shadow: 3px 4px 26px -9px $sky-blue
+	&.bttn-border
+		color: $sky-blue
+		background: transparent
+		&:hover
+			color: #fff
+			background: linear-gradient($sky-blue, lighten($sky-blue, 13%), $sky-blue)
+.bttn-crimson-gradient
+	color: #fff
+	background: linear-gradient($crimson, #FF3762, #FF3762, $crimson)
+	border-color: $crimson
+	&:hover
+		box-shadow: 3px 4px 26px -9px $crimson
+	&.bttn-border
+		color: $crimson
+		background: transparent
+		&:hover
+			color: #fff
+			background: linear-gradient($crimson, #FF3762, #FF3762, $crimson)
+.bttn-orange-gradient
+	color: #fff
+	background: linear-gradient(to right, $flush-orange, darken($gold, 3%))
+	border-color: $orange
+	&:hover
+		box-shadow: 3px 4px 26px -9px $orange
+	&.bttn-border
+		color: $orange
+		background: transparent
+		&:hover
+			color: #fff
+			background: linear-gradient(to right, $flush-orange, darken($gold, 3%))
+.bttn-lime-green
+	color: #fff
+	background-color: $lime-green
+	border-color: $lime-green
+	&:hover
+		box-shadow: 3px 4px 26px -9px $lime-green
+	&.bttn-border
+		color: $lime-green
+		background-color: transparent
+		&:hover
+			color: #fff
+			background-color: $lime-green
+.bttn-spring-green
+	color: #fff
+	background-color: $spring-green
+	border-color: $spring-green
+	&:hover
+		box-shadow: 3px 4px 26px -9px $spring-green
+	&.bttn-border
+		color: $spring-green
+		background-color: transparent
+		&:hover
+			color: #fff
+			background-color: $spring-green
+.bttn-orange
+	color: #fff
+	background-color: $orange
+	border-color: $orange
+	&:hover
+		box-shadow: 3px 4px 26px -9px $orange
+	&.bttn-border
+		color: $orange
+		background-color: transparent
+		&:hover
+			color: #fff
+			background-color: $orange
+.bttn-gold
+	color: #fff
+	background-color: $gold
+	border-color: $gold
+	&:hover
+		box-shadow: 3px 4px 26px -9px $gold
+	&.bttn-border
+		color: $gold
+		background-color: transparent
+		&:hover
+			color: #fff
+			background-color: $gold
+.bttn-flush-orange
+	color: #fff
+	background-color: $flush-orange
+	border-color: $flush-orange
+	&:hover
+		box-shadow: 3px 4px 26px -9px $flush-orange
+	&.bttn-border
+		color: $flush-orange
+		background-color: transparent
+		&:hover
+			color: #fff
+			background-color: $flush-orange
+.bttn-luminous-red
+	color: #fff
+	background-color: $luminous-red
+	border-color: $luminous-red
+	&:hover
+		box-shadow: 3px 4px 26px -9px $luminous-red
+	&.bttn-border
+		color: $luminous-red
+		background-color: transparent
+		&:hover
+			color: #fff
+			background-color: $luminous-red
+.bttn-indiang-red
+	color: #fff
+	background-color: $indiang-red
+	border-color: $indiang-red
+	&.bttn-border
+		color: $indiang-red
+		background-color: transparent
+		&:hover
+			color: #fff
+			background-color: $indiang-red
+.bttn-steel-blue
+	color: #fff
+	background-color: $steel-blue
+	border-color: $steel-blue
+	&:hover
+		box-shadow: 3px 4px 26px -9px $steel-blue
+	&.bttn-border
+		color: $steel-blue
+		background-color: transparent
+		&:hover
+			color: #fff
+			background-color: $steel-blue
+.bttn-royal-blue
+	color: #fff
+	background-color: $royal-blue
+	border-color: $royal-blue
+	&:hover
+		box-shadow: 3px 4px 26px -9px $royal-blue
+	&.bttn-border
+		color: $royal-blue
+		background-color: transparent
+		&:hover
+			color: #fff
+			background-color: $royal-blue
+.bttn-sky-blue
+	color: #fff
+	background-color: $sky-blue
+	border-color: $sky-blue
+	&:hover
+		box-shadow: 3px 4px 26px -9px $sky-blue
+	&.bttn-border
+		color: $sky-blue
+		background-color: transparent
+		&:hover
+			color: #fff
+			background-color: $sky-blue
+.bttn-crimson
+	color: #fff
+	background-color: $crimson
+	border-color: $crimson
+	&:hover
+		box-shadow: 3px 4px 26px -9px $crimson
+	&.bttn-border
+		color: $crimson
+		background-color: transparent
+		&:hover
+			color: #fff
+			background-color: $crimson
+.bttn-dim-grey
+	color: #fff
+	background-color: $dim-grey
+	border-color: $dim-grey
+	&:hover
+		box-shadow: 3px 4px 26px -9px $dim-grey
+	&.bttn-border
+		color: $dim-grey
+		background-color: transparent
+		&:hover
+			color: #fff
+			background-color: $dim-grey
+.bttn-slate-grey
+	color: #fff
+	background-color: $slate-grey
+	border-color: $slate-grey
+	&:hover
+		box-shadow: 3px 4px 26px -9px $slate-grey
+	&.bttn-border
+		color: $slate-grey
+		background-color: transparent
+		&:hover
+			color: #fff
+			background-color: $slate-grey
+.bttn-silver
+	color: #fff
+	background-color: $silver
+	border-color: $silver
+	&:hover
+		box-shadow: 3px 4px 26px -9px $silver
+	&.bttn-border
+		color: $silver
+		background-color: transparent
+		&:hover
+			color: #fff
+			background-color: $silver
+.bttn-light-grey
+	color: $dim-grey
+	background-color: $light-grey
+	border-color: $light-grey
+	&:hover
+		box-shadow: 3px 4px 26px -9px $light-grey
+	&.bttn-border
+		color: $light-grey
+		background-color: transparent
+		&:hover
+			color: #fff
+			background-color: $light-grey
+.bttn-ghost-white
+	color: $slate-grey
+	background-color: $ghost-white
+	border-color: $ghost-white
+	&:hover
+		box-shadow: 3px 4px 26px -9px $ghost-white
+	&.bttn-border
+		color: $ghost-white
+		background-color: transparent
+		&:hover
+			color: #fff
+			background-color: $ghost-white
+.bttn-white-smoke
+	color: $slate-grey
+	background-color: $white-smoke
+	border-color: $white-smoke
+	&:hover
+		box-shadow: 3px 4px 26px -9px $white-smoke
+	&.bttn-border
+		color: $white-smoke
+		background-color: transparent
+		&:hover
+			color: #fff
+			background-color: $white-smoke
+
+
+// Border
+.border, .bttn.border
+	border: 1px solid $silver
+.border-dashed, .bttn.border-dashed
+	border: 1px dashed $silver
+.border-dotted, .bttn.border-dotted
+	border: 1px dotted $silver
+
+
+// Rounded
+.rounded
+	border-radius: 5px
+.rounded-circle
+	border-radius: 100%

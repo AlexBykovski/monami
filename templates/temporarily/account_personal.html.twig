@@ -1,0 +1,133 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+		<main class="main">
+
+			<section id="account-header-sect">
+				<div class="container">
+					<div class="row">
+						<div class="col-12">
+							
+							<div class="sect-title">
+								<div class="row">
+									<div class="col-md-4 text-md-left">
+										
+										<a href="/" class="to-home-btn bttn bttn-xs bttn-sky-blue-gradient bttn-border"><span id="reply-icon"></span>На главную</a>
+
+									</div>
+									<div class="col-md-4 mt-4 mt-md-0">
+										
+										<h3>Личный кабинет</h3>
+
+									</div>
+								</div>
+							</div>
+
+							<div class="account-nav-list">
+								<a href="account-personal.html" class="account-nav-item card-box active">
+									<span class="nav-icon" style="background-image: url(./img/icons/account/account-profile-icon.png);"></span>
+									<h6 class="nav-title">Персональные данные</h6>
+								</a>
+								
+								<a href="account-basket.html" class="account-nav-item card-box">
+									<span class="nav-icon" style="background-image: url(./img/icons/account/account-shop-cart-icon.png);"></span>
+									<h6 class="nav-title">Корзина</h6>
+								</a>
+								
+								<a href="account-orders-history.html" class="account-nav-item card-box">
+									<span class="nav-icon" style="background-image: url(./img/icons/account/account-orders-history-icon.png);"></span>
+									<h6 class="nav-title">История заказов</h6>
+								</a>
+								
+								<a href="account-feedback.html" class="account-nav-item card-box">
+									<span class="nav-icon" style="background-image: url(./img/icons/account/account-feedback-icon.png);"></span>
+									<h6 class="nav-title">Обратная связь</h6>
+								</a>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section id="account-personal-info-sect">
+				<div class="container">
+					<div class="row">
+						<div class="col-12">
+							
+							<h6 class="highlight-text">Персональные данные</h6>
+							
+							<div class="row mt-4">
+								<div class="col-6 col-md-3">
+									
+									<b>ФИО</b>
+									<p>Иванов Иван Иванович</p>
+
+								</div>
+								<div class="col-6 col-md-3">
+									
+									<b>Телефон</b>
+									<p>+375 (29) 355-33-32</p>
+
+								</div>
+								<div class="col-6 col-md-3 mt-3">
+									
+									<b>Дата рождения</b>
+									<p>24.12.1990</p>
+
+								</div>
+								<div class="col-6 col-md-3 mt-3">
+									
+									<b>Email</b>
+									<p>ivan@mail.ru</p>
+
+								</div>
+							</div>
+
+							<h6 class="highlight-text mt-4">Адрес доставки</h6>
+
+							<div class="row mt-4">
+								<div class="col-4 col-md-2">
+									
+									<b>Город</b>
+									<p>Иваново</p>
+
+								</div>
+								<div class="col-4 col-md-2">
+									
+									<b>Адрес</b>
+									<p>ул.Угловая, д.61</p>
+
+								</div>
+								<div class="col-4 col-md-2">
+									
+									<b>Индекс</b>
+									<p>223927</p>
+
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section id="search-sect">
+				<div class="container">
+					<div class="row">
+						<div class="col-xs-8 col-lg-6 offset-xs-2 offset-lg-3">
+							
+							<form class="search-bar-form">
+								<input type="text" class="search-bar" placeholder="Введите ваш запрос">
+								<button class="search-submit-btn bttn bttn-sm bttn-sky-blue-gradient"><i class="fa fa-search"></i> &nbsp; Искать</button>
+							</form>
+
+						</div>
+					</div>
+				</div>
+			</section>
+		
+		</main>
+
+{% endblock %}

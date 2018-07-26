@@ -1,0 +1,95 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+		<main class="main">
+
+			<section id="help-sect">
+				<div class="container">
+					<div class="row">
+						<div class="col-12">
+							
+							<div class="sect-title">
+								<div class="row">
+									<div class="col-md-4 text-md-left">
+										
+										<a href="/" class="to-home-btn bttn bttn-xs bttn-sky-blue-gradient bttn-border"><span id="reply-icon"></span>На главную</a>
+
+									</div>
+									<div class="col-md-4 mt-4 mt-md-0">
+										
+										<h3>Помощь</h3>
+
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-10 col-lg-8 offset-md-1 offset-lg-2">
+									
+									<div class="feedback-form-box">
+										<h6 id="feedback-form-title"><img src="./img/icons/support-icon.png" id="support-icon" alt=""> &nbsp; Служба поддержки</h6>
+
+										<form class="feedback-form">
+											<fieldset class="form-group">
+												<div class="row">
+													<div class="col-xs-4">
+
+														<label class="fg-label">Контактное лицо</label>
+													
+													</div>
+													<div class="col-xs-8">
+														
+														<input type="text" class="fg-input input-block" placeholder="Введите свое имя">
+
+													</div>
+												</div>
+											</fieldset>
+
+											<fieldset class="form-group">
+												<div class="row">
+													<div class="col-xs-4">
+
+														<label class="fg-label">Email для связи</label>
+													
+													</div>
+													<div class="col-xs-8">
+														
+														<input type="text" class="fg-input input-block" placeholder="Введите ваш email">
+
+													</div>
+												</div>
+											</fieldset>
+
+											<fieldset class="form-group">
+												<div class="row">
+													<div class="col-xs-4">
+
+														<label class="fg-label">Сообщение</label>
+													
+													</div>
+													<div class="col-xs-8">
+														
+														<textarea class="fg-input input-block" rows="10" placeholder="Введите сообщение"></textarea>
+
+													</div>
+												</div>
+											</fieldset>
+
+											<div class="feedback-submit-btn-wrap">
+												<button class="feedback-submit-btn bttn bttn-xs bttn-sky-blue-gradient bttn-border">Отправить</button>
+											</div>
+										</form>
+									</div>
+
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</section>
+
+		</main>
+
+{% endblock %}

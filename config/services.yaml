@@ -37,6 +37,12 @@ services:
         alias: twig.controller.exception
         public: true
 
+    App\Twig\ImageUrlExtension:
+        class: App\Twig\ImageUrlExtension
+        arguments: ['%upload_image_directory%']
+        tags:
+            - { name: twig.extension }
+
     app.file_upload:
         class:  App\Upload\FileUpload
         arguments: ['@images_filesystem']

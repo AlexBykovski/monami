@@ -35,3 +35,9 @@ services:
         tags:
             - { name: sonata.admin, group: Общее, manager_type: orm, label: Уценённый товар }
         public: true
+    admin.import.import_items:
+      class: App\Admin\ImportDetailAdmin
+      arguments: [~, App\Entity\ImportDetail, ~]
+      tags:
+          - { name: sonata.admin, group: Импорт, manager_type: orm, label: Импорт }
+      public: true

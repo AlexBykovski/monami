@@ -41,3 +41,8 @@ services:
         class:  App\Upload\FileUpload
         arguments: ['@images_filesystem']
         public: true
+
+    app.import.import_xml_data:
+        class:  App\Import\XMLDataImporter
+        arguments: []
+        public: true

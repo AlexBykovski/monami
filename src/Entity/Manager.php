@@ -4,6 +4,7 @@ namespace App\Entity;
 
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -36,7 +37,28 @@ class Manager
     private $fullName;
 
     /**
-     * @var ArrayCollection
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    private $apiId;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    private $phone;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    private $email;
+
+    /**
+     * @var Collection
      *
      * One Manager has Many Clients.
      * @ORM\OneToMany(targetEntity="Client", mappedBy="manager")
@@ -45,9 +67,20 @@ class Manager
 
     /**
      * Manager constructor.
+     * @param null|string $image
+     * @param null|string $fullName
+     * @param string $apiId
+     * @param string $phone
+     * @param string $email
      */
-    public function __construct()
+    public function __construct(?string $image, ?string $fullName, string $apiId, string $phone, string $email)
     {
+        $this->image = $image;
+        $this->fullName = $fullName;
+        $this->apiId = $apiId;
+        $this->phone = $phone;
+        $this->email = $email;
+
         $this->clients = new ArrayCollection();
     }
 
@@ -121,5 +154,53 @@ class Manager
     public function addClient(Client $client): void
     {
         $this->clients->add($client);
+    }
+
+    /**
+     * @return string
+     */
+    public function getApiId(): string
+    {
+        return $this->apiId;
+    }
+
+    /**
+     * @param string $apiId
+     */
+    public function setApiId(string $apiId): void
+    {
+        $this->apiId = $apiId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPhone(): string
+    {
+        return $this->phone;
+    }
+
+    /**
+     * @param string $phone
+     */
+    public function setPhone(string $phone): void
+    {
+        $this->phone = $phone;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param string $email
+     */
+    public function setEmail(string $email): void
+    {
+        $this->email = $email;
     }
 }

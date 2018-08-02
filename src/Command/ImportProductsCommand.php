@@ -67,10 +67,10 @@ class ImportProductsCommand extends ContainerAwareCommand
                 $groups[$element[self::GROUP]] : null;
 
             if(array_key_exists(self::IS_GROUP, $element) && $element[self::IS_GROUP] == '1'){
-                $groups[$element[self::CODE]] = $this->createProductGroup($em, $element, $group);
+                $groups[$element[self::CODE]] = $this->createProductGroup($em, $element, $group, $importDetail->getImagesUrl());
             }
             else{
-                $products[$element[self::CODE]] = $this->createProduct($em, $element, $group);
+                $products[$element[self::CODE]] = $this->createProduct($em, $element, $group, $importDetail->getImagesUrl());
             }
         }
 
@@ -91,10 +91,10 @@ class ImportProductsCommand extends ContainerAwareCommand
             }
 
             if(array_key_exists(self::IS_GROUP, $element) && $element[self::IS_GROUP] == '1'){
-                $groups[$element[self::CODE]]->setParentGroup($group);
+                $groups[$element[self::CODE]]->setParentGroup($group, $importDetail->getImagesUrl());
             }
             else{
-                $products[$element[self::CODE]]->setProductGroup($group);
+                $products[$element[self::CODE]]->setProductGroup($group, $importDetail->getImagesUrl());
             }
         }
 
@@ -103,12 +103,12 @@ class ImportProductsCommand extends ContainerAwareCommand
         $output->writeln("<info>Imported products and groups</info>");
     }
 
-    protected function createProductGroup(EntityManagerInterface $em, array $element, ProductGroup $groupParent = null)
+    protected function createProductGroup(EntityManagerInterface $em, array $element, ?ProductGroup $groupParent, $imageUrl)
     {
         $code = $element[self::CODE];
         $name = $element[self::NAME];
         $simaCode = $element[self::SIMA_CODE];
-        $photo = $element[self::PHOTO];
+        $photo = trim($element[self::PHOTO]) ? $imageUrl . trim($element[self::PHOTO]) : "";
 
         $group = $em->getRepository(ProductGroup::class)->findOneBy(["apiId" => $code]);
 
@@ -133,12 +133,12 @@ class ImportProductsCommand extends ContainerAwareCommand
         return $group;
     }
 
-    protected function createProduct(EntityManagerInterface $em, array $element, ProductGroup $group = null)
+    protected function createProduct(EntityManagerInterface $em, array $element, ?ProductGroup $group, $imageUrl)
     {
         $code = $element[self::CODE];
         $name = $element[self::NAME];
         $simaCode = $element[self::SIMA_CODE];
-        $photo = trim($element[self::PHOTO]);
+        $photo = trim($element[self::PHOTO]) ? $imageUrl . trim($element[self::PHOTO]) : "";
         $cost = (float)$element[self::COST];
         $leftCount = (int)$element[self::LEFT_COUNT];
         $description = array_key_exists(self::DESCRIPTION, $element) ? $element[self::DESCRIPTION] : "";

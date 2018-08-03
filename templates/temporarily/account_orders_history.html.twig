@@ -1,0 +1,196 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+		<main class="main">
+
+			<section id="account-header-sect">
+				<div class="container">
+					<div class="row">
+						<div class="col-12">
+							
+							<div class="sect-title">
+								<div class="row">
+									<div class="col-md-4 text-md-left">
+										
+										<a href="/" class="to-home-btn bttn bttn-xs bttn-sky-blue-gradient bttn-border"><span id="reply-icon"></span>На главную</a>
+
+									</div>
+									<div class="col-md-4 mt-4 mt-md-0">
+										
+										<h3>Личный кабинет</h3>
+
+									</div>
+								</div>
+							</div>
+
+							<div class="account-nav-list">
+								<a href="account-personal.html" class="account-nav-item card-box">
+									<span class="nav-icon" style="background-image: url({{ image_url('default/icons/account/account-profile-icon.png') }});"></span>
+									<h6 class="nav-title">Персональные данные</h6>
+								</a>
+
+								<a href="account-basket.html" class="account-nav-item card-box">
+									<span class="nav-icon" style="background-image: url({{ image_url('default/icons/account/account-shop-cart-icon.png') }});"></span>
+									<h6 class="nav-title">Корзина</h6>
+								</a>
+
+								<a href="account-orders-history.html" class="account-nav-item card-box active">
+									<span class="nav-icon" style="background-image: url({{ image_url('default/icons/account/account-orders-history-icon.png') }});"></span>
+									<h6 class="nav-title">История заказов</h6>
+								</a>
+
+								<a href="account-feedback.html" class="account-nav-item card-box">
+									<span class="nav-icon" style="background-image: url({{ image_url('default/icons/account/account-feedback-icon.png') }});"></span>
+									<h6 class="nav-title">Обратная связь</h6>
+								</a>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section id="account-orders-history-sect">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-10 offset-lg-1">
+							
+							<div class="products-list-utilites-bar card-box">
+								<div class="sort-by-wrap">
+									<div class="sort-by-text">Показывать:</div>
+									
+									<ul class="sort-by-list">
+										<li class="sort-by-item active"><a href="#">16</a></li>
+										<li class="sort-by-item"><a href="#">32</a></li>
+										<li class="sort-by-item"><a href="#">64</a></li>
+										<li class="sort-by-item"><a href="#">128</a></li>
+										<li class="sort-by-item"><a href="#">256</a></li>
+										<li class="sort-by-item"><a href="#">Все</a></li>
+									</ul>
+								</div>
+							</div>
+
+							<div class="products-list products-list-standart">
+
+								<div class="product-item">
+									<div class="product-code">291229</div>
+
+									<div class="product-order-time">Дата заказа: 20.02.2018</div>
+									
+									<a href="#" class="product-image" style="background-image: url({{ image_url('default/product-preview-img.png') }});"></a>
+
+									<div class="product-descr-wrap">
+										<a href="#" class="product-name">Губки СММ-155</a>
+																				
+										<div class="product-full-descr">губки для мытья посуды</div>
+
+										<div class="product-origin-text">Производитель: Китай</div>
+
+										<div class="product-quantity-text">В упаковке 5 губок</div>
+									</div>
+									
+									<div class="product-price-wrap">
+										<div class="product-price">15.8 BYN</div>
+										
+										<div class="basket-quant-text">в корзине <span class="quant">5 штук</span></div>
+									</div>
+								</div>
+
+								<div class="product-item">
+									<div class="product-code">291229</div>
+
+									<div class="product-order-time">Дата заказа: 20.02.2018</div>
+									
+									<a href="#" class="product-image" style="background-image: url({{ image_url('default/product-preview-img.png') }});"></a>
+
+									<div class="product-descr-wrap">
+										<a href="#" class="product-name">Губки СММ-155</a>
+																				
+										<div class="product-full-descr">губки для мытья посуды</div>
+
+										<div class="product-origin-text">Производитель: Китай</div>
+
+										<div class="product-quantity-text">В упаковке 5 губок</div>
+									</div>
+									
+									<div class="product-price-wrap">
+										<div class="product-price">15.8 BYN</div>
+										
+										<div class="basket-quant-text">в корзине <span class="quant">5 штук</span></div>
+									</div>
+								</div>
+
+								<div class="product-item">
+									<div class="product-code">291229</div>
+
+									<div class="product-order-time">Дата заказа: 20.02.2018</div>
+									
+									<a href="#" class="product-image" style="background-image: url({{ image_url('default/product-preview-img.png') }});"></a>
+
+									<div class="product-descr-wrap">
+										<a href="#" class="product-name">Губки СММ-155</a>
+																				
+										<div class="product-full-descr">губки для мытья посуды</div>
+
+										<div class="product-origin-text">Производитель: Китай</div>
+
+										<div class="product-quantity-text">В упаковке 5 губок</div>
+									</div>
+									
+									<div class="product-price-wrap">
+										<div class="product-price">15.8 BYN</div>
+										
+										<div class="basket-quant-text">в корзине <span class="quant">5 штук</span></div>
+									</div>
+								</div>
+
+								<div class="product-item">
+									<div class="product-code">291229</div>
+
+									<div class="product-order-time">Дата заказа: 20.02.2018</div>
+									
+									<a href="#" class="product-image" style="background-image: url({{ image_url('default/product-preview-img.png') }});"></a>
+
+									<div class="product-descr-wrap">
+										<a href="#" class="product-name">Губки СММ-155</a>
+																				
+										<div class="product-full-descr">губки для мытья посуды</div>
+
+										<div class="product-origin-text">Производитель: Китай</div>
+
+										<div class="product-quantity-text">В упаковке 5 губок</div>
+									</div>
+									
+									<div class="product-price-wrap">
+										<div class="product-price">15.8 BYN</div>
+										
+										<div class="basket-quant-text">в корзине <span class="quant">5 штук</span></div>
+									</div>
+								</div>
+
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section id="search-sect">
+				<div class="container">
+					<div class="row">
+						<div class="col-xs-8 col-lg-6 offset-xs-2 offset-lg-3">
+							
+							<form class="search-bar-form">
+								<input type="text" class="search-bar" placeholder="Введите ваш запрос">
+								<button class="search-submit-btn bttn bttn-sm bttn-sky-blue-gradient"><i class="fa fa-search"></i> &nbsp; Искать</button>
+							</form>
+
+						</div>
+					</div>
+				</div>
+			</section>
+		
+		</main>
+
+{% endblock %}

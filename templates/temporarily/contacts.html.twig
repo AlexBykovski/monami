@@ -1,0 +1,119 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+		<main class="main">
+
+			<section id="contacts-sect">
+				<div class="container">
+					<div class="row">
+						<div class="col-12">
+							
+							<div class="sect-title">
+								<div class="row">
+									<div class="col-md-4 text-md-left">
+										
+										<a href="/" class="to-home-btn bttn bttn-xs bttn-sky-blue-gradient bttn-border"><span id="reply-icon"></span>На главную</a>
+
+									</div>
+									<div class="col-md-4 mt-4 mt-md-0">
+										
+										<h3>Контакты</h3>
+
+									</div>
+								</div>
+							</div>
+
+							<div class="contacts-content">
+								<h6 class="mb-4 highlight-text text-center">Наши сотрудники</h6>
+
+								<div class="our-workers-carousel owl-carousel">
+									<div class="our-worker-item card-box">
+										<div class="worker-photo" style="background-image: url({{ image_url('default/worker-photo.png') }});"></div>
+										<h6 class="worker-name">Буцан Денис Александрович</h6>
+										<div class="worker-position">менеджер</div>
+										<div class="worker-phone"><i class="fa fa-phone"></i> 291-90-85</div>
+									</div>
+
+									<div class="our-worker-item card-box">
+										<div class="worker-photo" style="background-image: url({{ image_url('default/worker-photo.png') }});"></div>
+										<h6 class="worker-name">Буцан Денис Александрович</h6>
+										<div class="worker-position">менеджер</div>
+										<div class="worker-phone"><i class="fa fa-phone"></i> 291-90-85</div>
+									</div>
+
+									<div class="our-worker-item card-box">
+										<div class="worker-photo" style="background-image: url({{ image_url('default/worker-photo.png') }});"></div>
+										<h6 class="worker-name">Буцан Денис Александрович</h6>
+										<div class="worker-position">менеджер</div>
+										<div class="worker-phone"><i class="fa fa-phone"></i> 291-90-85</div>
+									</div>
+
+									<div class="our-worker-item card-box">
+										<div class="worker-photo" style="background-image: url({{ image_url('default/worker-photo.png') }});"></div>
+										<h6 class="worker-name">Буцан Денис Александрович</h6>
+										<div class="worker-position">менеджер</div>
+										<div class="worker-phone"><i class="fa fa-phone"></i> 291-90-85</div>
+									</div>
+								</div>
+
+								<div class="contacts-info">
+									<div class="row">
+										<div class="col-md-10 offset-md-1">
+
+											<h6 class="my-4 highlight-text text-center">Наши контакты</h6>
+
+											<h6>Городские телефоны, Минск:</h6>
+
+											<p>тел/факс: +375 17 291 90 85</p>
+											<p>тел/факс: +375 17 291 90 86</p>
+											<p>тел/факс: +375 17 291 90 98</p>
+
+											<h6>Мобильные телефоны:</h6>
+											
+											<p>+375 33 666 90 10 (МТС)</p>
+											<p>+375 29 666 80 04 (Velcome)</p>
+											<p>+375 25 603 71 02 (Life)</p>
+
+											<p><b>Электронная почта:</b> info@monami.by</p>
+											<p><b>Адрес:</b> г.Минск, ул.Бабушкина, дом 6А, комната 203</p>
+											<p><b>Режим работы:</b> Пн-Пт, с 9:00 до 18:00</p>
+
+											<h6 class="my-4 highlight-text text-center">Наши реквизиты</h6>
+
+											<p>Общество с ограниченной ответственностью «Мон Ами»</p>
+											<p>Сокращенное наименование: ООО «Мон Ами»</p>
+											<p>На русском языке: ООО "Мон Ами"</p>
+											<p>На белорусском языке: Таварыства з абмежаванай адказнасцю «Мон Амi»</p>
+											<p>Директор: Свяцкий Юрий Адамович, на основании Устава,</p>
+											<p>Приказ о назначении №1 от 13.06.2008г</p>
+											<p>Юридический адрес:</p>
+											<p>Республика Беларусь, 220024, г. Минск, ул. Бабушкина, дом 6А, комната 203.</p>
+											<p>(указывать полностью)</p>
+											<p>Тел/факс: 8 (17) 291 90 85   - отдел продаж</p>
+											<p>Тел/факс: 8 (17) 291 90 86  - отдел продаж</p>
+											<p>Тел/факс: 8 (17) 291 90 98 - бухгалтерия</p>
+											<p>р/сч № BY38 ALFA 3012 2071 2900 4027 0000 в ЗАО «Альфабанк», код банка ALFABY2X</p>
+											<p>г. Минск, ул.Сурганова, 43-47, код 153001270</p>
+											<p>УНП 191029787, ОКПО 378105885000</p>
+
+											<h6 class="mt-4 highlight-text text-center">Схема проезда</h6>
+										
+										</div>
+									</div>
+								</div>
+					
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section id="contact-map-sect">
+				<div id="contact-map"></div>
+			</section>
+
+		</main>
+
+{% endblock %}

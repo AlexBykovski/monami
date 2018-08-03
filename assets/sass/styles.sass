@@ -1,0 +1,1442 @@
+@import "base"
+
+
+// ------- MAIN HEADER ------- //
+
+// Header top
+.header-top
+	padding: 18px 0
+	.row
+		align-items: center
+	.user-interface-nav
+		text-align: right
+
+// Logo
+.logo
+	display: inline-block
+	width: 105px
+	height: 60px
+	vertical-align: middle
+	background-image: url(/images/default/logo.png)
+	background-size: contain
+	background-repeat: no-repeat
+	background-position: center center
+
+// Header contact info
+.header-contact-info
+	position: relative
+	padding-left: 45px
+	.info-icon
+		position: absolute
+		top: 5px
+		left: 0
+		width: 35px
+		height: 35px
+		background-size: contain
+		background-position: top center
+		background-repeat: no-repeat
+	.info-content
+		font-size: 13.7px
+
+.phone-link
+	text-decoration: none
+
+.email-link
+	text-decoration: none
+
+#header-time-info-content
+	text-align: center
+
+.header-show-all-contacts
+	position: relative
+	display: block
+	margin-top: 3px
+	+mt(.2s)
+	.show-contacts-head
+		padding-bottom: 12px
+		font-size: 12px
+		font-weight: 600
+		line-height: 1
+		cursor: pointer
+		+mt(.2s)
+		&:hover
+			color: $sky-blue
+	.show-contacts-dropdown
+		display: none
+		position: absolute
+		top: 100%
+		left: -17px
+		width: 240px
+		padding: 13px
+		background-color: #fff
+		border: 1px solid $sky-blue
+		border-radius: 20px
+		z-index: 20
+		&::after
+			content: ''
+			position: absolute
+			width: 14px
+			bottom: 100%
+			left: 15px
+			border-left: 7px solid transparent
+			border-right: 7px solid transparent
+			border-bottom: 10px solid $sky-blue
+		.contacts-list-wrap
+			&:not(:last-child)
+				margin-bottom: 13px
+	.show-contacts-backdrop
+		display: none
+		position: fixed
+		top: 0
+		left: 0
+		right: 0
+		bottom: 0
+		cursor: default
+		z-index: 9
+	&.active
+		.show-contacts-head
+			color: $sky-blue
+		.show-contacts-dropdown
+			display: block
+		.show-contacts-backdrop
+			display: block
+
+// Contacts list wrap
+.contacts-list-wrap
+	position: relative
+	display: flex
+	align-items: center
+	.contacts-icon
+		width: 25px
+		font-size: 28px
+		color: $sky-blue
+		text-align: center
+	.contacts-list
+		margin: 0
+		margin-left: 15px
+		padding: 0
+		list-style-type: none
+		li
+			font-size: 16px
+
+// User interface nav
+.user-interface-nav
+	margin: 0
+	padding: 0
+	list-style-type: none
+	.nav-item
+		display: inline-block
+		&:not(:last-child)
+			margin-right: 5px
+		a
+			display: inline-block
+		.nav-icon
+			display: inline-flex
+			align-items: center
+			justify-content: center
+			width: 45px
+			height: 45px
+			border: 2px solid $dim-grey
+			border-radius: 100%
+			+mt(.16s)
+			.icon-img
+				display: inline-block
+				width: 24px
+				height: 18px
+				background-position: center 0px
+				background-repeat: no-repeat
+			&:hover
+				border-color: $sky-blue
+				background-color: $sky-blue
+				.icon-img
+					background-position: center -19px
+
+// Shop cart preview block
+.shop-cart-preview-block
+	position: relative
+	display: inline-block
+	.shop-cart-head
+		position: relative
+		display: inline-block
+		padding-bottom: 10px
+		.order-quant-label
+			position: absolute
+			top: 0
+			right: 0
+			display: inline-flex
+			align-items: center
+			justify-content: center
+			width: 12px
+			height: 12px
+			background-color: $sky-blue
+			border-radius: 100%
+			color: #fff
+			font-size: 8px
+			font-weight: 600
+			+mt(.2s)
+	.order-summary
+		display: none
+		position: absolute
+		top: 100%
+		right: 0
+		width: 140px
+		padding: 12px
+		background-color: #fff
+		border: 1px solid $sky-blue
+		border-radius: 20px
+		z-index: 20
+		&::after
+			content: ''
+			position: absolute
+			bottom: 100%
+			right: 15px
+			border-left: 7px solid transparent
+			border-right: 7px solid transparent
+			border-bottom: 7px solid $sky-blue
+		.order-quant-text
+			text-align: center
+			font-weight: 600
+		.summary-text
+			margin-top: 8px
+			font-size: 14px
+			font-weight: 600
+			.order-price
+				color: $sky-blue
+	&:hover
+		.shop-cart-head
+			.nav-icon
+				border-color: $sky-blue
+				background-color: $sky-blue
+				.icon-img
+					background-position: center -19px
+			.order-quant-label
+				background-color: $dim-grey
+		.order-summary
+			display: block
+
+// Header nav wrapper
+.header-nav-wrapper
+	padding: 20px 0
+	background-color: $dark-slate-blue
+	.row
+		align-items: center
+	.header-search-bar-form
+		width: 100%
+
+// Main header nav
+.main-header-nav
+	margin: 0
+	padding: 0
+	list-style-type: none
+	.nav-item
+		display: inline-block
+		&:not(:last-child)
+			margin-right: 10px
+		a
+			color: #fff
+			font-size: 14px
+			text-transform: uppercase
+			text-decoration: none
+			+mt(.2s)
+			&:hover, &.active
+				color: $sky-blue
+		&.active
+			a
+				color: $sky-blue
+
+// Header search bar
+.header-search-bar-form
+	display: flex
+	position: relative
+	.search-bar
+		width: calc(100% - 35px)
+		color: #fff
+		font-size: 16px
+		background-color: transparent
+		border: none
+		border-bottom: 1px solid #fff
+		border-radius: 0
+		outline: none
+		&::-webkit-input-placeholder
+			color: #fff
+			font-size: 16px
+	.search-submit-btn
+		color: #fff
+		font-size: 23px
+		background: none
+		border: none
+		cursor: pointer
+		outline: none
+		#search-icon
+			display: inline-block
+			width: 23px
+	.search-hints-wrapper
+		display: none
+		position: absolute
+		top: 100%
+		left: 0
+		width: calc(100% - 35px)
+		z-index: 20
+	&.hints-active
+		.search-hints-wrapper
+			display: block
+
+// Search hints wrapper
+.search-hints-wrapper
+	padding: 10px
+	background-color: #fff
+	border: 1px solid $sky-blue
+	.hints-list
+		margin: 0
+		padding: 0
+		list-style-type: none
+		.hint-item
+			font-size: 16px
+			cursor: pointer
+			+mt(.2s)
+			&:not(:last-child)
+				margin-bottom: 5px
+			&.active, &:hover
+				color: $sky-blue
+// --------------------------- //
+
+
+// ------- MOBILE MENU ------- //
+#toggleMenuBtn
+	display: inline-block
+	padding: 5px
+	color: #fff
+	cursor: pointer
+	i
+		font-size: 20px
+
+#closeMobileMenuBtn
+	position: absolute
+	top: 20px
+	right: 20px
+	cursor: pointer
+	i
+		color: #fff
+		font-size: 30px
+	&:hover
+		i
+			color: $sky-blue
+
+// Mobile menu
+.mobile-menu
+	display: none
+	position: fixed
+	top: 0
+	left: 0
+	width: 100%
+	height: 100%
+	padding: 75px 0 50px
+	background-color: rgba(0, 0, 0, .9)
+	overflow-y: auto
+	z-index: 99
+	.header-search-bar-form
+		max-width: 320px
+		margin: 0 auto
+		margin-top: 30px
+	&.active
+		display: block
+
+// Mobile nav
+.mobile-nav
+	margin: 0
+	padding: 0
+	list-style-type: none
+	.nav-item
+		a
+			display: block
+			padding: 10px
+			color: #fff
+			text-decoration: none
+			text-align: center
+			+mt(.2s)
+			&:hover, &.active
+				color: $sky-blue
+				background-color: rgba(255, 255, 255, .08)
+		&.active
+			a
+				color: $sky-blue
+				background-color: rgba(255, 255, 255, .08)
+		&:nth-child(1)
+			a
+				animation-duration: .4s
+		&:nth-child(2)
+			a
+				animation-duration: .6s
+		&:nth-child(3)
+			a
+				animation-duration: .8s
+		&:nth-child(4)
+			a
+				animation-duration: .9s
+		&:nth-child(5)
+			a
+				animation-duration: 1s
+		.header-search-bar-form
+			animation-duration: 1.4s
+// --------------------------- //
+
+
+// ------ HEADER SLIDER ------ //
+#header-slider-sect
+	padding: 20px 0
+	border-bottom: 1px solid #CFCFD1
+
+// Header slider
+.header-slider
+	display: flex
+	clear: both
+	#ninja-slider
+		width: auto
+		height: 260px
+		flex-grow: 1
+		background: none
+		.slider-inner
+			height: 100%
+		li
+			height: 270px
+		.ns-img
+			background-color: transparent
+			background-position: top center
+	#thumbnail-slider
+		height: 250px
+		div.inner
+			background-color: transparent
+		.thumb
+			background-size: cover
+		ul
+			li
+				position: relative
+				border-radius: 6px
+				border-width: 4px
+				filter: none
+				&.active
+					&::after
+						position: absolute
+						top: 0
+						left: 0
+						content: ''
+						width: 100%
+						height: 100%
+						background-color: rgba(0, 164, 219, .8)
+	#thumbnail-slider-prev, #thumbnail-slider-next
+		background-color: transparent
+		&::before
+			font-family: 'FontAwesome'
+			font-size: 25px
+			transform: none
+			border: none
+	#thumbnail-slider-next
+		bottom: -15px
+		&::before
+			content: '\f0d7'
+			color: $sky-blue
+	#thumbnail-slider-prev
+		top: -35px
+		&::before
+			content: '\f0d8'
+			color: $sky-blue
+	#ninja-slider-next, #ninja-slider-prev
+		background-color: transparent
+		&::before
+			border-color: #000
+	#ninja-slider-prev
+		left: 40px
+	#ninja-slider-next
+		right: 40px
+// --------------------------- //
+
+
+// --- ALL CATEGORIES SECT --- //
+#all-categories-sect
+	padding: 40px 0
+	background-image: url(/images/default/categories-bg.png)
+	background-size: cover
+	background-position: center center
+	background-repeat: no-repeat
+	#all-categories-title-wrap
+		margin-top: 28px
+
+.categories-nav-list
+	text-align: center
+	.category-nav-btn
+		width: 180px
+		margin: 0 12px
+		margin-bottom: 15px
+
+#all-categories-title-wrap
+	display: flex
+	align-items: center
+	justify-content: center
+	.divider
+		width: 70px
+		border-bottom: 1px solid $dim-grey
+	#all-categories-title
+		margin: 0 18px
+		text-align: center
+
+#all-categories-title
+	font-size: 24px
+	font-weight: 600
+	text-transform: uppercase
+
+// Categories list
+.categories-list
+	.category-item
+		width: 100%
+		height: 100%
+	.category-col
+		margin-top: 40px
+
+// Category item
+.category-item
+	position: relative
+	display: block
+	cursor: pointer
+	.category-image
+		position: absolute
+		top: 0
+		left: 0
+		width: 100%
+		height: 100%
+		border-radius: 20px
+		background-size: cover
+		background-position: top center
+		background-repeat: no-repeat
+	.category-title
+		display: flex
+		align-items: center
+		justify-content: center
+		position: absolute
+		bottom: 0
+		left: 0
+		width: 100%
+		height: 50px
+		margin: 0
+		color: #fff
+		background-color: rgba(0, 164, 219, .85)
+		font-size: 18px
+		font-weight: 600
+		text-align: center
+		border-bottom-left-radius: 20px
+		border-bottom-right-radius: 20px
+		+mt(.23s)
+	.category-descr
+		padding: 15px 20px 40px 30px
+		transform: scaleY(0)
+		background-color: rgba(0, 164, 219, .85)
+		border-radius: 20px
+		+mt(.25s)
+		.subcategories-title
+			display: block
+			margin: 0
+			margin-bottom: 10px
+			color: #fff
+			font-size: 18px
+			font-weight: 600
+			text-decoration: none
+		.subcategories-list
+			margin: 0
+			padding: 0
+			list-style-type: none
+			.subcat-item
+				&:not(:last-child)
+					margin-bottom: 5px
+				a
+					color: #fff
+					font-size: 16px
+					text-decoration: none
+					+mt(.2s)
+					&:hover, &.active
+						font-weight: 600
+				&.active
+					a
+						font-weight: 600
+		.category-link
+			position: absolute
+			bottom: 15px
+			right: 20px
+			width: 100%
+			text-align: right
+			a
+				color: #fff
+				font-size: 16px
+				font-weight: 600
+				text-decoration: none
+				&:hover
+					.fa-angle-right
+						position: relative
+						left: 1px
+	&:hover
+		.category-title
+			display: none
+		.category-descr
+			transform: scaleY(1)
+// --------------------------- //
+
+
+// -- BESTSELLERS INTRO SECT -- //
+#bestsellers-intro-sect
+	padding: 15px 0
+	color: #fff
+	background-color: $dark-slate-blue
+	#bestsellers-title
+		margin-bottom: 2px
+	#bestsellers-see-all-link
+		margin-top: 8px
+
+#bestsellers-title
+	margin: 0
+	color: #fff
+	font-size: 18px
+	font-weight: 600
+	text-transform: uppercase
+
+#bestsellers-subtitle
+	margin: 0
+	color: #fff
+	font-size: 14px
+	font-weight: 600
+
+#bestsellers-see-all-link
+	display: inline-block
+	color: #fff
+	font-size: 18px
+	font-weight: 600
+	text-decoration: none
+	&:hover
+		.fa-angle-right
+			position: relative
+			left: 1px
+// ---------------------------- //
+
+
+// ------ PRODUCTS LIST ------ //
+#bestsellers-sect
+	padding-bottom: 10px
+
+// Product item base styles
+.product-item
+	position: relative
+	border: 1px solid transparent
+	border-radius: 10px
+	box-shadow: 0 0 9px 4px rgba(0, 0, 0, .03)
+	transition: background-color .2s ease, border .2s ease
+	.product-order-time
+		position: absolute
+		top: 8px
+		left: 9px
+		font-size: 12px
+		font-weight: 600
+	.product-code
+		position: absolute
+		top: 8px
+		right: 9px
+		font-size: 11px
+		font-weight: 600
+	.product-descr-wrap
+		.product-origin-text
+			margin-top: 8px
+	.product-image
+		display: block
+	.product-name
+		display: block
+		text-decoration: none
+		transition: color .2s ease
+	.product-origin-text
+		font-size: 12px
+		font-weight: 600
+		line-height: 1
+	.product-quantity-text
+		margin-top: 8px
+		font-size: 12px
+		font-weight: 600
+	.basket-quant-text
+		margin-top: 10px
+		.quant
+			color: $sky-blue
+			font-weight: 600
+	.product-controls
+		.product-add-to-cart-btn, .product-quantity-input-wrap
+			margin-bottom: 5px
+	&:hover
+		background-color: #fff
+		border: 1px solid $sky-blue
+		.product-name
+			color: $sky-blue
+			&:hover
+				color: darken($sky-blue, 10%)
+
+// Products list standart
+.products-list-standart
+	.product-item
+		display: flex
+		margin-bottom: 25px
+		padding: 30px 15px 35px 30px
+		.product-descr-wrap
+			flex: 0 0 40%
+			margin-left: 25px
+		.product-price-wrap
+			margin-left: auto
+			padding-top: 25px
+			text-align: center
+		.product-image
+			flex: 0 0 20%
+			width: 165px
+			height: 100px
+			margin-top: 10px
+			background-size: contain
+			background-position: center center
+			background-repeat: no-repeat
+		.product-name
+			margin: 0
+			margin-bottom: 5px
+			font-size: 18px
+			font-weight: 600
+			transition: color .2s ease
+		.product-short-descr
+			display: none
+		.product-full-descr
+			font-size: 12px
+		.product-price
+			font-size: 30px
+			font-weight: 600
+		.product-controls
+			margin-top: 20px
+			.product-add-to-cart-btn
+				margin-right: 10px
+
+// Products list tiles
+.products-list-tiles
+	display: flex
+	flex-wrap: wrap
+	.product-item
+		flex: 0 0 calc(25% - 15px)
+		margin-bottom: 25px
+		padding: 30px 12px
+		text-align: center
+		&:not(:nth-child(4n))
+			margin-right: 20px
+		.product-image
+			height: 70px
+			background-size: contain
+			background-position: center center
+			background-repeat: no-repeat
+		.product-name
+			margin: 0
+			margin-top: 18px
+			font-size: 16px
+			font-weight: 600
+		.product-short-descr
+			margin-top: 0px
+			font-size: 11px
+		.product-full-descr
+			display: none
+		.product-origin-text
+			display: none
+		.product-price
+			margin-top: 7px
+			font-size: 18px
+			font-weight: 600
+		.product-discount-price
+			margin-top: 7px
+			.new-price
+				padding-right: 40px
+				font-size: 18px
+				.discount-sum
+					top: 0
+					padding: 0 2px
+					font-size: 14px
+					font-weight: 400
+					line-height: 14px
+		.product-controls
+			margin-top: 12px
+
+// Product discount price
+.product-discount-price
+	.new-price
+		display: inline-block
+		position: relative
+		padding-right: 53px
+		color: $crimson
+		font-size: 30px
+		font-weight: 600
+		line-height: 1
+		.cur
+			font-weight: 700
+		.discount-sum
+			position: absolute
+			top: -7px
+			right: 0
+			display: inline-block
+			padding: 0 4px
+			font-size: 16px
+			font-weight: 600
+			color: #fff
+			background-color: $sky-blue
+	.old-price
+		margin-top: 5px
+		padding-left: 45px
+		font-size: 14px
+		font-weight: 600
+		line-height: 1
+		text-decoration: line-through
+		.cur
+			font-weight: 700
+
+// Product quantity input
+.product-quantity-input-wrap
+	display: inline-flex
+	align-items: center
+	padding: 1px 7px
+	border: 1px solid $sky-blue
+	border-radius: 10px
+	.decrem-quant, .increm-quant
+		position: relative
+		bottom: 1px
+		cursor: pointer
+		&:hover
+			i
+				color: $sky-blue
+	.quant-input
+		width: 18px
+		margin: 0 5px
+		font-size: 16px
+		font-weight: 600
+		background: none
+		border: none
+		text-align: center
+
+// Products utilites bar
+.products-list-utilites-bar
+	display: flex
+	flex-wrap: wrap
+	justify-content: space-between
+	align-items: center
+
+// Sort by wrap
+.sort-by-wrap
+	display: inline-block
+	.sort-by-text
+		display: inline-block
+		margin-right: 15px
+		margin-bottom: 5px
+		font-weight: 600
+
+// Results per page list
+.sort-by-list
+	display: inline-block
+	margin: 0
+	padding: 0
+	list-style-type: none
+	.sort-by-item
+		display: inline-block
+		+mt(.2s)
+		&:not(:last-child)
+			margin-right: 10px
+		&:hover, &.active
+			color: $sky-blue
+			a
+				color: $sky-blue
+		a
+			text-decoration: none
+			+mt(.2s)
+
+// products list view selector
+.products-list-view-selector
+	display: inline-block
+	margin: 0
+	padding: 0
+	list-style-type: none
+	.view-item
+		display: inline-flex
+		align-items: center
+		justify-content: center
+		width: 30px
+		height: 30px
+		color: #363636
+		background-color: #D1D1D1
+		border-radius: 100%
+		cursor: pointer
+		+mt(.2s)
+		i
+			font-size: 15px
+		&:not(:last-child)
+			margin-right: 8px
+		&:hover, &.active
+			color: #fff
+			background-color: $sky-blue
+// --------------------------- //
+
+
+// ----- ADVANTAGES LIST ----- //
+#advantages-sect
+	padding: 0
+	background-color: #fff
+
+// Advantages list
+.advanatages-list
+	display: flex
+	flex-wrap: wrap
+	.advantage-item
+		flex: 0 0 25%
+		border-right: 1px solid $ghost-white
+		&:first-child
+			border-left: 1px solid $ghost-white
+
+// Advantage item
+.advantage-item
+	padding: 23px 16px
+	text-align: center
+	.adv-icon
+		display: inline-block
+		height: 55px
+		+mt(.2s)
+	.adv-title
+		margin-top: 15px
+		font-size: 18px
+		font-weight: 600
+	.adv-subscr
+		margin-top: 6px
+		color: $silver
+		font-size: 12px
+// --------------------------- //
+
+
+// ------- SEARCH SECT ------- //
+#search-sect
+	border-top: 1px solid #E5E4E9
+
+// Search bar form
+.search-bar-form
+	display: flex
+	.search-bar
+		display: inline-block
+		width: 100%
+		padding: 10px
+		background-color: #fff
+		border: none
+		border-radius: 15px
+		outline: none
+		&::-webkit-input-placeholder
+			font-weight: 600
+	.search-submit-btn
+		margin-left: -20px
+		border-radius: 15px
+// --------------------------- //
+
+
+// --- ACCOUNT HEADER SECT --- //
+#account-header-sect
+	padding-bottom: 0
+
+.to-home-btn
+	position: relative
+	padding-left: 38px
+	#reply-icon
+		display: inline-block
+		position: absolute
+		top: 4px
+		left: 12px
+		width: 16px
+		height: 14px
+		background-image: url(/images/default/icons/reply-icon.png)
+		background-position: center 0px
+		background-repeat: no-repeat
+	&:hover
+		#reply-icon
+			background-position: center -14px
+
+// Account nav list
+.account-nav-list
+	display: flex
+	flex-wrap: wrap
+	.account-nav-item
+		flex: 0 0 calc(16.666667% - 16.5px)
+		margin-bottom: 20px
+		&:not(:nth-child(6n))
+			margin-right: 20px
+
+// Account nav item
+.account-nav-item
+	display: block
+	padding-left: 11px
+	padding-right: 11px
+	border: 1px solid transparent
+	text-align: center
+	text-decoration: none
+	+mt(.2s)
+	&:hover, &.active
+		background-color: #fff
+		border-color: $sky-blue
+		.nav-icon
+			background-position: center -52px	
+		.nav-title
+			color: $sky-blue
+	.nav-icon
+		display: inline-block
+		width: 55px
+		height: 52px
+		background-position: center 0px
+		background-repeat: no-repeat
+	.nav-title
+		margin-top: 12px
+		font-size: 14px
+		font-weight: 600
+		line-height: 18px
+		+mt(.2s)
+
+// Accont summary block
+.account-basket-summary-block
+	padding-top: 25px
+	padding-bottom: 30px
+	text-align: center
+	#full-price-text
+		margin: 0
+		margin-bottom: 20px
+		color: $sky-blue
+		font-size: 18px
+		font-weight: 600
+	#summary-text
+		margin-top: 26px
+		color: $sky-blue
+		font-size: 20px
+		font-weight: 600
+	#summary-price
+		margin-top: 15px
+		color: #000
+		font-size: 24px
+		font-weight: 600
+		text-align: center
+		.cur
+			font-weight: 700
+
+#save-to-excell-btn
+	cursor: pointer
+
+// Price cheque
+.price-cheque
+	margin: 0
+	padding: 0
+	list-style-type: none
+	li
+		display: flex
+		flex-wrap: wrap
+		justify-content: space-between
+		&:not(:last-child)
+			margin-bottom: 8px
+		.cheque-value
+			font-weight: 600
+			.cur
+				font-weight: 700
+
+// Basket order form
+.basket-order-form
+	#promo-input
+		width: 100%
+		margin-top: 20px
+		outline: none
+	#discount-text
+		margin-top: 10px
+		font-weight: 600
+		#discount-sum
+			color: $sky-blue
+	#make-order-btn
+		margin-top: 16px
+	#buy-at-retail-btn
+		margin-top: 13px
+	#save-to-excell-btn
+		display: flex
+		align-items: center
+		margin-top: 15px
+		color: $sky-blue
+		font-size: 13px
+		font-weight: 600
+		#excell-icon
+			margin-right: 5px
+
+#excell-icon
+	display: inline-block
+	width: 20px
+
+#promo-input
+	padding: 7px 10px
+	background: none
+	border: 1px solid $sky-blue
+	border-radius: 10px
+	&::-webkit-input-placeholder
+		font-size: 16px
+		font-style: normal
+// --------------------------- //
+
+
+// --- ACCOUNT BASKET SECT --- //
+#account-basket-sect
+	padding-top: 20px
+	.products-list-utilites-bar
+		margin-bottom: 27px
+// --------------------------- //
+
+
+// -- ACCOUNT FEEDBACK SECT -- //
+#account-feedback-sect
+	.feedback-form-box
+		margin-top: 15px
+
+// Feedback form box
+.feedback-form-box
+	padding: 25px 80px
+	background-color: #fff
+	border-radius: 20px
+	box-shadow: 0 0 9px 4px rgba(0, 0, 0, .05)
+	#feedback-form-title
+		margin-bottom: 30px
+		color: $sky-blue
+		line-height: 1
+		text-align: center
+	.feedback-submit-btn-wrap
+		margin-top: 30px
+		text-align: center
+	.feedback-submit-btn
+		padding-left: 25px
+		padding-right: 25px
+
+#support-icon
+	width: 15px
+// --------------------------- //
+
+
+// -- ACCOUNT PERSONAL INFO SECT -- //
+#account-personal-info-sect
+	padding-top: 10px
+// -------------------------------- //
+
+
+// -- ACCOUNT ORDERS HISTORY SECT -- //
+#account-orders-history-sect
+	padding-top: 15px
+	.products-list
+		margin-top: 30px
+// --------------------------------- //
+
+
+// -------- BREADCRUMBS SECT -------- //
+#breadcrumbs-sect
+	padding: 5px 0
+	border-bottom: 1px solid #E3E2E7
+
+// Breadcrumbs
+.breadcrumbs // ul
+	margin: 0
+	padding: 0
+	list-style-type: none
+	.breadcrumbs-item // li
+		display: inline-block
+		font-size: 13px
+		line-height: 15px
+		color: $sky-blue
+		&:not(:last-child)
+			margin-right: 6px
+			&::after
+				content: '/'
+				margin-left: 10px
+				font-size: 12px
+		&.active
+			color: $dim-grey
+			a
+				color: $dim-grey
+				cursor: default
+		a
+			color: $sky-blue
+			text-decoration: none
+			&:hover
+				text-decoration: underline
+// ---------------------------------- //
+
+
+// --------- CATALOG SECT --------- //
+#catalog-sect
+	padding-bottom: 10px
+	.products-list-utilites-bar
+		margin-bottom: 27px
+// -------------------------------- //
+
+
+// ------ PRODUCT INNER SECT ------ //
+
+#product-inner-sect
+	.product-intro-wrap
+		padding-bottom: 38px
+		border-bottom: 1px solid #E1E0E5
+	.product-full-descr-wrap
+		padding-top: 23px
+
+// Product full image
+.product-full-image
+	height: 335px
+	padding: 20px
+	background-size: 55%
+	background-position: center center
+	background-repeat: no-repeat
+	background-color: #fff
+	border-radius: 15px
+	box-shadow: 0 0 9px 4px rgba(0, 0, 0, .05)
+
+// Product intro descr
+.product-intro-descr
+	.product-descr-list
+		margin-top: 15px
+	.product-intro-descr
+		margin-top: 15px
+	.product-price, .product-discount-price
+		margin-top: 25px
+		text-align: center
+	.product-controls
+		margin-top: 23px
+		.product-quantity-input-wrap
+			margin-left: 15px
+			padding: 7px 15px
+			border-radius: 15px
+			.decrem-quant, .increm-quant
+				position: relative
+				bottom: 1px
+				cursor: pointer
+				i
+					font-size: 24px
+				&:hover
+					i
+						color: $sky-blue
+			.quant-input
+				width: 30px
+				margin: 0 2px
+				font-size: 24px
+				font-weight: 600
+				background: none
+				border: none
+				text-align: center
+
+.product-title
+	color: $sky-blue
+
+.product-descr-list
+	margin: 0
+	padding: 0
+	list-style-type: none
+	.descr-item
+		&:not(:last-child)
+			margin-bottom: 5px
+
+.product-price
+	font-size: 30px
+	font-weight: 600
+	.cur
+		font-weight: 700
+// -------------------------------- //
+
+
+// --------- SUBCATEGORIES --------- //
+#subcategories-sect
+	.sect-title
+		margin-bottom: 0
+
+// Subcategories list
+.subcategories-list
+	.subcategory-item
+		margin-top: 40px
+
+// Subcategory item
+.subcategory-item
+	position: relative
+	display: block
+	.subcategory-image
+		height: 120px
+		border-radius: 20px
+		background-size: cover
+		background-position: top center
+		background-repeat: no-repeat
+	.subcategory-title
+		display: flex
+		align-items: center
+		justify-content: center
+		position: absolute
+		bottom: 0
+		left: 0
+		width: 100%
+		height: 40px
+		margin: 0
+		padding: 17px 0
+		color: #fff
+		background-color: rgba(0, 164, 219, .85)
+		font-size: 14px
+		font-weight: 600
+		text-align: center
+		border-bottom-left-radius: 20px
+		border-bottom-right-radius: 20px
+		+mt(.23s)
+// --------------------------------- //
+
+
+// ----------- CONTACTS ----------- //
+
+// Our workers carousel
+.our-workers-carousel
+	position: relative
+	padding-bottom: 37px
+	.owl-nav
+		display: block !important
+		position: absolute
+		bottom: 0
+		left: 50%
+		transform: translateX(-50%)
+		.owl-prev, .owl-next
+			display: inline-flex
+			align-items: center
+			justify-content: center
+			width: 30px
+			height: 30px
+			margin: 0 10px
+			background-color: $sky-blue
+			border-radius: 100%
+			opacity: .5
+			i
+				position: relative
+				color: #fff
+				font-size: 28px
+			&:hover
+				opacity: 1
+		.owl-prev
+			i
+				right: 1px
+		.owl-next
+			i
+				left: 3px
+
+// Our worker
+.our-worker-item
+	margin: 10px
+	padding: 10px 20px
+	background-color: #fff
+	text-align: center
+	.worker-photo
+		display: inline-block
+		width: 125px
+		height: 125px
+		border-radius: 100%
+		background-size: cover
+		background-position: top center
+		background-repeat: no-repeat
+	.worker-name
+		margin-top: 12px
+		font-size: 16px
+	.worker-position
+		margin-top: 8px
+		color: $sky-blue
+		font-size: 16px
+		font-weight: 600
+	.worker-phone
+		margin-top: 8px
+		color: $sky-blue
+		font-size: 16px
+		font-weight: 600
+
+#contact-map-sect
+	padding: 0
+
+// Contact map
+#contact-map
+	height: 370px
+// -------------------------------- //
+
+
+// ---------- ABOUT US ---------- //
+.about-us-intro-box
+	padding-left: 75px
+	padding-right: 75px
+// ------------------------------ //
+
+
+// --------- CONDITIONS --------- //
+#working-time-block
+	position: relative
+	padding-left: 48px
+	#working-time-icon
+		position: absolute
+		top: 5px
+		left: 0
+
+#working-time-icon
+	display: inline-block
+	width: 35px
+// ------------------------------ //
+
+
+// --------- FOOTER --------- //
+.main-footer
+
+.footer-main
+	padding: 25px 0
+	color: 3f
+	background-color: $dark-slate-blue
+
+.footer-bottom
+	padding: 20px 0 12px
+	color: #fff
+	background-color: $dark-blue
+	text-align: center
+	.footer-copyright
+		margin-top: 11px
+
+// Footer column
+.footer-column
+	.column-title
+		margin: 0
+		margin-bottom: 20px
+		color: #fff
+		font-size: 16px
+		font-weight: 600
+
+// Footer nav
+.footer-nav
+	margin: 0
+	padding: 0
+	list-style-type: none
+	.nav-item
+		a
+			color: #fff
+			font-size: 16px
+			text-decoration: none
+			+mt(.2s)
+			&:hover
+				color: darken(#fff, 15%)
+		&:not(:last-child)
+			margin-bottom: 12px
+
+.footer-contacts-wrap
+	.footer-contact-info
+		margin-bottom: 12px
+
+// Footer contact info
+.footer-contact-info
+	display: flex
+	align-items: center
+	.info-icon
+		i
+			color: $sky-blue
+			font-size: 22px
+	.info-content
+		margin-left: 18px
+		color: #fff
+		a
+			color: #fff
+
+#old-phone-icon
+	width: 22px
+// -------------------------- //
+	
+
+// Media queries
+@import "media"

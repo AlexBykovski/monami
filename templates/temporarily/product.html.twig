@@ -1,0 +1,119 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+		<main class="main">
+
+			<section id="breadcrumbs-sect">
+				<div class="container">
+					<div class="row">
+						<div class="col-12">
+							
+							<ul class="breadcrumbs">
+								<li class="breadcrumbs-item"><a href="#">Главная</a></li>
+								<li class="breadcrumbs-item"><a href="#">Кухонные принадлежности</a></li>
+								<li class="breadcrumbs-item"><a href="#">Губки, щетки, скребки для мытья</a></li>
+								<li class="breadcrumbs-item active">Губка CMM-155</li>
+							</ul>
+
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section id="product-inner-sect">
+
+				<div class="product-intro-wrap">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-7">
+								
+								<div class="product-full-image" style="background-image: url({{ image_url('default/product-full-img.png') }});"></div>
+
+							</div>
+							<div class="col-md-5 mt-4 mt-md-0">
+								
+								<div class="product-intro-descr">
+									<h2 class="product-title">Губка CMM-155</h2>
+
+									<ul class="product-descr-list">
+										<li class="descr-item">ID 257558</li>
+										<li class="descr-item">Код товара: 2575588</li>
+									</ul>
+
+									<div class="product-intro-descr">
+										Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat modi quo consequuntur, eum optio, ipsum, molestias nostrum sit quos provident pariatur deserunt sed autem reiciendis odit soluta, itaque nam qui.
+									</div>
+
+									<!-- <div class="product-price">15.8 <span class="cur">BYN</span></div> -->
+
+									<div class="product-discount-price">
+										<div class="new-price">
+											9.5 <span class="cur">BYN</span>
+											<span class="discount-sum">-15%</span>
+										</div>
+
+										<div class="old-price">14.5 <span class="cur">BYN</span></div>
+									</div>
+
+									<div class="product-controls">
+										<button class="product-add-to-cart-btn bttn bttn-lg bttn-sky-blue-gradient"><i class="fa fa-shopping-cart"></i> &nbsp; В корзину</button>
+										
+										<span class="product-quantity-input-wrap">
+											<span class="decrem-quant"><i class="fa fa-angle-left"></i></span>
+											<input type="text" class="quant-input" value="1" disabled>
+											<span class="increm-quant"><i class="fa fa-angle-right"></i></span>
+										</span>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="product-full-descr-wrap">
+					<div class="container">
+						<div class="row">
+							<div class="col-12">
+
+								<h4 class="highlight-text text-center mb-4">ОПИСАНИЕ</h4>
+
+								<div class="row">
+									<div class="col-md-10 offset-md-1">
+
+										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
+										<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+										<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+										<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+										<p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
+										<p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem</p>
+									
+									</div>
+								</div>
+							
+							</div>
+						</div>
+					</div>
+				</div>
+			
+			</section>
+
+			<section id="search-sect">
+				<div class="container">
+					<div class="row">
+						<div class="col-xs-8 col-lg-6 offset-xs-2 offset-lg-3">
+							
+							<form class="search-bar-form">
+								<input type="text" class="search-bar" placeholder="Введите ваш запрос">
+								<button class="search-submit-btn bttn bttn-sm bttn-sky-blue-gradient"><i class="fa fa-search"></i> &nbsp; Искать</button>
+							</form>
+
+						</div>
+					</div>
+				</div>
+			</section>
+
+		</main>
+
+{% endblock %}

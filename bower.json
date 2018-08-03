@@ -1,0 +1,17 @@
+{
+  "name": "Monami",
+  "description": "Monami",
+  "main": "index.js",
+  "authors": [
+    "AlexBykovski <bykovski.work@gmail.com>"
+  ],
+  "license": "UNLICENSED",
+  "homepage": "https://github.com/AlexBykovski/monami",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "tests"
+  ]
+}

@@ -48,7 +48,7 @@
 
                             <li class="nav-item">
 
-                                <a href="account-basket.html">
+                                <a href="{{ path("show_profile_basket") }}">
                                     <div class="shop-cart-preview-block">
                                         <div class="shop-cart-head">
                                             <span class="nav-icon"><span class="icon-img" style="background-image: url({{ image_url('default/icons/shopping-cart-icon.png') }});"></span></span>
@@ -146,11 +146,11 @@
                         <span id="toggleMenuBtn" class="d-md-none"><i class="fa fa-bars"></i></span>
 
                         <ul class="main-header-nav d-none d-md-block">
-                            <li class="nav-item"><a href="conditions.html">Условия сотрудничества</a></li>
-                            <li class="nav-item"><a href="discounted-goods.html">Уцененный товар</a></li>
-                            <li class="nav-item"><a href="help.html">Помощь</a></li>
-                            <li class="nav-item"><a href="contacts.html">Контакты</a></li>
-                            <li class="nav-item"><a href="about.html">О нас</a></li>
+                            <li class="nav-item"><a href="{{ path("show_static_conditions") }}">Условия сотрудничества</a></li>
+                            <li class="nav-item"><a href="{{ path("show_static_discounted") }}">Уцененный товар</a></li>
+                            <li class="nav-item"><a href="{{ path("show_help") }}">Помощь</a></li>
+                            <li class="nav-item"><a href="{{ path("show_static_contacts") }}">Контакты</a></li>
+                            <li class="nav-item"><a href="{{ path("show_static_about") }}">О нас</a></li>
                         </ul>
 
                     </div>
@@ -181,11 +181,11 @@
                     <div class="col-12">
 
                         <ul class="mobile-nav">
-                            <li class="nav-item"><a href="conditions.html">Условия сотрудничества</a></li>
-                            <li class="nav-item"><a href="discounted-goods.html">Уцененный товар</a></li>
-                            <li class="nav-item"><a href="help.html">Помощь</a></li>
-                            <li class="nav-item"><a href="contacts.html">Контакты</a></li>
-                            <li class="nav-item"><a href="about.html">О нас</a></li>
+                            <li class="nav-item"><a href="{{ path("show_static_conditions") }}">Условия сотрудничества</a></li>
+                            <li class="nav-item"><a href="{{ path("show_static_discounted") }}">Уцененный товар</a></li>
+                            <li class="nav-item"><a href="{{ path("show_help") }}">Помощь</a></li>
+                            <li class="nav-item"><a href="{{ path("show_static_contacts") }}">Контакты</a></li>
+                            <li class="nav-item"><a href="{{ path("show_static_about") }}">О нас</a></li>
                         </ul>
 
                         <form class="header-search-bar-form">
@@ -212,10 +212,10 @@
                             <h6 class="column-title">Меню</h6>
 
                             <ul class="footer-nav">
-                                <li class="nav-item"><a href="conditions.html">Условия сотрудничества</a></li>
-                                <li class="nav-item"><a href="help.html">Помощь</a></li>
-                                <li class="nav-item"><a href="contacts.html">Контакты</a></li>
-                                <li class="nav-item"><a href="about.html">О нас</a></li>
+                                <li class="nav-item"><a href="{{ path("show_static_conditions") }}">Условия сотрудничества</a></li>
+                                <li class="nav-item"><a href="{{ path("show_help") }}">Помощь</a></li>
+                                <li class="nav-item"><a href="{{ path("show_static_contacts") }}">Контакты</a></li>
+                                <li class="nav-item"><a href="{{ path("show_static_about") }}">О нас</a></li>
                             </ul>
                         </div>
 
@@ -226,9 +226,9 @@
                             <h6 class="column-title">Полезное</h6>
 
                             <ul class="footer-nav">
-                                <li class="nav-item"><a href="account-basket.html">Моя корзина</a></li>
-                                <li class="nav-item"><a href="discounted-goods.html">Уцененный товар</a></li>
-                                <li class="nav-item"><a href="vacancies.html">Вакансии</a></li>
+                                <li class="nav-item"><a href="{{ path("show_profile_basket") }}">Моя корзина</a></li>
+                                <li class="nav-item"><a href="{{ path("show_static_discounted") }}">Уцененный товар</a></li>
+                                <li class="nav-item"><a href="{{ path("show_static_vacancies") }}">Вакансии</a></li>
                             </ul>
                         </div>
 

@@ -4,8 +4,6 @@ namespace App\Command;
 
 use App\Entity\ImportDetail;
 use App\Entity\Manager;
-use App\Entity\Product;
-use App\Entity\ProductGroup;
 use App\Import\XMLDataImporter;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
@@ -42,7 +40,7 @@ class ImportManagersCommand extends ContainerAwareCommand
         $importDetail->setLastUpdateStatus(ImportDetail::STATUS_SUCCESS);
         $importDetail->setLastUpdatedAt(new DateTime());
 
-        $data = $importer->importData($importDetail, $importDetail->getImagesUrl());
+        $data = $importer->importData($importDetail);
 
         if(!is_array($data) || !array_key_exists(self::ELEMENT, $data) || !count($data[self::ELEMENT])){
             $output->writeln("<comment>Empty import file!</comment>");

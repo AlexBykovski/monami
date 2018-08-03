@@ -19,7 +19,7 @@ class ImportDetailAdmin extends AbstractAdmin
         $formMapper->add('name', TextType::class, ['label' => 'Название настройки:']);
         $formMapper->add('url', TextType::class, ['label' => 'Url адрес Xml:']);
         $formMapper->add('imagesUrl', TextType::class, ['label' => 'Url папки с картинками:']);
-        $formMapper->add('interval', IntegerType::class, ['label' => 'Интервал импорта (мин):']);
+//        $formMapper->add('interval', IntegerType::class, ['label' => 'Интервал импорта (мин):']);
     }
 
     protected function configureListFields(ListMapper $listMapper)

@@ -45,6 +45,29 @@ class Client extends User
     private $basket;
 
     /**
+     * Client constructor.
+     * @param string $apiId
+     * @param string $phone
+     * @param string $email
+     * @param string $login
+     * @param Manager|null $manager
+     * @param null|string $contrAgent
+     */
+    public function __construct(string $apiId, string $phone, string $email, string $login, ?Manager $manager, ?string $contrAgent)
+    {
+        parent::__construct();
+
+        $this->apiId = $apiId;
+        $this->phone = $phone;
+        $this->email = $email;
+        $this->username = $login;
+        $this->contrAgent = $contrAgent;
+        // to prevent unique constraints
+        $this->emailCanonical = $login;
+    }
+
+
+    /**
      * @return Manager|null
      */
     public function getManager(): ?Manager

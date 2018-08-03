@@ -9,6 +9,10 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @UniqueEntity("login", message="Этот login уже зарегистрирован.")
+ * @ORM\AttributeOverrides({
+ *      @ORM\AttributeOverride(name="email", column=@ORM\Column(type="string", name="email", length=255, unique=false, nullable=true)),
+ *      @ORM\AttributeOverride(name="emailCanonical", column=@ORM\Column(type="string", name="email_canonical", length=255, unique=false, nullable=true))
+ * })
  *
  * @ORM\Entity
  * @ORM\InheritanceType("JOINED")
@@ -34,21 +38,21 @@ abstract class User extends BaseUser
      *
      * @ORM\Column(type="string", nullable=true)
      */
-    private $phone;
+    protected $phone;
 
     /**
      * @var string
      *
      * @ORM\Column(type="string")
      */
-    private $apiId;
+    protected $apiId;
 
     /**
      * @var DateTime|null
      *
      * @ORM\Column(type="datetime")
      */
-    private $createdAt;
+    protected $createdAt;
 
     /**
      * User constructor.

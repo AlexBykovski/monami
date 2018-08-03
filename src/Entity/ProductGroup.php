@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -55,13 +56,6 @@ class ProductGroup
      *
      * @ORM\Column(type="string")
      */
-    private $groupId;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string")
-     */
     private $photo;
 
     /**
@@ -72,22 +66,38 @@ class ProductGroup
     private $createdAt;
 
     /**
+     * @var Collection
+     *
+     * One ProductGroup has Many ProductGroups.
+     * @ORM\OneToMany(targetEntity="ProductGroup", mappedBy="parentGroup")
+     */
+    private $childrenGroups;
+
+    /**
+     * @var ProductGroup|null
+     *
+     * Many ProductGroups have One ProductGroup.
+     * @ORM\ManyToOne(targetEntity="ProductGroup", inversedBy="childrenGroups")
+     * @ORM\JoinColumn(name="parent_group", referencedColumnName="id")
+     */
+    private $parentGroup;
+
+    /**
      * ProductGroup constructor.
      * @param string $apiId
      * @param string $simaCode
      * @param string $name
-     * @param string $groupId
      * @param string $photo
      */
-    public function __construct(string $apiId, string $simaCode, string $name, string $groupId, string $photo)
+    public function __construct(string $apiId, string $simaCode, string $name, string $photo)
     {
         $this->apiId = $apiId;
         $this->simaCode = $simaCode;
         $this->name = $name;
-        $this->groupId = $groupId;
         $this->photo = $photo;
 
         $this->products = new ArrayCollection();
+        $this->childrenGroups = new ArrayCollection();
         $this->createdAt = new DateTime();
     }
 
@@ -174,22 +184,6 @@ class ProductGroup
     /**
      * @return string
      */
-    public function getGroupId(): string
-    {
-        return $this->groupId;
-    }
-
-    /**
-     * @param string $groupId
-     */
-    public function setGroupId(string $groupId): void
-    {
-        $this->groupId = $groupId;
-    }
-
-    /**
-     * @return string
-     */
     public function getPhoto(): string
     {
         return $this->photo;
@@ -217,5 +211,37 @@ class ProductGroup
     public function setCreatedAt(DateTime $createdAt): void
     {
         $this->createdAt = $createdAt;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getChildrenGroups(): Collection
+    {
+        return $this->childrenGroups;
+    }
+
+    /**
+     * @param Collection $childrenGroups
+     */
+    public function setChildrenGroups(Collection $childrenGroups): void
+    {
+        $this->childrenGroups = $childrenGroups;
+    }
+
+    /**
+     * @return ProductGroup|null
+     */
+    public function getParentGroup(): ?ProductGroup
+    {
+        return $this->parentGroup;
+    }
+
+    /**
+     * @param ProductGroup|null $parentGroup
+     */
+    public function setParentGroup(?ProductGroup $parentGroup): void
+    {
+        $this->parentGroup = $parentGroup;
     }
 }

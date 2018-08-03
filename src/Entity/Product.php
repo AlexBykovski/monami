@@ -43,7 +43,7 @@ class Product
     private $name;
 
     /**
-     * @var ProductGroup
+     * @var ProductGroup|null
      *
      * Many Product have One ProductGroup.
      *
@@ -81,6 +81,13 @@ class Product
     private $createdAt;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(type="text")
+     */
+    private $description;
+
+    /**
      * @var ArrayCollection
      *
      * One Product has Many Purchases.
@@ -93,20 +100,28 @@ class Product
      * @param string $apiId
      * @param string $simaCode
      * @param string $name
-     * @param ProductGroup $productGroup
      * @param string $photo
      * @param float $cost
      * @param int $leftCount
+     * @param string description
      */
-    public function __construct(string $apiId, string $simaCode, string $name, ProductGroup $productGroup, string $photo, float $cost, int $leftCount)
+    public function __construct(
+        string $apiId,
+        string $simaCode,
+        string $name,
+        string $photo,
+        float $cost,
+        int $leftCount,
+        string $description
+    )
     {
         $this->apiId = $apiId;
         $this->simaCode = $simaCode;
         $this->name = $name;
-        $this->productGroup = $productGroup;
         $this->photo = $photo;
         $this->cost = $cost;
         $this->leftCount = $leftCount;
+        $this->description = $description;
 
         $this->purchases = new ArrayCollection();
         $this->createdAt = new DateTime();
@@ -177,17 +192,17 @@ class Product
     }
 
     /**
-     * @return ProductGroup
+     * @return ProductGroup|null
      */
-    public function getProductGroup(): ProductGroup
+    public function getProductGroup(): ?ProductGroup
     {
         return $this->productGroup;
     }
 
     /**
-     * @param ProductGroup $productGroup
+     * @param ProductGroup|null $productGroup
      */
-    public function setProductGroup(ProductGroup $productGroup): void
+    public function setProductGroup(?ProductGroup $productGroup): void
     {
         $this->productGroup = $productGroup;
     }
@@ -270,5 +285,21 @@ class Product
     public function setPurchases(ArrayCollection $purchases): void
     {
         $this->purchases = $purchases;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string $description
+     */
+    public function setDescription(string $description): void
+    {
+        $this->description = $description;
     }
 }

@@ -77,198 +77,35 @@
 
 							<div class="categories-list">
 								<div class="row">
+									{% for baseGroup in baseGroups %}
 									<div class="category-col col-sm-6 col-lg-4">
-										
+
 										<div class="category-item">
-											<div class="category-image" style="background-image: url({{ image_url('default/categories/category1-img.jpg') }});"></div>
-											
-											<h4 class="category-title">Летний ассортимент</h4>
+											<a href="{{ group_url(baseGroup) }}">
+												<div class="category-image" style="background-image: url({{ baseGroup.photo }});"></div>
+											</a>
+
+											<h4 class="category-title">{{ baseGroup.name }}</h4>
 
 											<div class="category-descr">
-												<a href="#" class="subcategories-title">Летний ассортимент</a>
+												<a href="{{ group_url(baseGroup) }}" class="subcategories-title">{{ baseGroup.name }}</a>
 
 												<ul class="subcategories-list">
-													<li class="subcat-item"><a href="#">Аксессуары для чая и кофе</a></li>
-													<li class="subcat-item"><a href="#">Губки, щетки</a></li>
-													<li class="subcat-item"><a href="#">Инструменты кухонные</a></li>
-													<li class="subcat-item"><a href="#">Кастрюли</a></li>
-													<li class="subcat-item"><a href="#">Сковородки</a></li>
-													<li class="subcat-item"><a href="#">Тарелки</a></li>
+													{% for childGroup in baseGroup.childrenGroups|slice(0, 6) %}
+														<li class="subcat-item"><a href="{{ group_url(childGroup) }}">{{ childGroup.name }}</a></li>
+													{% endfor %}
 												</ul>
 
-												<div class="category-link"><a href="#">ещё 8 <i class="fa fa-angle-right"></i></a></div>
+												{% set leftCount = (baseGroup.childrenGroups | length > 6) ? (baseGroup.childrenGroups | length - 6) : 0 %}
+
+												{% if leftCount %}
+													<div class="category-link"><a href="{{ group_url(baseGroup) }}">ещё {{ leftCount }} <i class="fa fa-angle-right"></i></a></div>
+												{% endif %}
 											</div>
 										</div>
 
 									</div>
-									<div class="category-col col-sm-6 col-lg-4">
-										
-										<div class="category-item">
-											<div class="category-image" style="background-image: url({{ image_url('default/categories/category2-img.jpg') }});"></div>
-											
-											<h4 class="category-title">Хозтовары</h4>
-
-											<div class="category-descr">
-												<h4 class="subcategories-title">Хозтовары</h4>
-
-												<ul class="subcategories-list">
-													<li class="subcat-item"><a href="#">Аксессуары для чая и кофе</a></li>
-													<li class="subcat-item"><a href="#">Губки, щетки</a></li>
-													<li class="subcat-item"><a href="#">Инструменты кухонные</a></li>
-													<li class="subcat-item"><a href="#">Кастрюли</a></li>
-													<li class="subcat-item"><a href="#">Сковородки</a></li>
-													<li class="subcat-item"><a href="#">Тарелки</a></li>
-												</ul>
-
-												<div class="category-link"><a href="#">ещё 8 <i class="fa fa-angle-right"></i></a></div>
-											</div>
-										</div>
-
-									</div>
-									<div class="category-col col-sm-6 col-lg-4">
-										
-										<div class="category-item">
-											<div class="category-image" style="background-image: url({{ image_url('default/categories/category3-img.jpg') }});"></div>
-											
-											<h4 class="category-title">Хозяйственные тележки</h4>
-
-											<div class="category-descr">
-												<a href="#" class="subcategories-title">Хозяйственные тележки</a>
-
-												<ul class="subcategories-list">
-													<li class="subcat-item"><a href="#">Аксессуары для чая и кофе</a></li>
-													<li class="subcat-item"><a href="#">Губки, щетки</a></li>
-													<li class="subcat-item"><a href="#">Инструменты кухонные</a></li>
-													<li class="subcat-item"><a href="#">Кастрюли</a></li>
-													<li class="subcat-item"><a href="#">Сковородки</a></li>
-													<li class="subcat-item"><a href="#">Тарелки</a></li>
-												</ul>
-
-												<div class="category-link"><a href="#">ещё 8 <i class="fa fa-angle-right"></i></a></div>
-											</div>
-										</div>
-
-									</div>
-									<div class="category-col col-sm-6 col-lg-4">
-										
-										<div class="category-item">
-											<div class="category-image" style="background-image: url({{ image_url('default/categories/category4-img.jpg') }});"></div>
-											
-											<h4 class="category-title">Сувениры и декор</h4>
-
-											<div class="category-descr">
-												<a href="#" class="subcategories-title">Сувениры и декор</a>
-
-												<ul class="subcategories-list">
-													<li class="subcat-item"><a href="#">Аксессуары для чая и кофе</a></li>
-													<li class="subcat-item"><a href="#">Губки, щетки</a></li>
-													<li class="subcat-item"><a href="#">Инструменты кухонные</a></li>
-													<li class="subcat-item"><a href="#">Кастрюли</a></li>
-													<li class="subcat-item"><a href="#">Сковородки</a></li>
-													<li class="subcat-item"><a href="#">Тарелки</a></li>
-												</ul>
-
-												<div class="category-link"><a href="#">ещё 8 <i class="fa fa-angle-right"></i></a></div>
-											</div>
-										</div>
-
-									</div>
-									<div class="category-col col-sm-6 col-lg-4">
-										
-										<div class="category-item">
-											<div class="category-image" style="background-image: url({{ image_url('default/categories/category5-img.jpg') }});"></div>
-											
-											<h4 class="category-title">Кухонные принадлежности</h4>
-
-											<div class="category-descr">
-												<a href="#" class="subcategories-title">Кухонные принадлежности</a>
-
-												<ul class="subcategories-list">
-													<li class="subcat-item"><a href="#">Аксессуары для чая и кофе</a></li>
-													<li class="subcat-item"><a href="#">Губки, щетки</a></li>
-													<li class="subcat-item"><a href="#">Инструменты кухонные</a></li>
-													<li class="subcat-item"><a href="#">Кастрюли</a></li>
-													<li class="subcat-item"><a href="#">Сковородки</a></li>
-													<li class="subcat-item"><a href="#">Тарелки</a></li>
-												</ul>
-
-												<div class="category-link"><a href="#">ещё 8 <i class="fa fa-angle-right"></i></a></div>
-											</div>
-										</div>
-
-									</div>
-									<div class="category-col col-sm-6 col-lg-4">
-										
-										<div class="category-item">
-											<div class="category-image" style="background-image: url({{ image_url('default/categories/category6-img.jpg') }});"></div>
-											
-											<h4 class="category-title">Подарочная упаковка</h4>
-
-											<div class="category-descr">
-												<a href="#" class="subcategories-title">Подарочная упаковка</a>
-
-												<ul class="subcategories-list">
-													<li class="subcat-item"><a href="#">Аксессуары для чая и кофе</a></li>
-													<li class="subcat-item"><a href="#">Губки, щетки</a></li>
-													<li class="subcat-item"><a href="#">Инструменты кухонные</a></li>
-													<li class="subcat-item"><a href="#">Кастрюли</a></li>
-													<li class="subcat-item"><a href="#">Сковородки</a></li>
-													<li class="subcat-item"><a href="#">Тарелки</a></li>
-												</ul>
-
-												<div class="category-link"><a href="#">ещё 8 <i class="fa fa-angle-right"></i></a></div>
-											</div>
-										</div>
-
-									</div>
-									<div class="category-col col-sm-6 col-lg-4">
-										
-										<div class="category-item">
-											<div class="category-image" style="background-image: url({{ image_url('default/categories/category7-img.jpg') }});"></div>
-											
-											<h4 class="category-title">Галантерея</h4>
-
-											<div class="category-descr">
-												<a href="#" class="subcategories-title">Галантерея</a>
-
-												<ul class="subcategories-list">
-													<li class="subcat-item"><a href="#">Аксессуары для чая и кофе</a></li>
-													<li class="subcat-item"><a href="#">Губки, щетки</a></li>
-													<li class="subcat-item"><a href="#">Инструменты кухонные</a></li>
-													<li class="subcat-item"><a href="#">Кастрюли</a></li>
-													<li class="subcat-item"><a href="#">Сковородки</a></li>
-													<li class="subcat-item"><a href="#">Тарелки</a></li>
-												</ul>
-
-												<div class="category-link"><a href="#">ещё 8 <i class="fa fa-angle-right"></i></a></div>
-											</div>
-										</div>
-
-									</div>
-									<div class="category-col col-sm-6 col-lg-4">
-										
-										<div class="category-item">
-											<div class="category-image" style="background-image: url({{ image_url('default/categories/category8-img.jpg') }});"></div>
-											
-											<h4 class="category-title">Посуда</h4>
-
-											<div class="category-descr">
-												<a href="#" class="subcategories-title">Посуда</a>
-
-												<ul class="subcategories-list">
-													<li class="subcat-item"><a href="#">Аксессуары для чая и кофе</a></li>
-													<li class="subcat-item"><a href="#">Губки, щетки</a></li>
-													<li class="subcat-item"><a href="#">Инструменты кухонные</a></li>
-													<li class="subcat-item"><a href="#">Кастрюли</a></li>
-													<li class="subcat-item"><a href="#">Сковородки</a></li>
-													<li class="subcat-item"><a href="#">Тарелки</a></li>
-												</ul>
-
-												<div class="category-link"><a href="#">ещё 8 <i class="fa fa-angle-right"></i></a></div>
-											</div>
-										</div>
-
-									</div>
+									{% endfor %}
 								</div>
 							</div>
 
@@ -301,16 +138,16 @@
 						<div class="col-12">
 							
 							<div class="products-list products-list-tiles">
-
+								{% for product in hits %}
 								<div class="product-item">
-									<div class="product-code">291229</div>
+									<div class="product-code">{{ product.apiId }}</div>
 									
-									<a href="#" class="product-image" style="background-image: url({{ image_url('default/product-preview-img.png') }});"></a>
+									<a href="#" class="product-image" style="background-image: url({{ product.photo }});"></a>
 
 									<div class="product-descr-wrap">
-										<a href="#" class="product-name">Губки СММ-155</a>
+										<a href="#" class="product-name">{{ product.name }}</a>
 										
-										<div class="product-short-descr">губки для мытья посуды</div>
+										<div class="product-short-	descr">{{ product.description }}</div>
 										
 										<div class="product-full-descr">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore numquam illo omnis! Quod expedita, eligendi natus quidem necessitatibus blanditiis veritatis, perferendis eos veniam dolorem odio ipsum distinctio sit odio ipsum distinctio sit ipsum distinctio sit distinctio sit ipsum distinctio sit</div>
 
@@ -318,7 +155,7 @@
 									</div>
 									
 									<div class="product-price-wrap">
-										<div class="product-price">15.8 BYN</div>
+										<div class="product-price">{{ product.cost }} BYN</div>
 										
 										<div class="product-controls">
 											<button class="product-add-to-cart-btn bttn bttn-xs bttn-sky-blue-gradient bttn-border"><i class="fa fa-shopping-cart"></i> &nbsp; В корзину</button>
@@ -331,97 +168,7 @@
 										</div>
 									</div>
 								</div>
-
-								<div class="product-item">
-									<div class="product-code">291229</div>
-									
-									<a href="#" class="product-image" style="background-image: url({{ image_url('default/product-preview-img.png') }});"></a>
-
-									<div class="product-descr-wrap">
-										<a href="#" class="product-name">Губки СММ-155</a>
-										
-										<div class="product-short-descr">губки для мытья посуды</div>
-										
-										<div class="product-full-descr">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore numquam illo omnis! Quod expedita, eligendi natus quidem necessitatibus blanditiis veritatis, perferendis eos veniam dolorem odio ipsum distinctio sit odio ipsum distinctio sit ipsum distinctio sit distinctio sit ipsum distinctio sit</div>
-
-										<div class="product-origin-text">Производитель: Китай</div>
-									</div>
-									
-									<div class="product-price-wrap">
-										<div class="product-price">15.8 BYN</div>
-										
-										<div class="product-controls">
-											<button class="product-add-to-cart-btn bttn bttn-xs bttn-sky-blue-gradient bttn-border"><i class="fa fa-shopping-cart"></i> &nbsp; В корзину</button>
-											
-											<span class="product-quantity-input-wrap">
-												<span class="decrem-quant"><i class="fa fa-angle-left"></i></span>
-												<input type="text" class="quant-input" value="1" disabled>
-												<span class="increm-quant"><i class="fa fa-angle-right"></i></span>
-											</span>
-										</div>
-									</div>
-								</div>
-
-								<div class="product-item">
-									<div class="product-code">291229</div>
-									
-									<a href="#" class="product-image" style="background-image: url({{ image_url('default/product-preview-img.png') }});"></a>
-
-									<div class="product-descr-wrap">
-										<a href="#" class="product-name">Губки СММ-155</a>
-										
-										<div class="product-short-descr">губки для мытья посуды</div>
-										
-										<div class="product-full-descr">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore numquam illo omnis! Quod expedita, eligendi natus quidem necessitatibus blanditiis veritatis, perferendis eos veniam dolorem odio ipsum distinctio sit odio ipsum distinctio sit ipsum distinctio sit distinctio sit ipsum distinctio sit</div>
-
-										<div class="product-origin-text">Производитель: Китай</div>
-									</div>
-									
-									<div class="product-price-wrap">
-										<div class="product-price">15.8 BYN</div>
-										
-										<div class="product-controls">
-											<button class="product-add-to-cart-btn bttn bttn-xs bttn-sky-blue-gradient bttn-border"><i class="fa fa-shopping-cart"></i> &nbsp; В корзину</button>
-											
-											<span class="product-quantity-input-wrap">
-												<span class="decrem-quant"><i class="fa fa-angle-left"></i></span>
-												<input type="text" class="quant-input" value="1" disabled>
-												<span class="increm-quant"><i class="fa fa-angle-right"></i></span>
-											</span>
-										</div>
-									</div>
-								</div>
-
-								<div class="product-item">
-									<div class="product-code">291229</div>
-									
-									<a href="#" class="product-image" style="background-image: url({{ image_url('default/product-preview-img.png') }});"></a>
-
-									<div class="product-descr-wrap">
-										<a href="#" class="product-name">Губки СММ-155</a>
-										
-										<div class="product-short-descr">губки для мытья посуды</div>
-										
-										<div class="product-full-descr">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore numquam illo omnis! Quod expedita, eligendi natus quidem necessitatibus blanditiis veritatis, perferendis eos veniam dolorem odio ipsum distinctio sit odio ipsum distinctio sit ipsum distinctio sit distinctio sit ipsum distinctio sit</div>
-
-										<div class="product-origin-text">Производитель: Китай</div>
-									</div>
-									
-									<div class="product-price-wrap">
-										<div class="product-price">15.8 BYN</div>
-										
-										<div class="product-controls">
-											<button class="product-add-to-cart-btn bttn bttn-xs bttn-sky-blue-gradient bttn-border"><i class="fa fa-shopping-cart"></i> &nbsp; В корзину</button>
-											
-											<span class="product-quantity-input-wrap">
-												<span class="decrem-quant"><i class="fa fa-angle-left"></i></span>
-												<input type="text" class="quant-input" value="1" disabled>
-												<span class="increm-quant"><i class="fa fa-angle-right"></i></span>
-											</span>
-										</div>
-									</div>
-								</div>
-
+								{% endfor %}
 							</div>
 
 						</div>

@@ -108,7 +108,7 @@ class ImportProductsCommand extends ContainerAwareCommand
         $code = $element[self::CODE];
         $name = $element[self::NAME];
         $simaCode = $element[self::SIMA_CODE];
-        $photo = trim($element[self::PHOTO]) ? $imageUrl . trim($element[self::PHOTO]) : "";
+        $photo = trim($element[self::PHOTO]) ? $imageUrl . $this->encodeUrlImage(trim($element[self::PHOTO])) : "";
 
         $group = $em->getRepository(ProductGroup::class)->findOneBy(["apiId" => $code]);
 
@@ -138,7 +138,7 @@ class ImportProductsCommand extends ContainerAwareCommand
         $code = $element[self::CODE];
         $name = $element[self::NAME];
         $simaCode = $element[self::SIMA_CODE];
-        $photo = trim($element[self::PHOTO]) ? $imageUrl . trim($element[self::PHOTO]) : "";
+        $photo = trim($element[self::PHOTO]) ? $imageUrl . $this->encodeUrlImage(trim($element[self::PHOTO])) : "";
         $cost = (float)$element[self::COST];
         $leftCount = (int)$element[self::LEFT_COUNT];
         $description = array_key_exists(self::DESCRIPTION, $element) ? $element[self::DESCRIPTION] : "";
@@ -170,5 +170,9 @@ class ImportProductsCommand extends ContainerAwareCommand
         $product->setProductGroup($group);
 
         return $product;
+    }
+
+    protected function encodeUrlImage($imageStr){
+        return str_replace(" ", "%20", $imageStr);
     }
 }

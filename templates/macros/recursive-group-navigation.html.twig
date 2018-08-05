@@ -1,0 +1,7 @@
+{% macro recursiveGroupNavigation(group) %}
+    {% import 'macros/recursive-group-navigation.html.twig' as myMacros %}
+    {% if group.parentGroup %}
+        {{ myMacros.recursiveGroupNavigation(group.parentGroup) }}
+        <li class="breadcrumbs-item"><a href="{{ group_url(group.parentGroup) }}">{{ group.parentGroup.name }}</a></li>
+    {% endif %}
+{% endmacro %}

@@ -1,4 +1,5 @@
 {% extends 'base.html.twig' %}
+{% import 'macros/recursive-group-navigation.html.twig' as myMacros %}
 
 {% block body %}
 
@@ -10,10 +11,10 @@
 						<div class="col-12">
 							
 							<ul class="breadcrumbs">
-								<li class="breadcrumbs-item">Главная</li>
-								<li class="breadcrumbs-item">Кухонные принадлежности</li>
-								<li class="breadcrumbs-item">Губки, щетки, скребки для мытья</li>
-								<li class="breadcrumbs-item">Губка CMM-155</li>
+								<li class="breadcrumbs-item"><a href="{{ path("homepage") }}">Главная</a></li>
+                                {{ myMacros.recursiveGroupNavigation(group) }}
+								<li class="breadcrumbs-item active">{{ group.name }}</li>
+								{#<li class="breadcrumbs-item">Губка CMM-155</li>#}
 							</ul>
 
 						</div>
@@ -27,107 +28,21 @@
 						<div class="col-12">
 							
 							<div class="sect-title">
-								<h3>Кухонные принадлежности</h3>
+								<h3>{{ group.name }}</h3>
 							</div>
 
 							<div class="subcategories-list">
 								<div class="row">
+									{% for childGroup in group.childrenGroups %}
 									<div class="col-xs-6 col-sm-4 col-md-3">
 										
-										<a href="#" class="subcategory-item">
-											<div class="subcategory-image" style="background-image: url({{ image_url('default/subcategories/subcategory1-img.jpg') }});"></div>
-											<h4 class="subcategory-title">Ножи</h4>
+										<a href="{{ group_url(childGroup) }}" class="subcategory-item">
+											<div class="subcategory-image" style="background-image: url({{ childGroup.photo }});"></div>
+											<h4 class="subcategory-title">{{ childGroup.name }}</h4>
 										</a>
 
 									</div>
-									<div class="col-xs-6 col-sm-4 col-md-3">
-										
-										<a href="#" class="subcategory-item">
-											<div class="subcategory-image" style="background-image: url({{ image_url('default/subcategories/subcategory2-img.jpg') }});"></div>
-											<h4 class="subcategory-title">Губки, щетки, скребки для мытья</h4>
-										</a>
-
-									</div>
-									<div class="col-xs-6 col-sm-4 col-md-3">
-										
-										<a href="#" class="subcategory-item">
-											<div class="subcategory-image" style="background-image: url({{ image_url('default/subcategories/subcategory1-img.jpg') }});"></div>
-											<h4 class="subcategory-title">Ножи</h4>
-										</a>
-
-									</div>
-									<div class="col-xs-6 col-sm-4 col-md-3">
-										
-										<a href="#" class="subcategory-item">
-											<div class="subcategory-image" style="background-image: url({{ image_url('default/subcategories/subcategory2-img.jpg') }});"></div>
-											<h4 class="subcategory-title">Губки, щетки, скребки для мытья</h4>
-										</a>
-
-									</div>
-									<div class="col-xs-6 col-sm-4 col-md-3">
-										
-										<a href="#" class="subcategory-item">
-											<div class="subcategory-image" style="background-image: url({{ image_url('default/subcategories/subcategory1-img.jpg') }});"></div>
-											<h4 class="subcategory-title">Ножи</h4>
-										</a>
-
-									</div>
-									<div class="col-xs-6 col-sm-4 col-md-3">
-										
-										<a href="#" class="subcategory-item">
-											<div class="subcategory-image" style="background-image: url({{ image_url('default/subcategories/subcategory2-img.jpg') }});"></div>
-											<h4 class="subcategory-title">Губки, щетки, скребки для мытья</h4>
-										</a>
-
-									</div>
-									<div class="col-xs-6 col-sm-4 col-md-3">
-										
-										<a href="#" class="subcategory-item">
-											<div class="subcategory-image" style="background-image: url({{ image_url('default/subcategories/subcategory1-img.jpg') }});"></div>
-											<h4 class="subcategory-title">Ножи</h4>
-										</a>
-
-									</div>
-									<div class="col-xs-6 col-sm-4 col-md-3">
-										
-										<a href="#" class="subcategory-item">
-											<div class="subcategory-image" style="background-image: url({{ image_url('default/subcategories/subcategory2-img.jpg') }});"></div>
-											<h4 class="subcategory-title">Губки, щетки, скребки для мытья</h4>
-										</a>
-
-									</div>
-									<div class="col-xs-6 col-sm-4 col-md-3">
-										
-										<a href="#" class="subcategory-item">
-											<div class="subcategory-image" style="background-image: url({{ image_url('default/subcategories/subcategory1-img.jpg') }});"></div>
-											<h4 class="subcategory-title">Ножи</h4>
-										</a>
-
-									</div>
-									<div class="col-xs-6 col-sm-4 col-md-3">
-										
-										<a href="#" class="subcategory-item">
-											<div class="subcategory-image" style="background-image: url({{ image_url('default/subcategories/subcategory2-img.jpg') }});"></div>
-											<h4 class="subcategory-title">Губки, щетки, скребки для мытья</h4>
-										</a>
-
-									</div>
-									<div class="col-xs-6 col-sm-4 col-md-3">
-										
-										<a href="#" class="subcategory-item">
-											<div class="subcategory-image" style="background-image: url({{ image_url('default/subcategories/subcategory1-img.jpg') }});"></div>
-											<h4 class="subcategory-title">Ножи</h4>
-										</a>
-
-									</div>
-									<div class="col-xs-6 col-sm-4 col-md-3">
-										
-										<a href="#" class="subcategory-item">
-											<div class="subcategory-image" style="background-image: url({{ image_url('default/subcategories/subcategory2-img.jpg') }});"></div>
-											<h4 class="subcategory-title">Губки, щетки, скребки для мытья</h4>
-										</a>
-
-									</div>
+									{% endfor %}
 								</div>
 							</div>
 

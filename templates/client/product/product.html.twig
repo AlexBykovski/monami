@@ -1,4 +1,5 @@
 {% extends 'base.html.twig' %}
+{% import 'macros/recursive-group-navigation.html.twig' as myMacros %}
 
 {% block body %}
 
@@ -10,10 +11,10 @@
 						<div class="col-12">
 							
 							<ul class="breadcrumbs">
-								<li class="breadcrumbs-item"><a href="#">Главная</a></li>
-								<li class="breadcrumbs-item"><a href="#">Кухонные принадлежности</a></li>
-								<li class="breadcrumbs-item"><a href="#">Губки, щетки, скребки для мытья</a></li>
-								<li class="breadcrumbs-item active">Губка CMM-155</li>
+								<li class="breadcrumbs-item"><a href="{{ path("homepage") }}">Главная</a></li>
+                                {{ myMacros.recursiveGroupNavigation(product.productGroup) }}
+								<li class="breadcrumbs-item"><a href="{{ group_url(product.productGroup) }}">{{ product.productGroup.name }}</a></li>
+								<li class="breadcrumbs-item active">{{ product.name }}</li>
 							</ul>
 
 						</div>
@@ -28,32 +29,33 @@
 						<div class="row">
 							<div class="col-md-7">
 								
-								<div class="product-full-image" style="background-image: url({{ image_url('default/product-full-img.png') }});"></div>
+								<div class="product-full-image" style="background-image: url({{ product.photo }});"></div>
 
 							</div>
 							<div class="col-md-5 mt-4 mt-md-0">
 								
 								<div class="product-intro-descr">
-									<h2 class="product-title">Губка CMM-155</h2>
+									<h2 class="product-title">{{ product.name }}</h2>
 
 									<ul class="product-descr-list">
-										<li class="descr-item">ID 257558</li>
-										<li class="descr-item">Код товара: 2575588</li>
+										<li class="descr-item">ID {{ product.apiId }}</li>
+										<li class="descr-item">Код товара: {{ product.apiId }}</li>
 									</ul>
 
 									<div class="product-intro-descr">
-										Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat modi quo consequuntur, eum optio, ipsum, molestias nostrum sit quos provident pariatur deserunt sed autem reiciendis odit soluta, itaque nam qui.
+                                        {{ product.description }}
 									</div>
 
 									<!-- <div class="product-price">15.8 <span class="cur">BYN</span></div> -->
 
 									<div class="product-discount-price">
-										<div class="new-price">
-											9.5 <span class="cur">BYN</span>
-											<span class="discount-sum">-15%</span>
-										</div>
+										<div class="product-price">{{ product.cost }} BYN</div>
+										{#<div class="new-price">#}
+											{#{{ product.cost }} <span class="cur">BYN</span>#}
+											{#<span class="discount-sum">-15%</span>#}
+										{#</div>#}
 
-										<div class="old-price">14.5 <span class="cur">BYN</span></div>
+										{#<div class="old-price">14.5 <span class="cur">BYN</span></div>#}
 									</div>
 
 									<div class="product-controls">

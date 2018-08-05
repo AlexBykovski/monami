@@ -43,6 +43,12 @@ services:
         tags:
             - { name: twig.extension }
 
+    App\Twig\ProductGroupUrlExtension:
+        class: App\Twig\ProductGroupUrlExtension
+        arguments: ['@router']
+        tags:
+            - { name: twig.extension }
+
     app.file_upload:
         class:  App\Upload\FileUpload
         arguments: ['@images_filesystem']

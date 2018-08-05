@@ -23,7 +23,7 @@ class ProductGroup
     private $id;
 
     /**
-     * @var ArrayCollection
+     * @var Collection
      *
      * One ProductGroup has Many Products.
      * @ORM\OneToMany(targetEntity="Product", mappedBy="productGroup")
@@ -118,17 +118,17 @@ class ProductGroup
     }
 
     /**
-     * @return ArrayCollection
+     * @return Collection
      */
-    public function getProducts(): ArrayCollection
+    public function getProducts(): Collection
     {
         return $this->products;
     }
 
     /**
-     * @param ArrayCollection $products
+     * @param Collection $products
      */
-    public function setProducts(ArrayCollection $products): void
+    public function setProducts(Collection $products): void
     {
         $this->products = $products;
     }

@@ -18,12 +18,14 @@ class ImageUrlExtension extends Twig_Extension
     {
         $this->additionalPath = $additionalPath;
     }
+
     public function getFunctions()
     {
         return array(
             new Twig_Function('image_url', [$this, 'imageUrlCreator']),
         );
     }
+
     public function imageUrlCreator($url)
     {
         return $this->additionalPath . $url;

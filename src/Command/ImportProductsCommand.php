@@ -48,7 +48,8 @@ class ImportProductsCommand extends ContainerAwareCommand
         $data = $importer->importData($importDetail);
 
         if(!is_array($data) || !array_key_exists(self::ELEMENT, $data) || !count($data[self::ELEMENT])){
-            $output->writeln("<comment>Empty import file!</comment>");
+            //$output->writeln("<comment>Empty import file!</comment>");
+            return false;
         }
 
         $groups = [];
@@ -82,7 +83,7 @@ class ImportProductsCommand extends ContainerAwareCommand
                 $groups[$element[self::GROUP]] : null;
 
             if(array_key_exists(self::GROUP, $element) && !$group){
-                $output->writeln("<error>No exist group: " . $element[self::GROUP] . "</error>");
+                //$output->writeln("<error>No exist group: " . $element[self::GROUP] . "</error>");
 
                 continue;
             }
@@ -100,7 +101,7 @@ class ImportProductsCommand extends ContainerAwareCommand
 
         $em->flush();
 
-        $output->writeln("<info>Imported products and groups</info>");
+        //$output->writeln("<info>Imported products and groups</info>");
     }
 
     protected function createProductGroup(EntityManagerInterface $em, array $element, ?ProductGroup $groupParent, $imageUrl)

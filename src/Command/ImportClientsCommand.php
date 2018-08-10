@@ -51,12 +51,13 @@ class ImportClientsCommand extends ContainerAwareCommand
         $data = $importer->importData($importDetail);
 
         if(!is_array($data) || !array_key_exists(self::ELEMENT, $data) || !count($data[self::ELEMENT])){
-            $output->writeln("<comment>Empty import file!</comment>");
+            //$output->writeln("<comment>Empty import file!</comment>");
+
+            return false;
         }
 
         //import groups and products
         foreach ($data[self::ELEMENT] as $index => $datum){
-            $output->writeln($index);
             $element = $datum[self::ATTRIBUTES];
 
             if(!is_array($element)){
@@ -67,7 +68,7 @@ class ImportClientsCommand extends ContainerAwareCommand
             $this->createClient($element, $importDetail->getImagesUrl());
         }
 
-        $output->writeln("<info>Imported managers</info>");
+        //$output->writeln("<info>Imported managers</info>");
     }
 
     protected function createClient(array $element, $imageUrl)

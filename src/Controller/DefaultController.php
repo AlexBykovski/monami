@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\MainPage;
 use App\Entity\Product;
 use App\Entity\ProductGroup;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -21,9 +22,13 @@ class DefaultController extends Controller
         $hits = $em->getRepository(Product::class)->findBy([], null, 4, 50);
         $baseGroups = $em->getRepository(ProductGroup::class)->findBy(["parentGroup" => null]);
 
+        /** @var MainPage $mainPage */
+        $mainPage = $em->getRepository(MainPage::class)->findAll()[0];
+
         return $this->render('client/default/homepage.html.twig', [
             "hits" => $hits,
             "baseGroups" => $baseGroups,
+            "slides" => $mainPage->getLinkImages()
         ]);
     }
 }

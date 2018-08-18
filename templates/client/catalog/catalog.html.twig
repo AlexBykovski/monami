@@ -3,156 +3,172 @@
 
 {% block body %}
 
-		<main class="main">
+<main class="main" ng-controller="FilterProductCtrl as filterCtrl" ng-init="filterCtrl.init('{{ group.id }}')">
 
-			<section id="breadcrumbs-sect">
-				<div class="container">
-					<div class="row">
-						<div class="col-12">
-							
-							<ul class="breadcrumbs">
-								<li class="breadcrumbs-item"><a href="{{ path("homepage") }}">Главная</a></li>
-                                {{ myMacros.recursiveGroupNavigation(group) }}
-								<li class="breadcrumbs-item active">{{ group.name }}</li>
+	<section id="breadcrumbs-sect">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+
+					<ul class="breadcrumbs">
+						<li class="breadcrumbs-item"><a href="{{ path("homepage") }}">Главная</a></li>
+						{{ myMacros.recursiveGroupNavigation(group) }}
+						<li class="breadcrumbs-item active">{{ group.name }}</li>
+					</ul>
+
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section id="catalog-sect">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+
+					<div class="sect-title">
+						<h3>{{ group.name }}</h3>
+					</div>
+
+					<div class="products-list-utilites-bar card-box">
+						<div class="sort-by-wrap">
+							<div class="sort-by-text">Сортировать:</div>
+
+							<ul class="sort-by-list">
+								<li class="sort-by-item" ng-class="{'active' : filterCtrl.filters.sort === 'cost'}">
+									<a href="" ng-click="filterCtrl.filters.sort = 'cost'; filterCtrl.updateProducts();">По цене</a>
+								</li>
+								<li class="sort-by-item" ng-class="{'active' : filterCtrl.filters.sort === 'createdAt'}">
+									<a href="" ng-click="filterCtrl.filters.sort = 'createdAt'; filterCtrl.updateProducts();">По новизне</a>
+								</li>
+								<li class="sort-by-item" ng-class="{'active' : filterCtrl.filters.sort === 'name'}">
+									<a href="" ng-click="filterCtrl.filters.sort = 'name'; filterCtrl.updateProducts();">По алфавиту</a>
+								</li>
 							</ul>
-
 						</div>
+
+						<div class="sort-by-wrap">
+							<div class="sort-by-text">Показывать:</div>
+
+							<ul class="sort-by-list">
+								<li class="sort-by-item" ng-class="{'active' : filterCtrl.filters.count === 16}">
+									<a href="" ng-click="filterCtrl.filters.count = 16; filterCtrl.updateProducts();">16</a>
+								</li>
+								<li class="sort-by-item" ng-class="{'active' : filterCtrl.filters.count === 32}">
+									<a href="" ng-click="filterCtrl.filters.count = 32; filterCtrl.updateProducts();">32</a>
+								</li>
+								<li class="sort-by-item" ng-class="{'active' : filterCtrl.filters.count === 64}">
+									<a href="" ng-click="filterCtrl.filters.count = 64; filterCtrl.updateProducts();">64</a>
+								</li>
+								<li class="sort-by-item" ng-class="{'active' : filterCtrl.filters.count === 128}">
+									<a href="" ng-click="filterCtrl.filters.count = 128; filterCtrl.updateProducts();">128</a>
+								</li>
+								<li class="sort-by-item" ng-class="{'active' : filterCtrl.filters.count === 256}">
+									<a href="" ng-click="filterCtrl.filters.count = 256; filterCtrl.updateProducts();">256</a>
+								</li>
+								<li class="sort-by-item" ng-class="{'active' : filterCtrl.filters.count > 256}">
+									<a href="" ng-click="filterCtrl.filters.count = filterCtrl.maxCount; filterCtrl.updateProducts();">Все</a>
+								</li>
+							</ul>
+						</div>
+
+						<ul class="products-list-view-selector">
+							<li id="products-list-tiles-select" class="view-item"><span class="view-icon"><i class="fa fa-th"></i></span></li>
+							<li id="products-list-standart-select" class="view-item"><span class="view-icon"><i class="fa fa-list-ul"></i></span></li>
+						</ul>
 					</div>
-				</div>
-			</section>
 
-			<section id="catalog-sect">
-				<div class="container">
-					<div class="row">
-						<div class="col-12">
-							
-							<div class="sect-title">
-								<h3>{{ group.name }}</h3>
-							</div>
+					<div class="products-list products-list-standart">
+							<div class="product-item" ng-repeat="product in filterCtrl.products">
+								<div class="product-code" ng-bind="product.apiId"></div>
 
-							<div class="products-list-utilites-bar card-box">
-								<div class="sort-by-wrap">
-									<div class="sort-by-text">Сортировать:</div>
-									
-									<ul class="sort-by-list">
-										<li class="sort-by-item active"><a href="#">По цене</a></li>
-										<li class="sort-by-item"><a href="#">По новизне</a></li>
-										<li class="sort-by-item"><a href="#">По алфавиту</a></li>
-									</ul>
+								<a ng-href="/product/{{ '{{ product.id }}' }}" class="product-image" style="background-image: url({{ '{{ image_directory + product.photo}}' }});"></a>
+
+								<div class="product-descr-wrap">
+									<a ng-href="/product/{{ '{{ product.id }}' }}" class="product-name" ng-bind="product.name"></a>
+
+									<div class="product-short-descr" ng-bind="product.description"></div>
+
+									<div class="product-full-descr">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore numquam illo omnis! Quod expedita, eligendi natus quidem necessitatibus blanditiis veritatis, perferendis eos veniam dolorem odio ipsum distinctio sit odio ipsum distinctio sit ipsum distinctio sit distinctio sit ipsum distinctio sit</div>
+
+									<div class="product-origin-text">Производитель: Китай</div>
 								</div>
 
-								<div class="sort-by-wrap">
-									<div class="sort-by-text">Показывать:</div>
-									
-									<ul class="sort-by-list">
-										<li class="sort-by-item active"><a href="#">16</a></li>
-										<li class="sort-by-item"><a href="#">32</a></li>
-										<li class="sort-by-item"><a href="#">64</a></li>
-										<li class="sort-by-item"><a href="#">128</a></li>
-										<li class="sort-by-item"><a href="#">256</a></li>
-										<li class="sort-by-item"><a href="#">Все</a></li>
-									</ul>
-								</div>
+								<div class="product-price-wrap">
+									<div class="product-price" ng-bind="product.cost + ' BYN'"></div>
 
-								<ul class="products-list-view-selector">
-									<li id="products-list-tiles-select" class="view-item"><span class="view-icon"><i class="fa fa-th"></i></span></li>
-									<li id="products-list-standart-select" class="view-item"><span class="view-icon"><i class="fa fa-list-ul"></i></span></li>
-								</ul>
-							</div>
+									<div class="product-controls">
+										<button class="product-add-to-cart-btn bttn bttn-xs bttn-sky-blue-gradient bttn-border"><i class="fa fa-shopping-cart"></i> &nbsp; В корзину</button>
 
-							<div class="products-list products-list-standart">
-								{% for product in group.products|slice(0, 16) %}
-									<div class="product-item">
-										<div class="product-code">{{ product.apiId }}</div>
-
-										<a href="{{ path("show_product", {idProduct: product.id}) }}" class="product-image" style="background-image: url({{ product.photo }});"></a>
-
-										<div class="product-descr-wrap">
-											<a href="{{ path("show_product", {idProduct: product.id}) }}" class="product-name">{{ product.name }}</a>
-
-											<div class="product-short-descr">{{ product.description }}</div>
-
-											<div class="product-full-descr">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore numquam illo omnis! Quod expedita, eligendi natus quidem necessitatibus blanditiis veritatis, perferendis eos veniam dolorem odio ipsum distinctio sit odio ipsum distinctio sit ipsum distinctio sit distinctio sit ipsum distinctio sit</div>
-
-											<div class="product-origin-text">Производитель: Китай</div>
-										</div>
-
-										<div class="product-price-wrap">
-											<div class="product-price">{{ product.cost }} BYN</div>
-
-											<div class="product-controls">
-												<button class="product-add-to-cart-btn bttn bttn-xs bttn-sky-blue-gradient bttn-border"><i class="fa fa-shopping-cart"></i> &nbsp; В корзину</button>
-
-												<span class="product-quantity-input-wrap">
-													<span class="decrem-quant"><i class="fa fa-angle-left"></i></span>
-													<input type="text" class="quant-input" value="1" disabled>
-													<span class="increm-quant"><i class="fa fa-angle-right"></i></span>
-												</span>
-											</div>
-										</div>
+										<span class="product-quantity-input-wrap">
+											<span class="decrem-quant"><i class="fa fa-angle-left"></i></span>
+											<input type="text" class="quant-input" value="1" disabled>
+											<span class="increm-quant"><i class="fa fa-angle-right"></i></span>
+										</span>
 									</div>
-								{% endfor %}
-
-								{# @@todo this template for discounted product #}
-								{#<div class="product-item">#}
-									{#<div class="product-code">291229</div>#}
-									{##}
-									{#<a href="#" class="product-image" style="background-image: url({{ image_url('default/product-preview-img.png') }});"></a>#}
-
-									{#<div class="product-descr-wrap">#}
-										{#<a href="#" class="product-name">Губки СММ-155</a>#}
-										{##}
-										{#<div class="product-short-descr">губки для мытья посуды</div>#}
-										{##}
-										{#<div class="product-full-descr">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore numquam illo omnis! Quod expedita, eligendi natus quidem necessitatibus blanditiis veritatis, perferendis eos veniam dolorem odio ipsum distinctio sit odio ipsum distinctio sit ipsum distinctio sit distinctio sit ipsum distinctio sit</div>#}
-
-										{#<div class="product-origin-text">Производитель: Китай</div>#}
-									{#</div>#}
-									{##}
-									{#<div class="product-price-wrap">#}
-
-										{#<div class="product-discount-price">#}
-											{#<div class="new-price">#}
-												{#9.5 <span class="cur">BYN</span>#}
-												{#<span class="discount-sum">-15%</span>#}
-											{#</div>#}
-
-											{#<div class="old-price">14.5 <span class="cur">BYN</span></div>#}
-										{#</div>#}
-										{##}
-										{#<div class="product-controls">#}
-											{#<button class="product-add-to-cart-btn bttn bttn-xs bttn-sky-blue-gradient bttn-border"><i class="fa fa-shopping-cart"></i> &nbsp; В корзину</button>#}
-											{##}
-											{#<span class="product-quantity-input-wrap">#}
-												{#<span class="decrem-quant"><i class="fa fa-angle-left"></i></span>#}
-												{#<input type="text" class="quant-input" value="1" disabled>#}
-												{#<span class="increm-quant"><i class="fa fa-angle-right"></i></span>#}
-											{#</span>#}
-										{#</div>#}
-									{#</div>#}
-								{#</div>#}
+								</div>
 							</div>
 
-						</div>
+						{# @@todo this template for discounted product #}
+						{#<div class="product-item">#}
+							{#<div class="product-code">291229</div>#}
+							{##}
+							{#<a href="#" class="product-image" style="background-image: url({{ image_url('default/product-preview-img.png') }});"></a>#}
+
+							{#<div class="product-descr-wrap">#}
+								{#<a href="#" class="product-name">Губки СММ-155</a>#}
+								{##}
+								{#<div class="product-short-descr">губки для мытья посуды</div>#}
+								{##}
+								{#<div class="product-full-descr">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore numquam illo omnis! Quod expedita, eligendi natus quidem necessitatibus blanditiis veritatis, perferendis eos veniam dolorem odio ipsum distinctio sit odio ipsum distinctio sit ipsum distinctio sit distinctio sit ipsum distinctio sit</div>#}
+
+								{#<div class="product-origin-text">Производитель: Китай</div>#}
+							{#</div>#}
+							{##}
+							{#<div class="product-price-wrap">#}
+
+								{#<div class="product-discount-price">#}
+									{#<div class="new-price">#}
+										{#9.5 <span class="cur">BYN</span>#}
+										{#<span class="discount-sum">-15%</span>#}
+									{#</div>#}
+
+									{#<div class="old-price">14.5 <span class="cur">BYN</span></div>#}
+								{#</div>#}
+								{##}
+								{#<div class="product-controls">#}
+									{#<button class="product-add-to-cart-btn bttn bttn-xs bttn-sky-blue-gradient bttn-border"><i class="fa fa-shopping-cart"></i> &nbsp; В корзину</button>#}
+									{##}
+									{#<span class="product-quantity-input-wrap">#}
+										{#<span class="decrem-quant"><i class="fa fa-angle-left"></i></span>#}
+										{#<input type="text" class="quant-input" value="1" disabled>#}
+										{#<span class="increm-quant"><i class="fa fa-angle-right"></i></span>#}
+									{#</span>#}
+								{#</div>#}
+							{#</div>#}
+						{#</div>#}
 					</div>
+
 				</div>
-			</section>
+			</div>
+		</div>
+	</section>
 
-			<section id="search-sect">
-				<div class="container">
-					<div class="row">
-						<div class="col-xs-8 col-lg-6 offset-xs-2 offset-lg-3">
-							
-							<form class="search-bar-form">
-								<input type="text" class="search-bar" placeholder="Введите ваш запрос">
-								<button class="search-submit-btn bttn bttn-sm bttn-sky-blue-gradient"><i class="fa fa-search"></i> &nbsp; Искать</button>
-							</form>
+	<section id="search-sect">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-8 col-lg-6 offset-xs-2 offset-lg-3">
 
-						</div>
-					</div>
+					<form class="search-bar-form">
+						<input type="text" class="search-bar" placeholder="Введите ваш запрос">
+						<button class="search-submit-btn bttn bttn-sm bttn-sky-blue-gradient"><i class="fa fa-search"></i> &nbsp; Искать</button>
+					</form>
+
 				</div>
-			</section>
+			</div>
+		</div>
+	</section>
 
-		</main>
+</main>
 
 {% endblock %}

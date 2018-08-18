@@ -49,6 +49,7 @@ gulp.task('client-js', function () {
     return gulp.src([
         projectDir + '/js/client/common.js',
 		projectDir + '/js/client/app.js',
+		projectDir + '/js/client/controller/filter-products-controller.js',
         // projectDir + '/js/client/service/current-user-service.js',
         // projectDir + '/js/client/service/stake-service.js',
         // projectDir + '/js/client/app-controller.js',

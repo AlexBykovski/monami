@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
@@ -23,6 +24,8 @@ class Feedback
     /**
      * @var string
      *
+     * @Assert\NotBlank(message = "Заполните поле")
+     *
      * @ORM\Column(type="string")
      */
     private $name;
@@ -30,12 +33,22 @@ class Feedback
     /**
      * @var string
      *
+     * @Assert\NotBlank(message = "Заполните поле")
+     *
+     * @Assert\Email(
+     *     message = "Некорректный email",
+     *     checkMX = true
+     * )
+     *
      * @ORM\Column(type="string")
      */
     private $email;
 
     /**
      * @var string
+     *
+     * @Assert\NotBlank(message = "Заполните поле")
+     *
      * @ORM\Column(type="text")
      */
     private $message;
@@ -54,6 +67,17 @@ class Feedback
      * @ORM\JoinColumn(name="user", referencedColumnName="id")
      */
     private $user;
+
+    /**
+     * Feedback constructor.
+     */
+    public function __construct()
+    {
+        $this->createdAt = new DateTime();
+        $this->name = "";
+        $this->email = "";
+        $this->message = "";
+    }
 
     /**
      * @return int
@@ -80,9 +104,9 @@ class Feedback
     }
 
     /**
-     * @param string $name
+     * @param string|null $name
      */
-    public function setName(string $name): void
+    public function setName(?string $name): void
     {
         $this->name = $name;
     }
@@ -96,9 +120,9 @@ class Feedback
     }
 
     /**
-     * @param string $email
+     * @param string|null $email
      */
-    public function setEmail(string $email): void
+    public function setEmail(?string $email): void
     {
         $this->email = $email;
     }
@@ -112,9 +136,9 @@ class Feedback
     }
 
     /**
-     * @param string $message
+     * @param string|null $message
      */
-    public function setMessage(string $message): void
+    public function setMessage(?string $message): void
     {
         $this->message = $message;
     }

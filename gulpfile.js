@@ -12,6 +12,7 @@ let gulp           = require('gulp'),
 		autoprefixer   = require('gulp-autoprefixer'),
 		bourbon        = require('node-bourbon'),
 		runSequence    = require('run-sequence');
+let babel = require('gulp-babel');
 
 let projectDir = 'assets';
 let projectDistDir = 'public/build';
@@ -31,10 +32,13 @@ gulp.task('sass', function () {
 
 gulp.task('js-libs', function () {
 	return gulp.src([
-			projectDir + '/js/vendor/jquery-3.3.1.min.js',
+			projectDir + '/bower-components/jquery/dist/jquery.js',
 			projectDir + '/js/vendor/owl.carousel.min.js',
 			projectDir + '/js/vendor/ninja-slider.js',
-			projectDir + '/js/vendor/thumbnail-slider.js'
+			projectDir + '/js/vendor/thumbnail-slider.js',
+			projectDir + '/bower-components/angular/angular.js',
+			projectDir + '/bower-components/bootstrap/dist/js/bootstrap.js',
+			projectDir + '/bower-components/remarkable-bootstrap-notify/dist/bootstrap-notify.min.js'
 		])
 		.pipe(concat('libs.min.js'))
 		.pipe(uglify())
@@ -44,7 +48,7 @@ gulp.task('js-libs', function () {
 gulp.task('client-js', function () {
     return gulp.src([
         projectDir + '/js/client/common.js',
-        // projectDir + '/js/client/app.js',
+		projectDir + '/js/client/app.js',
         // projectDir + '/js/client/service/current-user-service.js',
         // projectDir + '/js/client/service/stake-service.js',
         // projectDir + '/js/client/app-controller.js',
@@ -57,7 +61,7 @@ gulp.task('client-js', function () {
         // projectDir + '/js/client/recommend-auctions-controller.js',
         // projectDir + '/js/client/my-auctions-controller.js',
         // projectDir + '/js/client/auction-detail-controller.js',
-        // projectDir + '/js/client/directive/notify-directive.js',
+        projectDir + '/js/client/directive/notify-directive.js',
         // projectDir + '/js/client/directive/file-upload-cancel-directive.js',
         // projectDir + '/js/client/directive/show-cut-image-directive.js',
         // projectDir + '/js/client/autostake-controller.js',
@@ -65,6 +69,9 @@ gulp.task('client-js', function () {
         // projectDir + '/js/client/forgot-password-controller.js',
         //projectDir + '/js/client/service/web-socket-service.js'
     ])
+        .pipe(babel({
+            presets: ['babel-preset-es2015']
+        }))
         .pipe(concat('client.min.js'))
         .pipe(uglify())
         .pipe(gulp.dest(projectDistDir + '/js'));
@@ -86,7 +93,7 @@ gulp.task('imagemin', function () {
 		.pipe(gulp.dest(projectDistImageDir));
 });
 
-gulp.task('build', ['removedist', 'imagemin', 'sass', 'js-libs', 'client-js', 'simple-move-fonts'], function () {
+gulp.task('build', ['removedist', 'imagemin', 'sass', 'js-libs', 'client-js', 'simple-move-fonts', 'bower-components-css'], function () {
 });
 
 gulp.task('removedist', function () { return del.sync(projectDistDir); });
@@ -96,4 +103,12 @@ gulp.task('simple-move-fonts', function () {
         projectDir + '/fonts/**/*'
     ])
         .pipe(gulp.dest(projectDistDir + '/fonts'));
+});
+
+gulp.task('bower-components-css', function () {
+    return gulp.src([
+        projectDir + '/bower-components/bootstrap/dist/css/bootstrap.css',
+    ])
+        .pipe(concat('bower_components.css'))
+        .pipe(gulp.dest(projectDistDir + '/css'));
 });

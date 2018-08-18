@@ -2,94 +2,96 @@
 
 {% block body %}
 
-		<main class="main">
+{% if gotMessage is defined and gotMessage %}
+	<div notify-message message="Ваше сообщение принято"></div>
+{% endif %}
 
-			<section id="help-sect">
-				<div class="container">
-					<div class="row">
-						<div class="col-12">
-							
-							<div class="sect-title">
-								<div class="row">
-									<div class="col-md-4 text-md-left">
-										
-										<a href="/" class="to-home-btn bttn bttn-xs bttn-sky-blue-gradient bttn-border"><span id="reply-icon"></span>На главную</a>
+<main class="main">
 
-									</div>
-									<div class="col-md-4 mt-4 mt-md-0">
-										
-										<h3>Помощь</h3>
+	<section id="help-sect">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
 
-									</div>
-								</div>
+					<div class="sect-title">
+						<div class="row">
+							<div class="col-md-4 text-md-left">
+
+								<a href="/" class="to-home-btn bttn bttn-xs bttn-sky-blue-gradient bttn-border"><span id="reply-icon"></span>На главную</a>
+
 							</div>
+							<div class="col-md-4 mt-4 mt-md-0">
 
-							<div class="row">
-								<div class="col-md-10 col-lg-8 offset-md-1 offset-lg-2">
-									
-									<div class="feedback-form-box">
-										<h6 id="feedback-form-title"><img src="{{ image_url('default/icons/support-icon.png') }}" id="support-icon" alt=""> &nbsp; Служба поддержки</h6>
+								<h3>Помощь</h3>
 
-										<form class="feedback-form">
-											<fieldset class="form-group">
-												<div class="row">
-													<div class="col-xs-4">
+							</div>
+						</div>
+					</div>
 
-														<label class="fg-label">Контактное лицо</label>
-													
-													</div>
-													<div class="col-xs-8">
-														
-														<input type="text" class="fg-input input-block" placeholder="Введите свое имя">
+					<div class="row">
+						<div class="col-md-10 col-lg-8 offset-md-1 offset-lg-2">
 
-													</div>
-												</div>
-											</fieldset>
+							<div class="feedback-form-box">
+								<h6 id="feedback-form-title"><img src="{{ image_url('default/icons/support-icon.png') }}" id="support-icon" alt=""> &nbsp; Служба поддержки</h6>
 
-											<fieldset class="form-group">
-												<div class="row">
-													<div class="col-xs-4">
-
-														<label class="fg-label">Email для связи</label>
-													
-													</div>
-													<div class="col-xs-8">
-														
-														<input type="text" class="fg-input input-block" placeholder="Введите ваш email">
-
-													</div>
-												</div>
-											</fieldset>
-
-											<fieldset class="form-group">
-												<div class="row">
-													<div class="col-xs-4">
-
-														<label class="fg-label">Сообщение</label>
-													
-													</div>
-													<div class="col-xs-8">
-														
-														<textarea class="fg-input input-block" rows="10" placeholder="Введите сообщение"></textarea>
-
-													</div>
-												</div>
-											</fieldset>
-
-											<div class="feedback-submit-btn-wrap">
-												<button class="feedback-submit-btn bttn bttn-xs bttn-sky-blue-gradient bttn-border">Отправить</button>
+								<form class="feedback-form" method="post" action="{{ path("show_help") }}" novalidate enctype="multipart/form-data">
+                                    {{ form_widget(form._token) }}
+									<fieldset class="form-group">
+										<div class="row">
+											<div class="col-xs-4">
+                                                {{ form_label(form.name) }}
 											</div>
-										</form>
-									</div>
+											<div class="col-xs-8">
+                                                {{ form_widget(form.name, {attr: {class: 'fg-input input-block', placeholder: 'Введите свое имя'}} ) }}
+                                                {% for key, error in form.name.vars.errors.form.getErrors(true)%}
+													<p style="color: red">{{ error.message }}</p>
+                                                {% endfor %}
+											</div>
+										</div>
+									</fieldset>
 
-								</div>
+									<fieldset class="form-group">
+										<div class="row">
+											<div class="col-xs-4">
+                                                {{ form_label(form.email) }}
+											</div>
+											<div class="col-xs-8">
+                                                {{ form_widget(form.email, {attr: {class: 'fg-input input-block', placeholder: 'Введите ваш email'}} ) }}
+                                                {% for key, error in form.email.vars.errors.form.getErrors(true)%}
+													<p style="color: red">{{ error.message }}</p>
+                                                {% endfor %}
+											</div>
+										</div>
+									</fieldset>
+
+									<fieldset class="form-group">
+										<div class="row">
+											<div class="col-xs-4">
+                                                {{ form_label(form.message) }}
+											</div>
+											<div class="col-xs-8">
+                                                {{ form_widget(form.message, {attr: {class: 'fg-input input-block', rows: "10", placeholder: 'Введите сообщение'}} ) }}
+                                                {% for key, error in form.message.vars.errors.form.getErrors(true)%}
+													<p style="color: red">{{ error.message }}</p>
+                                                {% endfor %}
+											</div>
+										</div>
+									</fieldset>
+
+									<div class="feedback-submit-btn-wrap">
+                                        {{ form_widget(form.submit, {attr: {class: 'feedback-submit-btn bttn bttn-xs bttn-sky-blue-gradient bttn-border'}, label: 'Отправить'}) }}
+									</div>
+								</form>
 							</div>
 
 						</div>
 					</div>
-				</div>
-			</section>
 
-		</main>
+				</div>
+			</div>
+		</div>
+	</section>
+
+</main>
 
 {% endblock %}

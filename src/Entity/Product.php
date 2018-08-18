@@ -302,4 +302,16 @@ class Product
     {
         $this->description = $description;
     }
+
+    public function toArray()
+    {
+        return [
+            "photo" => $this->photo,
+            "name" => $this->name,
+            "cost" => $this->cost,
+            "apiId" => $this->apiId,
+            "id" => $this->id,
+            "description" => $this->description,
+        ];
+    }
 }

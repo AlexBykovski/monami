@@ -6,6 +6,8 @@
         let cart = {
             "products": [],
             "sum": 0,
+            "sumDiscounted": 0,
+            "discount": 0,
         };
 
         return {
@@ -57,6 +59,25 @@
                     data: {
                         "idProduct": idProduct,
                         "count": count,
+                    }
+                }).then(function successCallback(response) {
+                    self.setCart(response.data.cart);
+                }, function errorCallback(error) {
+                    console.error(error);
+                });
+            },
+            usePromocode: function(code) {
+                if(!code){
+                    return false;
+                }
+
+                let self = this;
+
+                $http({
+                    method: 'POST',
+                    url: '/cart/use-promocode',
+                    data: {
+                        "code": code
                     }
                 }).then(function successCallback(response) {
                     self.setCart(response.data.cart);

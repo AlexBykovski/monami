@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Basket;
 use App\Entity\BasketProduct;
 use App\Entity\Product;
+use App\Entity\PromoCode;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -130,6 +131,38 @@ class CartController extends Controller
             }
         }
 
+        $em->refresh($basket);
+
+        return new JsonResponse(["cart" => $basket->toArray()]);
+    }
+
+    /**
+     * @Route("/use-promocode", name="use_promocode")
+     */
+    public function usePromoCodeAction(Request $request)
+    {
+        /** @var Basket $basket */
+        $basket = $this->getUser()->getBasket();
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+
+        $content = json_decode($request->getContent(), true);
+        $code = $content["code"];
+
+        if(!$code){
+            return new JsonResponse(["cart" => $basket->toArray()]);
+        }
+
+        $promoCode = $em->getRepository(PromoCode::class)->findOneBy(["code" => $code]);
+
+        if(!($promoCode instanceof PromoCode) || $promoCode->isUsed()){
+            return new JsonResponse(["cart" => $basket->toArray()]);
+        }
+
+        $basket->setPromoCode($promoCode);
+        $promoCode->setIsUsed(true);
+
+        $em->flush();
         $em->refresh($basket);
 
         return new JsonResponse(["cart" => $basket->toArray()]);

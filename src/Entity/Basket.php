@@ -131,9 +131,17 @@ class Basket
             $products[(string)$basketProduct->getProduct()->getId()] = $basketProduct->getCount();
         }
 
+        $sumDiscounted = $sum;
+
+        if($this->promoCode instanceof PromoCode){
+            $sumDiscounted *= (1 - $this->promoCode->getDiscount()/100);
+        }
+
         return [
             "products" => $products,
             "sum" => $sum,
+            "sumDiscounted" => $sumDiscounted,
+            "discount" => $this->promoCode instanceof PromoCode ? $this->promoCode->getDiscount() : 0
         ];
     }
 

@@ -116,17 +116,17 @@ class Client extends User
     }
 
     /**
-     * @return Basket
+     * @return Basket|null
      */
-    public function getBasket(): Basket
+    public function getBasket(): ?Basket
     {
         return $this->basket;
     }
 
     /**
-     * @param Basket $basket
+     * @param Basket|null $basket
      */
-    public function setBasket(Basket $basket): void
+    public function setBasket(?Basket $basket): void
     {
         $this->basket = $basket;
     }

@@ -118,4 +118,34 @@ class Basket
     {
         $this->client = $client;
     }
+
+    public function toArray()
+    {
+        $products = [];
+        $sum = 0;
+
+        /** @var BasketProduct $basketProduct */
+        foreach ($this->basketProducts as $basketProduct){
+            $sum += $basketProduct->getCount() * $basketProduct->getProduct()->getCost();
+
+            $products[(string)$basketProduct->getProduct()->getId()] = $basketProduct->getCount();
+        }
+
+        return [
+            "products" => $products,
+            "sum" => $sum,
+        ];
+    }
+
+    public function getBasketProductById($id)
+    {
+        /** @var BasketProduct $basketProduct */
+        foreach ($this->basketProducts as $basketProduct){
+            if((int)$id  === (int)$basketProduct->getProduct()->getId()){
+                return $basketProduct;
+            }
+        }
+
+        return null;
+    }
 }

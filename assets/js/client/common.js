@@ -51,28 +51,6 @@ $(document).ready(function () {
 		}
   });
 
-
-	// Product quantity decrement
-	$('.product-quantity-input-wrap .decrem-quant').click(function () {
-		var quantVal = Number($(this).parent().find('.quant-input').val());
-
-		console.log(quantVal)
-
-		if (quantVal == 0) {
-			return false;
-		} else {
-			$(this).parent().find('.quant-input').val(quantVal -  1)			
-		}
-	});
-
-	// Product quantity increment
-	$('.product-quantity-input-wrap .increm-quant').click(function () {
-		var quantVal = Number($(this).parent().find('.quant-input').val());
-
-		$(this).parent().find('.quant-input').val(quantVal +  1)			
-	});
-
-
 	// Product list view change
 	$('#products-list-tiles-select').click(function () {
 		$('.products-list').attr('class', 'products-list products-list-tiles');

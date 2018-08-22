@@ -22,7 +22,7 @@
 
 </head>
 
-<body>
+<body ng-controller="AppCtrl as app" ng-init="app.CartService.setCart('{{ app.user.basket ? app.user.basket.toArray() | json_encode : null }}')">
 
 <div id="main-wrap" class="main-wrapper">
 
@@ -39,10 +39,10 @@
 
                     </div>
                     <div class="col-7 col-lg-2 order-lg-5">
-
                         <ul class="user-interface-nav">
                             <li class="nav-item">
-                                <a href="#">
+
+                                <a href="{{ app.user == null ? path('fos_user_security_login') : path('show_profile_basket') }}">
                                     <span class="nav-icon"><span class="icon-img" style="background-image: url({{ image_url('default/icons/user-icon.png') }});"></span></span>
                                 </a>
                             </li>
@@ -53,12 +53,12 @@
                                     <div class="shop-cart-preview-block">
                                         <div class="shop-cart-head">
                                             <span class="nav-icon"><span class="icon-img" style="background-image: url({{ image_url('default/icons/shopping-cart-icon.png') }});"></span></span>
-                                            <span class="order-quant-label">3</span>
+                                            <span class="order-quant-label" ng-bind="app.CartService.getCountProducts()"></span>
                                         </div>
 
                                         <div class="order-summary">
-                                            <div class="order-quant-text">3 товара</div>
-                                            <div class="summary-text">Итого: <span class="order-price">45.8 BYN</span></div>
+                                            <div class="order-quant-text" ng-bind="app.CartService.getCountProducts() + ' товара'"></div>
+                                            <div class="summary-text">Итого: <span class="order-price" ng-bind="app.CartService.getCart().sum + ' BYN'"></span></div>
                                         </div>
                                     </div>
                                 </a>

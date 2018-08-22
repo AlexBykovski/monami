@@ -51,6 +51,7 @@ gulp.task('client-js', function () {
 		projectDir + '/js/client/app.js',
 		projectDir + '/js/client/controller/app-controller.js',
 		projectDir + '/js/client/controller/filter-products-controller.js',
+		projectDir + '/js/client/controller/cart-controller.js',
 		projectDir + '/js/client/service/cart-service.js',
         // projectDir + '/js/client/service/current-user-service.js',
         // projectDir + '/js/client/service/stake-service.js',

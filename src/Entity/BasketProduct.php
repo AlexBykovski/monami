@@ -119,4 +119,13 @@ class BasketProduct
     {
         $this->basket = $basket;
     }
+
+    public function toArray()
+    {
+        $productData = $this->getProduct()->toArray();
+
+        $productData["count"] = $this->count;
+
+        return $productData;
+    }
 }

@@ -70,7 +70,8 @@ class CartController extends Controller
         /** @var EntityManagerInterface $em */
         $em = $this->getDoctrine()->getManager();
 
-        $idProduct = $request->request->get("id");
+        $content = json_decode($request->getContent(), true);
+        $idProduct = $content["idProduct"];
 
         if(!$idProduct){
             return new JsonResponse(["cart" => $basket->toArray()]);
@@ -89,6 +90,8 @@ class CartController extends Controller
             $em->flush();
         }
 
+        $em->refresh($basket);
+
         return new JsonResponse(["cart" => $basket->toArray()]);
     }
 
@@ -102,8 +105,9 @@ class CartController extends Controller
         /** @var EntityManagerInterface $em */
         $em = $this->getDoctrine()->getManager();
 
-        $idProduct = $request->request->get("id");
-        $count = (int)$request->request->get("count");
+        $content = json_decode($request->getContent(), true);
+        $idProduct = $content["idProduct"];
+        $count = (int)$content["count"];
 
         if(!$idProduct || !$count){
             return new JsonResponse(["cart" => $basket->toArray()]);
@@ -126,7 +130,33 @@ class CartController extends Controller
             }
         }
 
+        $em->refresh($basket);
+
         return new JsonResponse(["cart" => $basket->toArray()]);
     }
 
+    /**
+     * @Route("/filter", name="filter_cart_products")
+     */
+    public function filterSubcategoriesAction(Request $request)
+    {
+        $params = $request->query->all();
+
+        $count = (int)$params["count"];
+
+        $products = $this->getDoctrine()->getRepository(BasketProduct::class)->findBy(
+            ["basket" => $this->getUser()->getBasket()],
+            null,
+            $count
+        );
+
+        $parsedProducts = [];
+
+        /** @var BasketProduct $product */
+        foreach ($products as $product){
+            $parsedProducts[] = $product->toArray();
+        }
+
+        return new JsonResponse($parsedProducts);
+    }
 }

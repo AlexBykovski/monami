@@ -34,13 +34,13 @@
             },
             removeFromCart: function(idProduct) {
                 let self = this;
+                console.log(idProduct);
 
                 $http({
                     method: 'POST',
                     url: '/cart/remove-product-from-cart',
                     data: {
                         "idProduct": idProduct,
-                        "count": count,
                     }
                 }).then(function successCallback(response) {
                     self.setCart(response.data.cart);

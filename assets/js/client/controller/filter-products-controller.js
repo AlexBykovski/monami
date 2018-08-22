@@ -13,7 +13,6 @@
             count: 16
         };
 
-
         function init(idGroupS) {
             idGroup = idGroupS;
             updateProducts();

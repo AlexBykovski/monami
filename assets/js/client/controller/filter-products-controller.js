@@ -25,7 +25,6 @@
                 params: self.filters
             }).then(function successCallback(response) {
                 self.products = response.data;
-                console.log(response);
             }, function errorCallback(error) {
                 console.error(error);
             });

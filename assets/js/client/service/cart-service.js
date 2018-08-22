@@ -4,7 +4,7 @@
     appMonami.factory('CartService', ['$http',
         function($http) {
         let cart = {
-            "products": [],
+            "products": {},
             "sum": 0,
             "sumDiscounted": 0,
             "discount": 0,
@@ -15,6 +15,10 @@
                 return cart;
             },
             setCart: function(cartS){
+                if(!cartS){
+                    return false;
+                }
+
                 cart = typeof cartS === "string" ? angular.fromJson(cartS) : cartS;
 
             },

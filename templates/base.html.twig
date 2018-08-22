@@ -22,7 +22,7 @@
 
 </head>
 
-<body ng-controller="AppCtrl as app" ng-init="app.CartService.setCart('{{ app.user.basket ? app.user.basket.toArray() | json_encode : null }}')">
+<body ng-controller="AppCtrl as app" ng-init="app.CartService.setCart('{{ app.user != null ? app.user.basket.toArray() | json_encode : null }}')">
 
 <div id="main-wrap" class="main-wrapper">
 

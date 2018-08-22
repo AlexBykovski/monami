@@ -60,7 +60,7 @@ class ImportClientsCommand extends ContainerAwareCommand
 
         //import groups and products
         foreach ($data[self::ELEMENT] as $index => $datum){
-            $output->writeln($index  . '/' . count($data[self::ELEMENT]));
+            //$output->writeln($index  . '/' . count($data[self::ELEMENT]));
             $element = $datum[self::ATTRIBUTES];
 
             if(!is_array($element)){

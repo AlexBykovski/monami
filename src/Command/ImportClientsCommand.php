@@ -2,9 +2,11 @@
 
 namespace App\Command;
 
+use App\Entity\Basket;
 use App\Entity\Client;
 use App\Entity\ImportDetail;
 use App\Entity\Manager;
+use App\Entity\User;
 use App\Import\XMLDataImporter;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
@@ -58,6 +60,7 @@ class ImportClientsCommand extends ContainerAwareCommand
 
         //import groups and products
         foreach ($data[self::ELEMENT] as $index => $datum){
+            $output->writeln($index  . '/' . count($data[self::ELEMENT]));
             $element = $datum[self::ATTRIBUTES];
 
             if(!is_array($element)){
@@ -68,7 +71,7 @@ class ImportClientsCommand extends ContainerAwareCommand
             $this->createClient($element, $importDetail->getImagesUrl());
         }
 
-        //$output->writeln("<info>Imported managers</info>");
+        $output->writeln("<info>Imported managers</info>");
     }
 
     protected function createClient(array $element, $imageUrl)
@@ -93,6 +96,15 @@ class ImportClientsCommand extends ContainerAwareCommand
             $client->setUsername($login);
             $client->setManager($manager);
             $client->setEmailCanonical($login);
+            $client->addRole(User::ROLE_CLIENT);
+
+            if(!$client->getBasket()){
+                $cart = new Basket($client);
+
+                $client->setBasket($cart);
+
+                $this->em->persist($cart);
+            }
         }
         else{
             $client = new Client(

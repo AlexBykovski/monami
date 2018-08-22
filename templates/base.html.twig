@@ -157,14 +157,12 @@
                     </div>
                     <div class="col-10 col-xs-6 col-md-4 offset-xs-4 offset-md-0">
 
-                        <form class="header-search-bar-form"> <!-- add "hints-active" class to dispaly search-hints-wrapper -->
-                            <input type="text" class="search-bar" placeholder="Введите ваш запрос">
-                            <button class="search-submit-btn"><img src="{{ image_url('default/icons/search-icon.png') }}" id="search-icon" alt=""></button>
+                        <form class="header-search-bar-form" ng-controller="SearchCtrl as search" ng-class="{'hints-active' : search.products.length > 0}">
+                            <input type="text" class="search-bar" ng-model="search.text" ng-change="search.text.length > 1 ? search.search(search.text) : ''" placeholder="Введите ваш запрос">
+                            <button class="search-submit-btn" ng-click="search.showResults(search.text)"><img src="{{ image_url('default/icons/search-icon.png') }}" id="search-icon" alt=""></button>
                             <div class="search-hints-wrapper">
-                                <ul class="hints-list">
-                                    <li class="hint-item">Кухонные принадлежности</li>
-                                    <li class="hint-item">Кухонные губки</li>
-                                    <li class="hint-item">Кухонные ножи</li>
+                                <ul class="hints-list" ng-repeat="product in search.products">
+                                    <li class="hint-item"><a ng-href="/product/{{ '{{ product.id }}' }}" ng-bind="product.name"></a></li>
                                 </ul>
                             </div>
                         </form>
@@ -189,9 +187,14 @@
                             <li class="nav-item"><a href="{{ path("show_static_about") }}">О нас</a></li>
                         </ul>
 
-                        <form class="header-search-bar-form">
-                            <input type="text" class="search-bar" placeholder="Введите ваш запрос">
-                            <button class="search-submit-btn"><img src="{{ image_url('default/icons/search-icon.png') }}" id="search-icon" alt=""></button>
+                        <form class="header-search-bar-form" ng-controller="SearchCtrl as search" ng-class="{'hints-active' : search.products.length > 0}">
+                            <input type="text" class="search-bar" ng-model="search.text" ng-change="search.text.length > 1 ? search.search(search.text) : ''" placeholder="Введите ваш запрос">
+                            <button class="search-submit-btn" ng-click="search.showResults(search.text)"><img src="{{ image_url('default/icons/search-icon.png') }}" id="search-icon" alt=""></button>
+                            <div class="search-hints-wrapper">
+                                <ul class="hints-list" ng-repeat="product in search.products">
+                                    <li class="hint-item"><a ng-href="/product/{{ '{{ product.id }}' }}" ng-bind="product.name"></a></li>
+                                </ul>
+                            </div>
                         </form>
 
                     </div>

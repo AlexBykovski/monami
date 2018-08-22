@@ -1,0 +1,123 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <main class="main" ng-controller="FilterProductCtrl as filterCtrl" ng-init="filterCtrl.init('null', '{{ text }}')">
+
+        <section id="breadcrumbs-sect">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+
+                        <ul class="breadcrumbs">
+                            <li class="breadcrumbs-item"><a href="{{ path("homepage") }}">Главная</a></li>
+                            <li class="breadcrumbs-item active">Поиск</li>
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="catalog-sect">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+
+                        <div class="sect-title">
+                            <h3>Результаты поиска для "{{ text }}"</h3>
+                        </div>
+
+                        <div class="products-list-utilites-bar card-box">
+                            <div class="sort-by-wrap">
+                                <div class="sort-by-text">Сортировать:</div>
+
+                                <ul class="sort-by-list">
+                                    <li class="sort-by-item" ng-class="{'active' : filterCtrl.filters.sort === 'cost'}">
+                                        <a href="" ng-click="filterCtrl.filters.sort = 'cost'; filterCtrl.updateProducts();">По цене</a>
+                                    </li>
+                                    <li class="sort-by-item" ng-class="{'active' : filterCtrl.filters.sort === 'createdAt'}">
+                                        <a href="" ng-click="filterCtrl.filters.sort = 'createdAt'; filterCtrl.updateProducts();">По новизне</a>
+                                    </li>
+                                    <li class="sort-by-item" ng-class="{'active' : filterCtrl.filters.sort === 'name'}">
+                                        <a href="" ng-click="filterCtrl.filters.sort = 'name'; filterCtrl.updateProducts();">По алфавиту</a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="sort-by-wrap">
+                                <div class="sort-by-text">Показывать:</div>
+
+                                <ul class="sort-by-list">
+                                    <li class="sort-by-item" ng-class="{'active' : filterCtrl.filters.count === 16}">
+                                        <a href="" ng-click="filterCtrl.filters.count = 16; filterCtrl.updateProducts();">16</a>
+                                    </li>
+                                    <li class="sort-by-item" ng-class="{'active' : filterCtrl.filters.count === 32}">
+                                        <a href="" ng-click="filterCtrl.filters.count = 32; filterCtrl.updateProducts();">32</a>
+                                    </li>
+                                    <li class="sort-by-item" ng-class="{'active' : filterCtrl.filters.count === 64}">
+                                        <a href="" ng-click="filterCtrl.filters.count = 64; filterCtrl.updateProducts();">64</a>
+                                    </li>
+                                    <li class="sort-by-item" ng-class="{'active' : filterCtrl.filters.count === 128}">
+                                        <a href="" ng-click="filterCtrl.filters.count = 128; filterCtrl.updateProducts();">128</a>
+                                    </li>
+                                    <li class="sort-by-item" ng-class="{'active' : filterCtrl.filters.count === 256}">
+                                        <a href="" ng-click="filterCtrl.filters.count = 256; filterCtrl.updateProducts();">256</a>
+                                    </li>
+                                    <li class="sort-by-item" ng-class="{'active' : filterCtrl.filters.count > 256}">
+                                        <a href="" ng-click="filterCtrl.filters.count = filterCtrl.maxCount; filterCtrl.updateProducts();">Все</a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <ul class="products-list-view-selector">
+                                <li id="products-list-tiles-select" class="view-item"><span class="view-icon"><i class="fa fa-th"></i></span></li>
+                                <li id="products-list-standart-select" class="view-item"><span class="view-icon"><i class="fa fa-list-ul"></i></span></li>
+                            </ul>
+                        </div>
+
+                        <div class="products-list products-list-standart">
+                            <div class="product-item" ng-repeat="product in filterCtrl.products">
+                                <div class="product-code" ng-bind="product.apiId"></div>
+
+                                <a ng-href="/product/{{ '{{ product.id }}' }}" class="product-image" style="background-image: url({{ '{{ image_directory + product.photo}}' }});"></a>
+
+                                <div class="product-descr-wrap">
+                                    <a ng-href="/product/{{ '{{ product.id }}' }}" class="product-name" ng-bind="product.name"></a>
+
+                                    <div class="product-short-descr" ng-bind="product.description"></div>
+
+                                    <div class="product-full-descr">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore numquam illo omnis! Quod expedita, eligendi natus quidem necessitatibus blanditiis veritatis, perferendis eos veniam dolorem odio ipsum distinctio sit odio ipsum distinctio sit ipsum distinctio sit distinctio sit ipsum distinctio sit</div>
+
+                                    <div class="product-origin-text">Производитель: Китай</div>
+                                </div>
+
+                                <div class="product-price-wrap">
+                                    <div class="product-price" ng-bind="product.cost + ' BYN'"></div>
+
+                                    <div class="product-controls">
+                                        <button class="product-add-to-cart-btn bttn bttn-xs bttn-sky-blue-gradient bttn-border"
+                                                ng-click="app.CartService.addToCart(product.id, product.count)">
+                                            <i class="fa fa-shopping-cart"></i> &nbsp; В корзину
+                                        </button>
+
+                                        <span class="product-quantity-input-wrap" ng-init="product.count = 1">
+										<span class="decrem-quant" ng-click="product.count === 1 ? 1 : product.count = product.count - 1"><i class="fa fa-angle-left"></i></span>
+										<input type="text" class="quant-input" ng-model="product.count" disabled>
+										<span class="increm-quant" ng-click="product.count = product.count + 1"><i class="fa fa-angle-right"></i></span>
+									</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        {% include 'search-form.html.twig' %}
+
+    </main>
+
+{% endblock %}

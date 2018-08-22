@@ -52,26 +52,9 @@ gulp.task('client-js', function () {
 		projectDir + '/js/client/controller/app-controller.js',
 		projectDir + '/js/client/controller/filter-products-controller.js',
 		projectDir + '/js/client/controller/cart-controller.js',
+		projectDir + '/js/client/controller/search-controller.js',
 		projectDir + '/js/client/service/cart-service.js',
-        // projectDir + '/js/client/service/current-user-service.js',
-        // projectDir + '/js/client/service/stake-service.js',
-        // projectDir + '/js/client/app-controller.js',
-        // projectDir + '/js/client/bonus-controller.js',
-        // projectDir + '/js/client/main-controller.js',
-        // projectDir + '/js/client/security-controller.js',
-        // projectDir + '/js/client/login-controller.js',
-        // projectDir + '/js/client/registration-controller.js',
-        // projectDir + '/js/client/service/update-service.js',
-        // projectDir + '/js/client/recommend-auctions-controller.js',
-        // projectDir + '/js/client/my-auctions-controller.js',
-        // projectDir + '/js/client/auction-detail-controller.js',
         projectDir + '/js/client/directive/notify-directive.js',
-        // projectDir + '/js/client/directive/file-upload-cancel-directive.js',
-        // projectDir + '/js/client/directive/show-cut-image-directive.js',
-        // projectDir + '/js/client/autostake-controller.js',
-        // projectDir + '/js/client/filter/order-object-by-filter.js',
-        // projectDir + '/js/client/forgot-password-controller.js',
-        //projectDir + '/js/client/service/web-socket-service.js'
     ])
         .pipe(babel({
             presets: ['babel-preset-es2015']

@@ -67,4 +67,67 @@ class CatalogController extends Controller
 
         return new JsonResponse($parsedProducts);
     }
+
+    /**
+     * @Route("/search/products", name="search_catalog_products")
+     */
+    public function searchProductsAction(Request $request)
+    {
+        $params = $request->query->all();
+
+        $text = $params["text"];
+
+        if(!$text || strlen($text) < 2){
+            return new JsonResponse([]);
+        }
+
+        $productsSearch = $this->getDoctrine()->getRepository(Product::class)->findByText($text);
+
+        $parsedProducts = [];
+
+        /** @var Product $product */
+        foreach ($productsSearch as $product){
+            $parsedProducts[] = $product->toArray();
+        }
+
+        return new JsonResponse($parsedProducts);
+    }
+
+    /**
+     * @Route("/search/results", name="search_catalog_products_results")
+     */
+    public function searchProductsResultsAction(Request $request)
+    {
+        $params = $request->query->all();
+
+        $count = (int)$params["count"];
+        $sort = $params["sort"];
+        $text = $params["text"];
+
+        $products = $this->getDoctrine()->getRepository(Product::class)
+            ->findByTextAndParams($count, $sort, $text);
+
+        $parsedProducts = [];
+
+        /** @var Product $product */
+        foreach ($products as $product){
+            $parsedProducts[] = $product->toArray();
+        }
+
+        return new JsonResponse($parsedProducts);
+    }
+
+    /**
+     * @Route("/show/search/results", name="show_search_catalog_products_results")
+     */
+    public function showSearchProductsResultsAction(Request $request)
+    {
+        $params = $request->query->all();
+
+        $text = $params["text"];
+
+        return $this->render('client/catalog/search-result.html.twig', [
+            "text" => $text,
+        ]);
+    }
 }

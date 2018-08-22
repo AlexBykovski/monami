@@ -10,20 +10,34 @@
         this.products = [];
         this.filters = {
             sort: "cost",
-            count: 16
+            count: 16,
+            text: ""
         };
 
-        function init(idGroupS) {
+        function init(idGroupS, textS) {
             idGroup = idGroupS;
+
+            if(textS){
+                self.filters.text = textS;
+            }
+
             updateProducts();
         }
 
         function updateProducts() {
+            let url = '/catalog/' + idGroup + '/filter/';
+
+            if(self.filters.text){
+                url = '/catalog/search/results';
+            }
+
             $http({
                 method: 'GET',
-                url: '/catalog/' + idGroup + '/filter/',
+                url: url,
                 params: self.filters
             }).then(function successCallback(response) {
+                console.log(self.filters);
+                console.log(self.products);
                 self.products = response.data;
             }, function errorCallback(error) {
                 console.error(error);

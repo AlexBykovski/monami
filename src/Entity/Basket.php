@@ -139,8 +139,8 @@ class Basket
 
         return [
             "products" => $products,
-            "sum" => $sum,
-            "sumDiscounted" => $sumDiscounted,
+            "sum" => number_format($sum, 2),
+            "sumDiscounted" => number_format($sumDiscounted, 2),
             "discount" => $this->promoCode instanceof PromoCode ? $this->promoCode->getDiscount() : 0
         ];
     }

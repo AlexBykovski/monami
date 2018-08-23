@@ -31,16 +31,28 @@ gulp.task('sass', function () {
 });
 
 gulp.task('js-libs', function () {
+    gulp.src([
+        projectDir + '/bower-components/jquery/dist/jquery.js',
+        projectDir + '/js/vendor/owl.carousel.min.js',
+    ])
+        .pipe(concat('libs1.min.js'))
+        .pipe(uglify())
+        .pipe(gulp.dest(projectDistDir + '/js'));
+
+    gulp.src([
+        projectDir + '/js/vendor/ninja-slider.js',
+    ])
+        .pipe(concat('ninja-slider.min.js'))
+        .pipe(uglify())
+        .pipe(gulp.dest(projectDistDir + '/js'));
+
 	return gulp.src([
-			projectDir + '/bower-components/jquery/dist/jquery.js',
-			projectDir + '/js/vendor/owl.carousel.min.js',
-			projectDir + '/js/vendor/ninja-slider.js',
 			projectDir + '/js/vendor/thumbnail-slider.js',
 			projectDir + '/bower-components/angular/angular.js',
 			projectDir + '/bower-components/bootstrap/dist/js/bootstrap.js',
 			projectDir + '/bower-components/remarkable-bootstrap-notify/dist/bootstrap-notify.min.js'
 		])
-		.pipe(concat('libs.min.js'))
+		.pipe(concat('libs2.min.js'))
 		.pipe(uglify())
 		.pipe(gulp.dest(projectDistDir + '/js'));
 });

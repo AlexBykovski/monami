@@ -7,7 +7,7 @@ let gulp           = require('gulp'),
 		rename         = require('gulp-rename'),
 		del            = require('del'),
 		imagemin       = require('gulp-imagemin'),
-		pngquant       = require('imagemin-pngquant'),
+//		pngquant       = require('imagemin-pngquant'),
 		cache          = require('gulp-cache'),
 		autoprefixer   = require('gulp-autoprefixer'),
 		bourbon        = require('node-bourbon'),
@@ -92,7 +92,7 @@ gulp.task('imagemin', function () {
 		.pipe(gulp.dest(projectDistImageDir));
 });
 
-gulp.task('build', ['removedist', 'imagemin', 'sass', 'js-libs', 'client-js', 'simple-move-fonts', 'bower-components-css'], function () {
+gulp.task('build', ['sass', 'js-libs', 'client-js', 'simple-move-fonts', 'bower-components-css'], function () {
 });
 
 gulp.task('removedist', function () { return del.sync(projectDistDir); });

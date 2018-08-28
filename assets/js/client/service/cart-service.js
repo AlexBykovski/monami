@@ -40,7 +40,6 @@
             },
             removeFromCart: function(idProduct) {
                 let self = this;
-                console.log(idProduct);
 
                 $http({
                     method: 'POST',

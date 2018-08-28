@@ -4,8 +4,6 @@ $(document).ready(function () {
 	$('.header-show-all-contacts .show-contacts-head').click(function () {
 		var headerShowAllContacts = $(this).parent();
 
-		console.log(headerShowAllContacts)		
-
 		function showContactsBackdropClick () {
 			$(headerShowAllContacts).removeClass('active');
 			$('.header-show-all-contacts .show-contacts-backdrop').off('click', showContactsBackdropClick);

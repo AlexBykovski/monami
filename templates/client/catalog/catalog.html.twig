@@ -98,15 +98,22 @@
 									<div class="product-price" ng-bind="product.cost + ' BYN'"></div>
 
 									<div class="product-controls">
-										<button class="product-add-to-cart-btn bttn bttn-xs bttn-sky-blue-gradient bttn-border"
-												ng-click="app.CartService.addToCart(product.id, product.count)">
-											<i class="fa fa-shopping-cart"></i> &nbsp; В корзину
-										</button>
+										{% if app.user %}
+											<button class="product-add-to-cart-btn bttn bttn-xs bttn-sky-blue-gradient bttn-border">
+												<i class="fa fa-shopping-cart"></i> &nbsp; В корзину
+											</button>
+										{% else %}
+											<button class="product-add-to-cart-btn bttn bttn-xs bttn-sky-blue-gradient bttn-border"
+													ng-click="app.CartService.addToCart(product.id, product.count)">
+												<i class="fa fa-shopping-cart"></i> &nbsp; В корзину
+											</button>
+										{% endif %}
 
-										<span class="product-quantity-input-wrap" ng-init="product.count = 1">
+										<span class="product-quantity-input-wrap" ng-init="product.count = 1"></span>
 										<span class="decrem-quant" ng-click="product.count === 1 ? 1 : product.count = product.count - 1"><i class="fa fa-angle-left"></i></span>
 										<input type="text" class="quant-input" ng-model="product.count" disabled>
 										<span class="increm-quant" ng-click="product.count = product.count + 1"><i class="fa fa-angle-right"></i></span>
+
 									</span>
 									</div>
 								</div>

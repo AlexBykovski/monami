@@ -22,7 +22,7 @@
 				</div>
 			</section>
 
-			<section id="product-inner-sect">
+			<section id="product-inner-sect" ng-init="leftCount = {{ product.leftCount }}">
 
 				<div class="product-intro-wrap">
 					<div class="container">
@@ -38,7 +38,7 @@
 									<h2 class="product-title">{{ product.name }}</h2>
 
 									<ul class="product-descr-list">
-										<li class="descr-item">ID {{ product.apiId }}</li>
+										<li class="descr-item" ng-bind="'Осталось: ' + leftCount"></li>
 										<li class="descr-item">Код товара: {{ product.apiId }}</li>
 									</ul>
 
@@ -59,15 +59,21 @@
 									</div>
 
 									<div class="product-controls">
-										<button class="product-add-to-cart-btn bttn bttn-lg bttn-sky-blue-gradient"
-												ng-click="app.CartService.addToCart('{{ product.id }}', count_{{ product.id }})">
-											<i class="fa fa-shopping-cart"></i> &nbsp; В корзину
-										</button>
+										{% if app.user %}
+											<button class="product-add-to-cart-btn bttn bttn-lg bttn-sky-blue-gradient"
+													ng-click="app.CartService.addToCart('{{ product.id }}', count_{{ product.id }}); leftCount = leftCount - count_{{ product.id }}; count_{{ product.id }} = leftCount > 0 ? 1 : 0;">
+												<i class="fa fa-shopping-cart"></i> &nbsp; В корзину
+											</button>
+										{% else %}
+											<button class="product-add-to-cart-btn bttn bttn-lg bttn-sky-blue-gradient">
+												<i class="fa fa-shopping-cart"></i> &nbsp; В корзину
+											</button>
+										{% endif %}
 
-										<span class="product-quantity-input-wrap" ng-init="count_{{ product.id }} = 1">
-										<span class="decrem-quant" ng-click="count_{{ product.id }} === 1 ? 1 : count_{{ product.id }} = count_{{ product.id }} - 1"><i class="fa fa-angle-left"></i></span>
+										<span class="product-quantity-input-wrap" ng-init="count_{{ product.id }} = leftCount > 0 ? 1 : 0">
+										<span class="decrem-quant" ng-click="count_{{ product.id }} < 2 ? count_{{ product.id }} : count_{{ product.id }} = count_{{ product.id }} - 1"><i class="fa fa-angle-left"></i></span>
 										<input type="text" class="quant-input" ng-model="count_{{ product.id }}" disabled>
-										<span class="increm-quant" ng-click="count_{{ product.id }} = count_{{ product.id }} + 1"><i class="fa fa-angle-right"></i></span>
+										<span class="increm-quant" ng-click="count_{{ product.id }} = count_{{ product.id }} == leftCount ? count_{{ product.id }} : count_{{ product.id }} + 1"><i class="fa fa-angle-right"></i></span>
 									</span>
 									</div>
 								</div>

@@ -36,8 +36,6 @@
                 url: url,
                 params: self.filters
             }).then(function successCallback(response) {
-                console.log(self.filters);
-                console.log(self.products);
                 self.products = response.data;
             }, function errorCallback(error) {
                 console.error(error);

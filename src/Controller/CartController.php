@@ -55,6 +55,8 @@ class CartController extends Controller
             $em->persist($newBasketProduct);
         }
 
+        $product->removeCount($count);
+
         $em->flush();
         $em->refresh($basket);
 
@@ -87,6 +89,8 @@ class CartController extends Controller
         $basketProduct = $basket->getBasketProductById($idProduct);
 
         if($basketProduct instanceof BasketProduct) {
+            $product->addCount($basketProduct->getCount());
+
             $em->remove($basketProduct);
             $em->flush();
         }
@@ -123,7 +127,9 @@ class CartController extends Controller
         $basketProduct = $basket->getBasketProductById($idProduct);
 
         if($basketProduct instanceof BasketProduct) {
+            $product->addCount($basketProduct->getCount());
             $basketProduct->setCount($count);
+            $product->addCount($basketProduct->getCount());
 
             if($basketProduct->getCount() === 0){
                 $em->remove($basketProduct);

@@ -303,6 +303,16 @@ class Product
         $this->description = $description;
     }
 
+    public function addCount($count)
+    {
+        $this->leftCount += $count;
+    }
+
+    public function removeCount($count)
+    {
+        $this->leftCount -= $count;
+    }
+
     public function toArray()
     {
         return [
@@ -312,6 +322,7 @@ class Product
             "apiId" => $this->apiId,
             "id" => $this->id,
             "description" => $this->description,
+            "leftCount" => $this->leftCount,
         ];
     }
 }

@@ -14,7 +14,7 @@
 								<ul>
 									{% for slide in slides %}
 										<li>
-										  <a class="thumb" href="{{ slide.link }}" style="background-image: url('{{ image_url(slide.image) }}') !important;"></a>
+											<a href="{{ slide.link }}"><span class="thumb" href="{{ slide.link }}" style="background-image: url('{{ image_url(slide.image) }}')"></span></a>
 										</li>
 									{% endfor %}
 								</ul>
@@ -26,7 +26,7 @@
 								<ul>
                                     {% for slide in slides %}
 										<li>
-											<a class="ns-img" href="{{ slide.link }}" style="background-image: url({{ image_url(slide.image) }}) !important;"></a>
+											<a href="{{ slide.link }}"><span class="ns-img" style="cursor: pointer; background-image: url({{ image_url(slide.image) }})"></span></a>
 										</li>
 									{% endfor %}
 								</ul>

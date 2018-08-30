@@ -109,11 +109,11 @@
 											</button>
 										{% endif %}
 
-										<span class="product-quantity-input-wrap" ng-init="product.count = 1"></span>
-										<span class="decrem-quant" ng-click="product.count === 1 ? 1 : product.count = product.count - 1"><i class="fa fa-angle-left"></i></span>
-										<input type="text" class="quant-input" ng-model="product.count" disabled>
-										<span class="increm-quant" ng-click="product.count = product.count + 1"><i class="fa fa-angle-right"></i></span>
-
+										<span class="product-quantity-input-wrap" ng-init="product.count = 1">
+											<span class="decrem-quant" ng-click="product.count === 1 ? 1 : product.count = product.count - 1"><i class="fa fa-angle-left"></i></span>
+											<input type="text" class="quant-input" ng-model="product.count" disabled>
+											<span class="increm-quant" ng-click="product.count = product.count + 1"><i class="fa fa-angle-right"></i></span>
+										</span>
 									</span>
 									</div>
 								</div>

@@ -160,7 +160,7 @@
                         <form class="header-search-bar-form" ng-controller="SearchCtrl as search" ng-class="{'hints-active' : search.products.length > 0}">
                             <input type="text" class="search-bar" ng-model="search.text" ng-change="search.text.length > 1 ? search.search(search.text) : ''" placeholder="Введите ваш запрос">
                             <button class="search-submit-btn" ng-click="search.showResults(search.text)"><img src="{{ image_url('default/icons/search-icon.png') }}" id="search-icon" alt=""></button>
-                            <div class="search-hints-wrapper">
+                            <div class="search-hints-wrapper" ng-show="search.products.length > 0">
                                 <ul class="hints-list" ng-repeat="product in search.products">
                                     <li class="hint-item"><a ng-href="/product/{{ '{{ product.id }}' }}" ng-bind="product.name"></a></li>
                                 </ul>
@@ -190,7 +190,7 @@
                         <form class="header-search-bar-form" ng-controller="SearchCtrl as search" ng-class="{'hints-active' : search.products.length > 0}">
                             <input type="text" class="search-bar" ng-model="search.text" ng-change="search.text.length > 1 ? search.search(search.text) : ''" placeholder="Введите ваш запрос">
                             <button class="search-submit-btn" ng-click="search.showResults(search.text)"><img src="{{ image_url('default/icons/search-icon.png') }}" id="search-icon" alt=""></button>
-                            <div class="search-hints-wrapper">
+                            <div class="search-hints-wrapper" ng-show="search.products.length > 0">
                                 <ul class="hints-list" ng-repeat="product in search.products">
                                     <li class="hint-item"><a ng-href="/product/{{ '{{ product.id }}' }}" ng-bind="product.name"></a></li>
                                 </ul>

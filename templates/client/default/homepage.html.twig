@@ -14,7 +14,7 @@
 								<ul>
 									{% for slide in slides %}
 										<li>
-											<a href="{{ slide.link }}"><span class="thumb" href="{{ slide.link }}" style="background-image: url('{{ image_url(slide.image) }}')"></span></a>
+											<a class="thumb" href="{{ image_url(slide.image) }}"></a>
 										</li>
 									{% endfor %}
 								</ul>

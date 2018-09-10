@@ -99,12 +99,12 @@
 
 									<div class="product-controls">
 										{% if app.user %}
-											<button class="product-add-to-cart-btn bttn bttn-xs bttn-sky-blue-gradient bttn-border">
+											<button class="product-add-to-cart-btn bttn bttn-xs bttn-sky-blue-gradient bttn-border"
+                                                    ng-click="app.CartService.addToCart(product.id, product.count)">
 												<i class="fa fa-shopping-cart"></i> &nbsp; В корзину
 											</button>
 										{% else %}
-											<button class="product-add-to-cart-btn bttn bttn-xs bttn-sky-blue-gradient bttn-border"
-													ng-click="app.CartService.addToCart(product.id, product.count)">
+											<button class="product-add-to-cart-btn bttn bttn-xs bttn-sky-blue-gradient bttn-border">
 												<i class="fa fa-shopping-cart"></i> &nbsp; В корзину
 											</button>
 										{% endif %}

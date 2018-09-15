@@ -8,15 +8,57 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-12">
+					{#<div class="header-slider">#}
+						{#<div id="thumbnail-slider">#}
+							{#<div class="inner">#}
+								{#<ul>#}
+									{#{% for slide in slides %}#}
+										{#<li>#}
+											{#<a class="thumb" href="{{ image_url(slide.image) }}"></a>#}
+										{#</li>#}
+									{#{% endfor %}#}
+								{#</ul>#}
+							{#</div>#}
+						{#</div>#}
+
+						{#<div id="ninja-slider">#}
+							{#<div class="slider-inner">#}
+								{#<ul>#}
+                                    {#{% for slide in slides %}#}
+										{#<li>#}
+											{#<a href="{{ slide.link }}"><span class="ns-img" style="cursor: pointer; background-image: url({{ image_url(slide.image) }})"></span></a>#}
+										{#</li>#}
+									{#{% endfor %}#}
+								{#</ul>#}
+							{#</div>#}
+						{#</div>#}
+					{#</div>#}
+
 					<div class="header-slider">
 						<div id="thumbnail-slider">
 							<div class="inner">
 								<ul>
-									{% for slide in slides %}
-										<li>
-											<a class="thumb" href="{{ image_url(slide.image) }}"></a>
-										</li>
-									{% endfor %}
+									<li>
+										<a class="thumb" href="{{ image_url("default/header-slider-img1.jpg") }}"></a>
+									</li>
+									<li>
+										<a class="thumb" href="{{ image_url("default/header-slider-img1.jpg") }}"></a>
+									</li>
+									<li>
+										<a class="thumb" href="{{ image_url("default/header-slider-img1.jpg") }}"></a>
+									</li>
+									<li>
+										<a class="thumb" href="{{ image_url("default/header-slider-img1.jpg") }}"></a>
+									</li>
+									<li>
+										<a class="thumb" href="{{ image_url("default/header-slider-img1.jpg") }}"></a>
+									</li>
+									<li>
+										<a class="thumb" href="{{ image_url("default/header-slider-img1.jpg") }}"></a>
+									</li>
+									<li>
+										<a class="thumb" href="{{ image_url("default/header-slider-img1.jpg") }}"></a>
+									</li>
 								</ul>
 							</div>
 						</div>
@@ -24,11 +66,13 @@
 						<div id="ninja-slider">
 							<div class="slider-inner">
 								<ul>
-                                    {% for slide in slides %}
-										<li>
-											<a href="{{ slide.link }}"><span class="ns-img" style="cursor: pointer; background-image: url({{ image_url(slide.image) }})"></span></a>
-										</li>
-									{% endfor %}
+									<li><a class="ns-img" href="{{ image_url("default/header-slider-img1.jpg") }}"></a></li>
+									<li><a class="ns-img" href="{{ image_url("default/header-slider-img1.jpg") }}"></a></li>
+									<li><a class="ns-img" href="{{ image_url("default/header-slider-img1.jpg") }}"></a></li>
+									<li><a class="ns-img" href="{{ image_url("default/header-slider-img1.jpg") }}"></a></li>
+									<li><a class="ns-img" href="{{ image_url("default/header-slider-img1.jpg") }}"></a></li>
+									<li><a class="ns-img" href="{{ image_url("default/header-slider-img1.jpg") }}"></a></li>
+									<li><a class="ns-img" href="{{ image_url("default/header-slider-img1.jpg") }}"></a></li>
 								</ul>
 							</div>
 						</div>

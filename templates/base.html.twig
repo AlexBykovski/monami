@@ -338,5 +338,14 @@
 <script type="text/javascript" src="/build/js/client.min.js"></script>
 <!-- endbuild -->
 
+<script>
+    if($("#thumbnail-slider").length > 0 && $("#ninja-slider").length > 0){
+        setTimeout(function(){
+            var mcThumbnailSlider = new ThumbnailSlider(thumbnailSliderOptions);
+            var nslider = new NinjaSlider(nsOptions);
+        }, 5000);
+    }
+</script>
+
 </body>
 </html>

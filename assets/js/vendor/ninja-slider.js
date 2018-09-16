@@ -17,7 +17,7 @@ var nsOptions =
 };
 
 $(document).ready(function(){
-    var nslider = new NinjaSlider(nsOptions);
+    //var nslider = new NinjaSlider(nsOptions);
 });
 
 /* Ninja Slider v2016.12.29 Copyright www.menucool.com */

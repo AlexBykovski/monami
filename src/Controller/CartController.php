@@ -4,8 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Basket;
 use App\Entity\BasketProduct;
+use App\Entity\Client;
 use App\Entity\Product;
 use App\Entity\PromoCode;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -16,7 +18,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 /**
  * @Route("/cart")
  *
- * @Security("has_role('ROLE_CLIENT')")
  */
 class CartController extends Controller
 {
@@ -25,8 +26,9 @@ class CartController extends Controller
      */
     public function addProductToCartAction(Request $request)
     {
+        $user = $this->getUser();
         /** @var Basket $basket */
-        $basket = $this->getUser()->getBasket();
+        $basket = $user ? $user->getBasket() : $this->getCartForGuest($request);
         /** @var EntityManagerInterface $em */
         $em = $this->getDoctrine()->getManager();
 
@@ -52,13 +54,22 @@ class CartController extends Controller
         else{
             $newBasketProduct = new BasketProduct($product, $basket, $count);
 
-            $em->persist($newBasketProduct);
+            if($user) {
+                $em->persist($newBasketProduct);
+            }
+
+            $basketProducts = $basket->getBasketProducts();
+            $basketProducts->add($newBasketProduct);
+            $basket->setBasketProducts($basketProducts);
         }
 
         $product->removeCount($count);
 
         $em->flush();
-        $em->refresh($basket);
+
+        if($user) {
+            $em->refresh($basket);
+        }
 
         return new JsonResponse(["cart" => $basket->toArray()]);
     }
@@ -68,8 +79,9 @@ class CartController extends Controller
      */
     public function removeProductFromCartAction(Request $request)
     {
+        $user = $this->getUser();
         /** @var Basket $basket */
-        $basket = $this->getUser()->getBasket();
+        $basket = $user ? $user->getBasket() : $this->getCartForGuest($request);
         /** @var EntityManagerInterface $em */
         $em = $this->getDoctrine()->getManager();
 
@@ -91,11 +103,27 @@ class CartController extends Controller
         if($basketProduct instanceof BasketProduct) {
             $product->addCount($basketProduct->getCount());
 
-            $em->remove($basketProduct);
-            $em->flush();
+            if($user) {
+                $em->remove($basketProduct);
+                $em->flush();
+            }
+            else{
+                $basketProducts = new ArrayCollection();
+
+                /** @var BasketProduct $basketProductCookie */
+                foreach ($basket->getBasketProducts() as $basketProductCookie){
+                    if($basketProductCookie->getProduct()->getId() !== $idProduct){
+                        $basketProducts->add($basketProductCookie);
+                    }
+                }
+
+                $basket->setBasketProducts($basketProducts);
+            }
         }
 
-        $em->refresh($basket);
+        if($user) {
+            $em->refresh($basket);
+        }
 
         return new JsonResponse(["cart" => $basket->toArray()]);
     }
@@ -105,8 +133,9 @@ class CartController extends Controller
      */
     public function changeCountProductInCartAction(Request $request)
     {
+        $user = $this->getUser();
         /** @var Basket $basket */
-        $basket = $this->getUser()->getBasket();
+        $basket = $user ? $user->getBasket() : $this->getCartForGuest($request);
         /** @var EntityManagerInterface $em */
         $em = $this->getDoctrine()->getManager();
 
@@ -127,17 +156,40 @@ class CartController extends Controller
         $basketProduct = $basket->getBasketProductById($idProduct);
 
         if($basketProduct instanceof BasketProduct) {
-            $product->addCount($basketProduct->getCount());
-            $basketProduct->setCount($count);
-            $product->addCount($basketProduct->getCount());
+            $absDiff = abs($basketProduct->getCount() - $count);
 
-            if($basketProduct->getCount() === 0){
-                $em->remove($basketProduct);
-                $em->flush();
+            if($basketProduct->getCount() > $count){
+                $product->removeCount($absDiff);
             }
+            else{
+                $product->addCount($absDiff);
+            }
+
+            $basketProduct->setCount($count);
+
+            if($basketProduct->getCount() === 0 && $user){
+                $em->remove($basketProduct);
+            }
+
+            $basketProducts = new ArrayCollection();
+
+            /** @var BasketProduct $basketProductCookie */
+            foreach ($basket->getBasketProducts() as $basketProductCookie){
+                if($basketProductCookie->getProduct()->getId() === $idProduct){
+                    $basketProducts->add($basketProductCookie);
+                }
+            }
+
+            $basketProducts->add($basketProduct);
+
+            $basket->setBasketProducts($basketProducts);
+
+            $em->flush();
         }
 
-        $em->refresh($basket);
+        if($user) {
+            $em->refresh($basket);
+        }
 
         return new JsonResponse(["cart" => $basket->toArray()]);
     }
@@ -147,8 +199,9 @@ class CartController extends Controller
      */
     public function usePromoCodeAction(Request $request)
     {
+        $user = $this->getUser();
         /** @var Basket $basket */
-        $basket = $this->getUser()->getBasket();
+        $basket = $user ? $user->getBasket() : $this->getCartForGuest($request);
         /** @var EntityManagerInterface $em */
         $em = $this->getDoctrine()->getManager();
 
@@ -169,7 +222,10 @@ class CartController extends Controller
         $promoCode->setIsUsed(true);
 
         $em->flush();
-        $em->refresh($basket);
+
+        if($user) {
+            $em->refresh($basket);
+        }
 
         return new JsonResponse(["cart" => $basket->toArray()]);
     }
@@ -179,23 +235,65 @@ class CartController extends Controller
      */
     public function filterSubcategoriesAction(Request $request)
     {
+        $user = $this->getUser();
+        /** @var Basket $basket */
+        $basket = $user ? $user->getBasket() : $this->getCartForGuest($request);
+
         $params = $request->query->all();
 
         $count = (int)$params["count"];
 
-        $products = $this->getDoctrine()->getRepository(BasketProduct::class)->findBy(
-            ["basket" => $this->getUser()->getBasket()],
-            null,
-            $count
-        );
+//        $products = $this->getDoctrine()->getRepository(BasketProduct::class)->findBy(
+//            ["basket" => $basket],
+//            null,
+//            $count
+//        );
 
         $parsedProducts = [];
 
         /** @var BasketProduct $product */
-        foreach ($products as $product){
+        foreach ($basket->getBasketProducts() as $product){
+            if($count <= 0){
+                break;
+            }
+
             $parsedProducts[] = $product->toArray();
         }
 
         return new JsonResponse($parsedProducts);
+    }
+
+    private function getCartForGuest(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $cartCookies = $request->cookies->get("guest-cart");
+
+        $cart = new Basket(new Client("", "", "", "", null, null));
+
+        if(!$cartCookies){
+            return $cart;
+        }
+
+        $cartCookies = json_decode($cartCookies, true);
+
+        $basketProducts = new ArrayCollection();
+
+        foreach ($cartCookies["products"] as $id => $count){
+            $product = $em->getRepository(Product::class)->find($id);
+            $cartProduct = new BasketProduct($product, $cart, $count);
+
+            $basketProducts->add($cartProduct);
+        }
+
+        $cart->setBasketProducts($basketProducts);
+
+        if($cartCookies["discount"] > 0){
+            $promocode = new PromoCode();
+            $promocode->setDiscount($cartCookies["discount"]);
+
+            $cart->setPromoCode($promocode);
+        }
+
+        return $cart;
     }
 }

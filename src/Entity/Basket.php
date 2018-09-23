@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -28,7 +29,7 @@ class Basket
     private $promoCode;
 
     /**
-     * @var ArrayCollection
+     * @var Collection
      *
      * One Basket has Many BasketProducts.
      * @ORM\OneToMany(targetEntity="BasketProduct", mappedBy="basket")
@@ -88,17 +89,17 @@ class Basket
     }
 
     /**
-     * @return ArrayCollection
+     * @return Collection
      */
-    public function getBasketProducts(): ArrayCollection
+    public function getBasketProducts(): Collection
     {
         return $this->basketProducts;
     }
 
     /**
-     * @param ArrayCollection $basketProducts
+     * @param Collection $basketProducts
      */
-    public function setBasketProducts(ArrayCollection $basketProducts): void
+    public function setBasketProducts(Collection $basketProducts): void
     {
         $this->basketProducts = $basketProducts;
     }

@@ -22,7 +22,8 @@
 
 </head>
 
-<body ng-controller="AppCtrl as app" ng-init="app.CartService.setCart('{{ app.user != null ? app.user.basket.toArray() | json_encode : null }}')">
+{% set cart = app.user != null ? app.user.basket.toArray() | json_encode : app.request.cookies.get("guest-cart") %}
+<body ng-controller="AppCtrl as app" ng-init="app.CartService.init('{{ cart }}', '{{ app.user ? 0 : 1  }}'); ">
 
 <div id="main-wrap" class="main-wrapper">
 
@@ -331,6 +332,7 @@
 <script type="text/javascript" src="/build/js/libs/jquery.js"></script>
 <script type="text/javascript" src="/build/js/libs/owl.carousel.min.js"></script>
 <script type="text/javascript" src="/build/js/libs/angular.js"></script>
+<script type="text/javascript" src="/build/js/libs/angular-cookies.min.js"></script>
 <script type="text/javascript" src="/build/js/libs/bootstrap.js"></script>
 <script type="text/javascript" src="/build/js/libs/bootstrap-notify.min.js"></script>
 <script type="text/javascript" src="/build/js/client.min.js"></script>

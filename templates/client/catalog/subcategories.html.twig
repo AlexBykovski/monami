@@ -12,9 +12,12 @@
 							
 							<ul class="breadcrumbs">
 								<li class="breadcrumbs-item"><a href="{{ path("homepage") }}">Главная</a></li>
-                                {{ myMacros.recursiveGroupNavigation(group) }}
-								<li class="breadcrumbs-item active">{{ group.name }}</li>
-								{#<li class="breadcrumbs-item">Губка CMM-155</li>#}
+								{% if group %}
+									{{ myMacros.recursiveGroupNavigation(group) }}
+									<li class="breadcrumbs-item active">{{ group.name }}</li>
+								{% else %}
+									<li class="breadcrumbs-item active">Каталог</li>
+								{% endif %}
 							</ul>
 
 						</div>
@@ -28,12 +31,13 @@
 						<div class="col-12">
 							
 							<div class="sect-title">
-								<h3>{{ group.name }}</h3>
+								<h3>{{ group ? group.name : "Каталог" }}</h3>
 							</div>
 
 							<div class="subcategories-list">
 								<div class="row">
-									{% for childGroup in group.childrenGroups %}
+									{% set showGroups = group ? group.childrenGroups : parentGroups %}
+									{% for childGroup in showGroups %}
 									<div class="col-xs-6 col-sm-4 col-md-3">
 										
 										<a href="{{ group_url(childGroup) }}" class="subcategory-item">

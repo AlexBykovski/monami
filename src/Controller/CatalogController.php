@@ -28,14 +28,22 @@ class CatalogController extends Controller
     }
 
     /**
+     * @Route("/", name="show_general_catalog")
      * @Route("/subcategories/{idGroup}", name="show_catalog_subcategories")
      *
      * @ParamConverter("group", class="App:ProductGroup", options={"id" = "idGroup"})
      */
-    public function showSubcategoriesAction(Request $request, ProductGroup $group)
+    public function showSubcategoriesAction(Request $request, ProductGroup $group = null)
     {
+        $parentGroups = [];
+
+        if(!$group) {
+            $parentGroups = $this->getDoctrine()->getRepository(ProductGroup::class)->findBy(["parentGroup" => null]);
+        }
+
         return $this->render('client/catalog/subcategories.html.twig', [
             "group" => $group,
+            "parentGroups" => $parentGroups
         ]);
     }
 

@@ -186,9 +186,9 @@
 											ng-click="app.CartService.addToCart('{{ product.id }}', count_{{ product.id }})"><i class="fa fa-shopping-cart"></i> &nbsp; В корзину</button>
 
 									<span class="product-quantity-input-wrap" ng-init="count_{{ product.id }} = 1">
-										<span class="decrem-quant" ng-click="count_{{ product.id }} === 1 ? 1 : count_{{ product.id }} = count_{{ product.id }} - 1"><i class="fa fa-angle-left"></i></span>
+										<span class="decrem-quant" ng-click="count_{{ product.id }} === 1 ? 1 : count_{{ product.id }} = count_{{ product.id }} - 1">-</span>
 										<input type="text" class="quant-input" ng-model="count_{{ product.id }}" disabled>
-										<span class="increm-quant" ng-click="count_{{ product.id }} = count_{{ product.id }} + 1"><i class="fa fa-angle-right"></i></span>
+										<span class="increm-quant" ng-click="count_{{ product.id }} = count_{{ product.id }} + 1">+</span>
 									</span>
 								</div>
 							</div>

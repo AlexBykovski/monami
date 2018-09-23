@@ -37,6 +37,7 @@ gulp.task('js-libs', function () {
         projectDir + '/js/vendor/ninja-slider.js',
         projectDir + '/js/vendor/thumbnail-slider.js',
         projectDir + '/bower-components/angular/angular.js',
+        projectDir + '/bower-components/angular-cookies/angular-cookies.min.js',
         projectDir + '/bower-components/bootstrap/dist/js/bootstrap.js',
         projectDir + '/bower-components/remarkable-bootstrap-notify/dist/bootstrap-notify.min.js'
     ])
@@ -48,6 +49,7 @@ gulp.task('js-libs', function () {
         	projectDir + '/js/vendor/ninja-slider.js',
 			projectDir + '/js/vendor/thumbnail-slider.js',
 			projectDir + '/bower-components/angular/angular.js',
+			projectDir + '/bower-components/angular-cookies/angular-cookies.js',
 			projectDir + '/bower-components/bootstrap/dist/js/bootstrap.js',
 			projectDir + '/bower-components/remarkable-bootstrap-notify/dist/bootstrap-notify.min.js'
 		])

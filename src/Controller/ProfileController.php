@@ -2,6 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Basket;
+use App\Entity\BasketProduct;
+use App\Entity\Client;
+use App\Entity\Product;
+use App\Entity\PromoCode;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -10,7 +16,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 /**
  * @Route("/profile")
  *
- * @Security("has_role('ROLE_CLIENT')")
  */
 class ProfileController extends Controller
 {
@@ -19,11 +24,15 @@ class ProfileController extends Controller
      */
     public function showProfileBasketAction(Request $request)
     {
-        return $this->render('client/profile/profile_basket.html.twig', []);
+        return $this->render('client/profile/profile_basket.html.twig', [
+            "cart" => $this->getCartForGuest($request)
+        ]);
     }
 
     /**
      * @Route("/feedback", name="show_profile_feedback")
+     *
+     * @Security("has_role('ROLE_CLIENT')")
      */
     public function showProfileFeedbackAction(Request $request)
     {
@@ -32,6 +41,8 @@ class ProfileController extends Controller
 
     /**
      * @Route("/orders", name="show_profile_orders")
+     *
+     * @Security("has_role('ROLE_CLIENT')")
      */
     public function showProfileOrdersAction(Request $request)
     {
@@ -40,9 +51,45 @@ class ProfileController extends Controller
 
     /**
      * @Route("/personal", name="show_profile_personal")
+     *
+     * @Security("has_role('ROLE_CLIENT')")
      */
     public function showProfilePersonalAction(Request $request)
     {
         return $this->render('client/profile/profile_personal.html.twig', []);
+    }
+
+    private function getCartForGuest(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $cartCookies = $request->cookies->get("guest-cart");
+
+        $cart = new Basket(new Client("", "", "", "", null, null));
+
+        if(!$cartCookies){
+            return $cart;
+        }
+
+        $cartCookies = json_decode($cartCookies, true);
+
+        $basketProducts = new ArrayCollection();
+
+        foreach ($cartCookies["products"] as $id => $count){
+            $product = $em->getRepository(Product::class)->find($id);
+            $cartProduct = new BasketProduct($product, $cart, $count);
+
+            $basketProducts->add($cartProduct);
+        }
+
+        $cart->setBasketProducts($basketProducts);
+
+        if($cartCookies["discount"] > 0){
+            $promocode = new PromoCode();
+            $promocode->setDiscount($cartCookies["discount"]);
+
+            $cart->setPromoCode($promocode);
+        }
+
+        return $cart;
     }
 }

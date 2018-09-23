@@ -59,16 +59,10 @@
 									</div>
 
 									<div class="product-controls">
-										{% if app.user %}
-											<button class="product-add-to-cart-btn bttn bttn-lg bttn-sky-blue-gradient"
-													ng-click="app.CartService.addToCart('{{ product.id }}', count_{{ product.id }}); leftCount = leftCount - count_{{ product.id }}; count_{{ product.id }} = leftCount > 0 ? 1 : 0;">
-												<i class="fa fa-shopping-cart"></i> &nbsp; В корзину
-											</button>
-										{% else %}
-											<button class="product-add-to-cart-btn bttn bttn-lg bttn-sky-blue-gradient">
-												<i class="fa fa-shopping-cart"></i> &nbsp; В корзину
-											</button>
-										{% endif %}
+										<button class="product-add-to-cart-btn bttn bttn-lg bttn-sky-blue-gradient"
+												ng-click="app.CartService.addToCart('{{ product.id }}', count_{{ product.id }}); leftCount = leftCount - count_{{ product.id }}; count_{{ product.id }} = leftCount > 0 ? 1 : 0;">
+											<i class="fa fa-shopping-cart"></i> &nbsp; В корзину
+										</button>
 
 										<span class="product-quantity-input-wrap" ng-init="count_{{ product.id }} = leftCount > 0 ? 1 : 0">
 										<span class="decrem-quant" ng-click="count_{{ product.id }} < 2 ? count_{{ product.id }} : count_{{ product.id }} = count_{{ product.id }} - 1"><i class="fa fa-angle-left"></i></span>

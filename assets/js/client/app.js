@@ -1,3 +1,3 @@
 (function(angular) {
-    window.appMonami = angular.module('appMonami', []);
+    window.appMonami = angular.module('appMonami', ['ngCookies']);
 })(window.angular);

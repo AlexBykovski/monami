@@ -1,8 +1,8 @@
 (function(appMonami) {
     'use strict';
 
-    appMonami.factory('CartService', ['$http',
-        function($http) {
+    appMonami.factory('CartService', ['$http', '$cookies',
+        function($http, $cookies) {
         let cart = {
             "products": {},
             "sum": 0,
@@ -10,17 +10,48 @@
             "discount": 0,
         };
 
+        let isGuest = false;
+
         return {
-            getCart: function(){
-                return cart;
-            },
-            setCart: function(cartS){
+            init: function (cartS, isGuestS){
+                isGuestS = !!parseInt(isGuestS);
+
+                if(isGuestS){
+                    isGuest = true;
+                    let cartCookies = $cookies.getObject("guest-cart");
+
+                    if(!cartCookies){
+                        cartCookies = cart;
+                        $cookies.putObject("guest-cart", cartCookies, {"path" : "/"});
+                    }
+
+                    cart = cartCookies;
+
+                    return false;
+                }
+                else{
+                    $cookies.remove("guest-cart");
+                }
+
                 if(!cartS){
                     return false;
                 }
 
                 cart = typeof cartS === "string" ? angular.fromJson(cartS) : cartS;
+            },
+            getCart: function(){
+                return cart;
+            },
+            setCart: function(newCart){
+                if(!newCart){
+                    return false;
+                }
 
+                cart = typeof newCart === "string" ? angular.fromJson(newCart) : newCart;
+
+                if(isGuest){
+                    $cookies.putObject("guest-cart", cart, {"path" : "/"});
+                }
             },
             addToCart: function(idProduct, count) {
                 let self = this;

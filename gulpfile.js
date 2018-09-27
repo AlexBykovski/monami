@@ -39,7 +39,8 @@ gulp.task('js-libs', function () {
         projectDir + '/bower-components/angular/angular.js',
         projectDir + '/bower-components/angular-cookies/angular-cookies.min.js',
         projectDir + '/bower-components/bootstrap/dist/js/bootstrap.js',
-        projectDir + '/bower-components/remarkable-bootstrap-notify/dist/bootstrap-notify.min.js'
+        projectDir + '/bower-components/remarkable-bootstrap-notify/dist/bootstrap-notify.min.js',
+        projectDir + '/bower-components/flexslider/jquery.flexslider-min.js'
     ])
         .pipe(gulp.dest(projectDistDir + '/js/libs'));
 
@@ -51,7 +52,8 @@ gulp.task('js-libs', function () {
 			projectDir + '/bower-components/angular/angular.js',
 			projectDir + '/bower-components/angular-cookies/angular-cookies.js',
 			projectDir + '/bower-components/bootstrap/dist/js/bootstrap.js',
-			projectDir + '/bower-components/remarkable-bootstrap-notify/dist/bootstrap-notify.min.js'
+			projectDir + '/bower-components/remarkable-bootstrap-notify/dist/bootstrap-notify.min.js',
+        	projectDir + '/bower-components/flexslider/jquery.flexslider-min.js'
 		])
 		.pipe(concat('libs.min.js'))
 		.pipe(uglify())

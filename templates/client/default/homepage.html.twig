@@ -13,26 +13,18 @@
 						<div id="thumbnail-slider">
 							<div class="inner">
 								<ul>
-									<li><a class="thumb" href="{{ image_url("default/header-slider-img1.jpg") }}"></a></li>
-									<li><a class="thumb" href="{{ image_url("default/header-slider-img1.jpg") }}"></a></li>
-									<li><a class="thumb" href="{{ image_url("default/header-slider-img1.jpg") }}"></a></li>
-									<li><a class="thumb" href="{{ image_url("default/header-slider-img1.jpg") }}"></a></li>
-									<li><a class="thumb" href="{{ image_url("default/header-slider-img1.jpg") }}"></a></li>
-									<li><a class="thumb" href="{{ image_url("default/header-slider-img1.jpg") }}"></a></li>
-									<li><a class="thumb" href="{{ image_url("default/header-slider-img1.jpg") }}"></a></li>
+                                    {% for slide in slides %}
+										<li><a class="thumb" href="{{ image_url(slide.image) }}"></a></li>
+                                    {% endfor %}
 								</ul>
 							</div>
 						</div>
 
 						<div id="header-main-slider" class="flexslider">
 							<ul class="slides">
-								<li><img src="{{ image_url("default/header-slider-img1.jpg") }}" alt=""></li>
-								<li><img src="{{ image_url("default/header-slider-img1.jpg") }}" alt=""></li>
-								<li><img src="{{ image_url("default/header-slider-img1.jpg") }}" alt=""></li>
-								<li><img src="{{ image_url("default/header-slider-img1.jpg") }}" alt=""></li>
-								<li><img src="{{ image_url("default/header-slider-img1.jpg") }}" alt=""></li>
-								<li><img src="{{ image_url("default/header-slider-img1.jpg") }}" alt=""></li>
-								<li><img src="{{ image_url("default/header-slider-img1.jpg") }}" alt=""></li>
+                                {% for slide in slides %}
+									<li><img src="{{ image_url(slide.image) }}" alt=""></li>
+                                {% endfor %}
 							</ul>
 						</div>
 

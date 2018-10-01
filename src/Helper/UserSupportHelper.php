@@ -44,6 +44,6 @@ class UserSupportHelper
                 $feedback->getMessage()
             );
 
-        var_dump($this->mailer->send($message));die;
+        $this->mailer->send($message);
     }
 }

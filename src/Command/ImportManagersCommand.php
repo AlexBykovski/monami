@@ -76,7 +76,7 @@ class ImportManagersCommand extends ContainerAwareCommand
 
         if($manager instanceof Manager){
             $manager->setFullName($fullName);
-            $manager->setPhoto($photo);
+            $manager->setImage($photo);
             $manager->setEmail($email);
             $manager->setPhone($phone);
         }

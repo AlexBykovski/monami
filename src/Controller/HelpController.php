@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Feedback;
 use App\Form\Type\FeedbackForm;
+use App\Helper\UserSupportHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,7 +17,7 @@ class HelpController extends Controller
     /**
      * @Route("/", name="show_help")
      */
-    public function showHelpAction(Request $request)
+    public function showHelpAction(Request $request, UserSupportHelper $helper)
     {
         $feedback = new Feedback();
         $em = $this->getDoctrine()->getManager();
@@ -30,6 +31,8 @@ class HelpController extends Controller
 
             $em->persist($feedback);
             $em->flush();
+
+            $helper->sendEmail($feedback);
 
             $form = $this->createForm(FeedbackForm::class, new Feedback());
 

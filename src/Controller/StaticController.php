@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\ContactsPage;
+use App\Entity\Manager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -29,7 +31,12 @@ class StaticController extends Controller
      */
     public function showContactsAction(Request $request)
     {
-        return $this->render('client/static/contacts.html.twig', []);
+        $em = $this->getDoctrine()->getManager();
+
+        return $this->render('client/static/contacts.html.twig', [
+            "managers" => $em->getRepository(Manager::class)->findAll(),
+            "page" => $em->getRepository(ContactsPage::class)->findAll()[0]
+        ]);
     }
 
     /**

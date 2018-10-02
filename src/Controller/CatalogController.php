@@ -59,12 +59,20 @@ class CatalogController extends Controller
         $count = (int)$params["count"];
         $sort = $params["sort"];
         $orderType = $sort === "createdAt" ? "DESC" : "ASC";
+        $page = array_key_exists("page", $params) ? (int)$params["page"] : 1;
 
         $products = $this->getDoctrine()->getRepository(Product::class)->findBy(
             ["productGroup" => $group],
             [$sort => $orderType],
-            $count
+            $count,
+            ($page - 1) * $count
         );
+
+        $fullCount = count($this->getDoctrine()->getRepository(Product::class)->findBy(
+            ["productGroup" => $group]
+        ));
+
+        $countPages = (int)($fullCount % $count === 0 ? $fullCount / $count : $fullCount / $count + 1);
 
         $parsedProducts = [];
 
@@ -73,7 +81,10 @@ class CatalogController extends Controller
             $parsedProducts[] = $product->toArray();
         }
 
-        return new JsonResponse($parsedProducts);
+        return new JsonResponse([
+            "products" => $parsedProducts,
+            "countPages" => $countPages
+        ]);
     }
 
     /**
@@ -111,9 +122,14 @@ class CatalogController extends Controller
         $count = (int)$params["count"];
         $sort = $params["sort"];
         $text = $params["text"];
+        $page = array_key_exists("page", $params) ? (int)$params["page"] : 1;
 
         $products = $this->getDoctrine()->getRepository(Product::class)
-            ->findByTextAndParams($count, $sort, $text);
+            ->findByTextAndParams($count, $sort, $text, $page);
+
+        $fullCount = $this->getDoctrine()->getRepository(Product::class)
+            ->findCountByText($text);
+        $countPages = (int)($fullCount % $count === 0 ? $fullCount / $count : $fullCount / $count + 1);
 
         $parsedProducts = [];
 
@@ -122,7 +138,10 @@ class CatalogController extends Controller
             $parsedProducts[] = $product->toArray();
         }
 
-        return new JsonResponse($parsedProducts);
+        return new JsonResponse([
+            "products" => $parsedProducts,
+            "countPages" => $countPages
+        ]);
     }
 
     /**

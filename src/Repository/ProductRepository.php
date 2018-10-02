@@ -16,8 +16,19 @@ class ProductRepository extends EntityRepository
             ->getResult();
     }
 
-    public function findByTextAndParams($count, $sort, $text)
+    public function findCountByText($text)
     {
+        return $this->createQueryBuilder('p')
+            ->select('COUNT(p)')
+            ->where("p.name LIKE :text")
+            ->setParameter("text", "%" . $text . "%")
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function findByTextAndParams($count, $sort, $text, $page = 1)
+    {
+        $page = $page > 0 ? $page : 1;
         $orderType = $sort === "createdAt" ? "DESC" : "ASC";
 
         return $this->createQueryBuilder('p')
@@ -25,6 +36,7 @@ class ProductRepository extends EntityRepository
             ->where("p.name LIKE :text")
             ->setParameter("text", "%" . $text . "%")
             ->setMaxResults($count)
+            ->setFirstResult($count * ($page - 1))
             ->orderBy("p." . $sort, $orderType)
             ->getQuery()
             ->getResult();

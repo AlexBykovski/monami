@@ -5,7 +5,7 @@ swiftmailer:
 #    disable_delivery: false
     url: 'gmail://bykovski.free@gmail.com:15397715@localhost?encryption=tls&auth_mode=oauth'
     spool: { type: memory }
-    sender_address: "info@monami.by"
+    sender_address: "Kirillooo888@gmail.kom"
 
 #    transport: 'smtp'
 #    host:      'smtp.beget.com'

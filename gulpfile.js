@@ -94,7 +94,7 @@ gulp.task('imagemin', function () {
 		.pipe(gulp.dest(projectDistImageDir));
 });
 
-gulp.task('build', ['sass', 'js-libs', 'client-js', 'simple-move-fonts', 'bower-components-css'], function () {
+gulp.task('build', ['sass', 'js-libs', 'client-js', 'simple-move-fonts', 'bower-components-css', 'simple-move-css'], function () {
 });
 
 gulp.task('removedist', function () { return del.sync(projectDistDir); });
@@ -111,5 +111,12 @@ gulp.task('bower-components-css', function () {
         projectDir + '/bower-components/bootstrap/dist/css/bootstrap.css',
     ])
         .pipe(concat('bower_components.css'))
+        .pipe(gulp.dest(projectDistDir + '/css'));
+});
+
+gulp.task('simple-move-css', function () {
+    return gulp.src([
+        projectDir + '/css/slider.min.css',
+    ])
         .pipe(gulp.dest(projectDistDir + '/css'));
 });

@@ -140,7 +140,7 @@ class ImportProductsCommand extends ContainerAwareCommand
         $name = $element[self::NAME];
         $simaCode = $element[self::SIMA_CODE];
         $photo = trim($element[self::PHOTO]) ? $imageUrl . $this->encodeUrlImage(trim($element[self::PHOTO])) : "";
-        $cost = (float)$element[self::COST];
+        $cost = (float)str_replace(',', '.', $element[self::COST]);
         $leftCount = (int)$element[self::LEFT_COUNT];
         $description = array_key_exists(self::DESCRIPTION, $element) ? $element[self::DESCRIPTION] : "";
 

@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\ProductGroupRepository")
  * @ORM\Table(name="product_group")
  */
 class ProductGroup
@@ -78,7 +78,7 @@ class ProductGroup
      *
      * Many ProductGroups have One ProductGroup.
      * @ORM\ManyToOne(targetEntity="ProductGroup", inversedBy="childrenGroups")
-     * @ORM\JoinColumn(name="parent_group", referencedColumnName="id")
+     * @ORM\JoinColumn(name="parent_group", referencedColumnName="id", onDelete="CASCADE")
      */
     private $parentGroup;
 

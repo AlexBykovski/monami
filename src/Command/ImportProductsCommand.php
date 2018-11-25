@@ -26,6 +26,9 @@ class ImportProductsCommand extends ContainerAwareCommand
     const LEFT_COUNT = "Остаток";
     const DESCRIPTION = "Описание";
 
+    private $currentProducts = [];
+    private $currentGroups = [];
+
     protected function configure()
     {
         $this
@@ -101,6 +104,16 @@ class ImportProductsCommand extends ContainerAwareCommand
 
         $em->flush();
 
+        sort($this->currentGroups);
+        sort($this->currentProducts);
+        var_dump(json_encode($this->currentProducts));
+        var_dump(json_encode($this->currentGroups));
+
+        $em->getRepository(Product::class)->deleteNotIds($this->currentProducts);
+        $em->getRepository(ProductGroup::class)->deleteNotIds($this->currentGroups);
+
+        $em->flush();
+
         //$output->writeln("<info>Imported products and groups</info>");
     }
 
@@ -127,9 +140,12 @@ class ImportProductsCommand extends ContainerAwareCommand
             );
 
             $em->persist($group);
+            $em->flush();
         }
 
         $group->setParentGroup($groupParent);
+
+        $this->currentGroups[] = $group->getId();
 
         return $group;
     }
@@ -166,9 +182,12 @@ class ImportProductsCommand extends ContainerAwareCommand
             );
 
             $em->persist($product);
+            $em->flush();
         }
 
         $product->setProductGroup($group);
+
+        $this->currentProducts[] = $product->getId();
 
         return $product;
     }

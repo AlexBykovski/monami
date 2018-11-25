@@ -2,10 +2,21 @@
 
 namespace App\Repository;
 
+use App\Entity\Product;
 use Doctrine\ORM\EntityRepository;
 
 class ProductRepository extends EntityRepository
 {
+    public function deleteNotIds($ids)
+    {
+        return $this->createQueryBuilder('p')
+            ->delete(Product::class, "p")
+            ->where("p.id NOT IN(:ids)")
+            ->setParameter("ids", $ids)
+            ->getQuery()
+            ->getResult();
+    }
+
     public function findByText($text)
     {
         return $this->createQueryBuilder('p')

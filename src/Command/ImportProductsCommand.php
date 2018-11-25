@@ -104,11 +104,6 @@ class ImportProductsCommand extends ContainerAwareCommand
 
         $em->flush();
 
-        sort($this->currentGroups);
-        sort($this->currentProducts);
-        var_dump(json_encode($this->currentProducts));
-        var_dump(json_encode($this->currentGroups));
-
         $em->getRepository(Product::class)->deleteNotIds($this->currentProducts);
         $em->getRepository(ProductGroup::class)->deleteNotIds($this->currentGroups);
 

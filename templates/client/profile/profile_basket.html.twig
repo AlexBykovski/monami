@@ -195,8 +195,7 @@
 						<div class="product-item" ng-repeat="product in cart.products">
 
 							<div class="product-code">
-								{#<span ng-bind="product.apiId"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#}
-								<span ng-bind="product.createdAt"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<span ng-bind="product.apiId"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								<span style="color: red; cursor: pointer" ng-click="app.CartService.removeFromCart(product.id); cart.updateProducts()">X</span>
 							</div>
 							<a href="/product/{{ '{{ product.id }}' }}" class="product-image" style="background-image: url({{ '{{ image_directory + product.photo}}' }});"></a>

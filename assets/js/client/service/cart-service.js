@@ -65,6 +65,16 @@
                     }
                 }).then(function successCallback(response) {
                     self.setCart(response.data.cart);
+
+                    $.notify({message: response.data.text},
+                        {
+                            placement: {
+                                from: "top",
+                                align: "center"
+                            },
+                            type: response.data.type,
+                        });
+
                 }, function errorCallback(error) {
                     console.error(error);
                 });

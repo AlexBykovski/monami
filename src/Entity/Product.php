@@ -323,6 +323,7 @@ class Product
             "id" => $this->id,
             "description" => $this->description,
             "leftCount" => $this->leftCount,
+            "createdAt" => $this->createdAt ? $this->createdAt->format("Y-m-d H:i:s") : "",
         ];
     }
 }

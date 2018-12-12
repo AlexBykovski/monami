@@ -91,9 +91,18 @@ class Basket
     /**
      * @return Collection
      */
-    public function getBasketProducts(): Collection
+    public function getBasketProducts($sort = null): Collection
     {
-        return $this->basketProducts;
+        switch ($sort){
+            case "createdAt":
+                return $this->sortBasketProductsByDate();
+            case "name":
+                return $this->sortBasketProductsByName();
+            case "cost":
+                return $this->sortBasketProductsByCost();
+            default:
+                return $this->basketProducts;
+        }
     }
 
     /**
@@ -156,5 +165,47 @@ class Basket
         }
 
         return null;
+    }
+
+    protected function sortBasketProductsByDate()
+    {
+        // Collect an array iterator.
+        $iterator = $this->basketProducts->getIterator();
+
+// Do sort the new iterator.
+        $iterator->uasort(function (BasketProduct $a, BasketProduct $b) {
+            return $a->getProduct()->getCreatedAt() < $b->getProduct()->getCreatedAt();
+        });
+
+// pass sorted array to a new ArrayCollection.
+        return new ArrayCollection(iterator_to_array($iterator));
+    }
+
+    protected function sortBasketProductsByName()
+    {
+        // Collect an array iterator.
+        $iterator = $this->basketProducts->getIterator();
+
+// Do sort the new iterator.
+        $iterator->uasort(function (BasketProduct $a, BasketProduct $b) {
+            return $a->getProduct()->getName() > $b->getProduct()->getName();
+        });
+
+// pass sorted array to a new ArrayCollection.
+        return new ArrayCollection(iterator_to_array($iterator));
+    }
+
+    protected function sortBasketProductsByCost()
+    {
+        // Collect an array iterator.
+        $iterator = $this->basketProducts->getIterator();
+
+// Do sort the new iterator.
+        $iterator->uasort(function (BasketProduct $a, BasketProduct $b) {
+            return $a->getProduct()->getCost() > $b->getProduct()->getCost();
+        });
+
+// pass sorted array to a new ArrayCollection.
+        return new ArrayCollection(iterator_to_array($iterator));
     }
 }

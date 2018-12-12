@@ -37,13 +37,21 @@ class CartController extends Controller
         $count = (int)$content["count"];
 
         if(!$count || !$idProduct){
-            return new JsonResponse(["cart" => $basket->toArray()]);
+            return new JsonResponse([
+                "cart" => $basket->toArray(),
+                "text" => "Ошибка при добавлении товара",
+                "type" => "warn",
+            ]);
         }
 
         $product = $em->getRepository(Product::class)->find($idProduct);
 
         if(!($product instanceof Product)){
-            return new JsonResponse(["cart" => $basket->toArray()]);
+            return new JsonResponse([
+                "cart" => $basket->toArray(),
+                "text" => "Ошибка при добавлении товара",
+                "type" => "warn",
+            ]);
         }
 
         $basketProduct = $basket->getBasketProductById($idProduct);
@@ -71,7 +79,11 @@ class CartController extends Controller
             $em->refresh($basket);
         }
 
-        return new JsonResponse(["cart" => $basket->toArray()]);
+        return new JsonResponse([
+            "cart" => $basket->toArray(),
+            "text" => "Добавлено в корзину: " . $product->getName() . " " . $count . " ед.",
+            "type" => "info",
+        ]);
     }
 
     /**
@@ -242,25 +254,28 @@ class CartController extends Controller
         $params = $request->query->all();
 
         $count = (int)$params["count"];
-
-//        $products = $this->getDoctrine()->getRepository(BasketProduct::class)->findBy(
-//            ["basket" => $basket],
-//            null,
-//            $count
-//        );
-
+        $sort = $params["sort"];
+        $page = array_key_exists("page", $params) ? (int)$params["page"] : 1;
+        $allBasketProducts = $basket->getBasketProducts($sort);
+        $fullCount =  $allBasketProducts->count();
+        $countPages = (int)($fullCount % $count === 0 ? $fullCount / $count : $fullCount / $count + 1);
         $parsedProducts = [];
 
+        $basketProducts = array_slice($allBasketProducts->getValues(), ($page - 1) * $count, $count);
+
         /** @var BasketProduct $product */
-        foreach ($basket->getBasketProducts() as $product){
-            if($count <= 0){
+        foreach ($basketProducts as $product){
+            if($count <= 0 || count($parsedProducts) === $count){
                 break;
             }
 
             $parsedProducts[] = $product->toArray();
         }
 
-        return new JsonResponse($parsedProducts);
+        return new JsonResponse([
+            "products" => $parsedProducts,
+            "countPages" => $countPages
+        ]);
     }
 
     private function getCartForGuest(Request $request)

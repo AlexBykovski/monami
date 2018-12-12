@@ -46,7 +46,6 @@
         }
 
         function toPage(page) {
-            console.log(page);
             if(page < 1 || page > this.countPages){
                 return false;
             }

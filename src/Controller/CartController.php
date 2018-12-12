@@ -295,6 +295,11 @@ class CartController extends Controller
 
         foreach ($cartCookies["products"] as $id => $count){
             $product = $em->getRepository(Product::class)->find($id);
+
+            if(!$product){
+                continue;
+            }
+
             $cartProduct = new BasketProduct($product, $cart, $count);
 
             $basketProducts->add($cartProduct);

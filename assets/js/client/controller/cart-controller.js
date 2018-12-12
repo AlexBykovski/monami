@@ -24,7 +24,6 @@
                     url: '/cart/filter/',
                     params: self.filters
                 }).then(function successCallback(response) {
-                    console.log(response);
                     self.products = response.data.products;
                     self.countPages = response.data.countPages;
                 }, function errorCallback(error) {
@@ -33,7 +32,6 @@
             }
 
             function toPage(page) {
-                console.log(page);
                 if(page < 1 || page > this.countPages){
                     return false;
                 }

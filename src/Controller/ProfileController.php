@@ -7,6 +7,8 @@ use App\Entity\BasketProduct;
 use App\Entity\Client;
 use App\Entity\Product;
 use App\Entity\PromoCode;
+use App\Entity\Purchase;
+use App\Entity\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -46,7 +48,13 @@ class ProfileController extends Controller
      */
     public function showProfileOrdersAction(Request $request)
     {
-        return $this->render('client/profile/profile_orders_history.html.twig', []);
+        /** @var Client $user */
+        $user = $this->getUser();
+        $purchases = $user->getPurchases();
+
+        return $this->render('client/profile/profile_orders_history.html.twig', [
+            'purchases' => $purchases,
+        ]);
     }
 
     /**

@@ -129,6 +129,32 @@
                     console.error(error);
                 });
             },
+            saveCart: function() {
+                let self = this;
+
+                $http({
+                    method: 'POST',
+                    url: '/cart/save-cart',
+                    data: {}
+                }).then(function successCallback(response) {
+                    self.setCart();
+                }, function errorCallback(error) {
+                    console.error(error);
+                });
+            },
+            exportToXls: function () {
+                let self = this;
+
+                $http({
+                    method: 'POST',
+                    url: '/cart/export-to-xls',
+                    data: {}
+                }).then(function successCallback(response) {
+                    self.setCart();
+                }, function errorCallback(error) {
+                    console.error(error);
+                });
+            },
             getCountProducts(){
                 return Object.keys(cart.products).length;
             }

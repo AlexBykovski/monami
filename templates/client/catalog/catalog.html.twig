@@ -96,6 +96,9 @@
 
 								<div class="product-price-wrap">
 									<div class="product-price" ng-bind="product.cost + ' BYN'"></div>
+									{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+										<div class="descr-item" ng-bind="'Осталось: ' + product.leftCount"></div>
+									{% endif %}
 
 									<div class="product-controls">
 										<button class="product-add-to-cart-btn bttn bttn-xs bttn-sky-blue-gradient bttn-border"
@@ -105,8 +108,8 @@
 
 										<span class="product-quantity-input-wrap" ng-init="product.count = 1">
 											<span class="decrem-quant" ng-click="product.count === 1 ? 1 : product.count = product.count - 1">-</span>
-											<input type="text" class="quant-input" ng-model="product.count" disabled>
-											<span class="increm-quant" ng-click="product.count = product.count + 1">+</span>
+											<input type="text" class="quant-input" ng-model="product.count" value="1">
+											<span class="increm-quant" ng-click="product.count = product.count - (-1)">+</span>
 										</span>
 									</span>
 									</div>

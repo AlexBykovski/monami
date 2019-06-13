@@ -78,9 +78,9 @@
 							<input type="text" id="promo-input" ng-model="promocode" ng-init="promocode = ''" placeholder="Введите промокод">
 							<button id="make-order-btn" class="bttn bttn-sm bttn-block bttn-sky-blue-gradient" ng-click="app.CartService.usePromocode(promocode); promocode = ''">Использовать</button>
 							<div id="discount-text">Ваша скидка - <span id="discount-sum" ng-bind="app.CartService.getCart().discount + '%'"></span></div>
-							<button id="make-order-btn" class="bttn bttn-sm bttn-block bttn-sky-blue-gradient">Оформить заказ</button>
+							<button id="make-order-btn" ng-click="app.CartService.saveCart();" class="bttn bttn-sm bttn-block bttn-sky-blue-gradient">Оформить заказ</button>
 							{#<a href="#" id="buy-at-retail-btn" class="bttn bttn-sm bttn-block bttn-crimson-gradient">Купить в розницу</a>#}
-							{#<div id="save-to-excell-btn"><img src="{{ image_url('default/icons/excell-icon.png') }}" id="excell-icon" alt=""> Сохранить товары в .xls</div>#}
+							<div id="save-to-excell-btn" ng-click="app.CartService.exportToXls();"><img src="{{ image_url('default/icons/excell-icon.png') }}" id="excell-icon" alt=""> Сохранить товары в .xls</div>
 						</form>
 					</div>
 

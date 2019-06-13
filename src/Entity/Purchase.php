@@ -58,11 +58,15 @@ class Purchase
      * @param int $count
      * @param Client $client
      */
-    public function __construct(Product $product, int $count, Client $client)
+    public function __construct(Product $product, int $count, Client $client = null)
     {
         $this->product = $product;
         $this->count = $count;
-        $this->client = $client;
+        if($client) {
+            $this->client = $client;
+        }else{
+            $this->client = null;
+        }
 
         $this->createdAt = new DateTime();
     }

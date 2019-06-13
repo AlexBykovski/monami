@@ -73,102 +73,31 @@
 
 							<div class="products-list products-list-standart">
 
-								<div class="product-item">
-									<div class="product-code">291229</div>
+								{% for purchase in purchases %}
+									<div class="product-item">
+									<div class="product-code">{{ purchase.product.id }}</div>
 
-									<div class="product-order-time">Дата заказа: 20.02.2018</div>
+									<div class="product-order-time">Дата заказа: {{ purchase.createdAt|date('Y-m-d') }}</div>
 									
-									<a href="#" class="product-image" style="background-image: url({{ image_url('default/product-preview-img.png') }});"></a>
+									<a href="#" class="product-image" style="background-image: url('{{ purchase.product.photo }}');"></a>
 
 									<div class="product-descr-wrap">
-										<a href="#" class="product-name">Губки СММ-155</a>
+										<a href="#" class="product-name">{{ purchase.product.name }}</a>
 																				
-										<div class="product-full-descr">губки для мытья посуды</div>
+										<div class="product-full-descr">{{ purchase.product.description }}</div>
 
-										<div class="product-origin-text">Производитель: Китай</div>
+										{#<div class="product-origin-text">Производитель: Китай</div>#}
 
-										<div class="product-quantity-text">В упаковке 5 губок</div>
+										{#<div class="product-quantity-text">В упаковке 5 губок</div>#}
 									</div>
 									
 									<div class="product-price-wrap">
-										<div class="product-price">15.8 BYN</div>
+										<div class="product-price">{{ purchase.product.cost * purchase.count }} BYN</div>
 										
-										<div class="basket-quant-text">в корзине <span class="quant">5 штук</span></div>
+										<div class="basket-quant-text">в корзине <span class="quant">{{ purchase.count }} штук</span></div>
 									</div>
 								</div>
-
-								<div class="product-item">
-									<div class="product-code">291229</div>
-
-									<div class="product-order-time">Дата заказа: 20.02.2018</div>
-									
-									<a href="#" class="product-image" style="background-image: url({{ image_url('default/product-preview-img.png') }});"></a>
-
-									<div class="product-descr-wrap">
-										<a href="#" class="product-name">Губки СММ-155</a>
-																				
-										<div class="product-full-descr">губки для мытья посуды</div>
-
-										<div class="product-origin-text">Производитель: Китай</div>
-
-										<div class="product-quantity-text">В упаковке 5 губок</div>
-									</div>
-									
-									<div class="product-price-wrap">
-										<div class="product-price">15.8 BYN</div>
-										
-										<div class="basket-quant-text">в корзине <span class="quant">5 штук</span></div>
-									</div>
-								</div>
-
-								<div class="product-item">
-									<div class="product-code">291229</div>
-
-									<div class="product-order-time">Дата заказа: 20.02.2018</div>
-									
-									<a href="#" class="product-image" style="background-image: url({{ image_url('default/product-preview-img.png') }});"></a>
-
-									<div class="product-descr-wrap">
-										<a href="#" class="product-name">Губки СММ-155</a>
-																				
-										<div class="product-full-descr">губки для мытья посуды</div>
-
-										<div class="product-origin-text">Производитель: Китай</div>
-
-										<div class="product-quantity-text">В упаковке 5 губок</div>
-									</div>
-									
-									<div class="product-price-wrap">
-										<div class="product-price">15.8 BYN</div>
-										
-										<div class="basket-quant-text">в корзине <span class="quant">5 штук</span></div>
-									</div>
-								</div>
-
-								<div class="product-item">
-									<div class="product-code">291229</div>
-
-									<div class="product-order-time">Дата заказа: 20.02.2018</div>
-									
-									<a href="#" class="product-image" style="background-image: url({{ image_url('default/product-preview-img.png') }});"></a>
-
-									<div class="product-descr-wrap">
-										<a href="#" class="product-name">Губки СММ-155</a>
-																				
-										<div class="product-full-descr">губки для мытья посуды</div>
-
-										<div class="product-origin-text">Производитель: Китай</div>
-
-										<div class="product-quantity-text">В упаковке 5 губок</div>
-									</div>
-									
-									<div class="product-price-wrap">
-										<div class="product-price">15.8 BYN</div>
-										
-										<div class="basket-quant-text">в корзине <span class="quant">5 штук</span></div>
-									</div>
-								</div>
-
+								{% endfor %}
 							</div>
 
 						</div>

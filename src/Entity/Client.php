@@ -29,7 +29,7 @@ class Client extends User
     private $contrAgent;
 
     /**
-     * @var ArrayCollection
+     * @var Purchase[]
      *
      * One Product has Many Purchases.
      * @ORM\OneToMany(targetEntity="Purchase", mappedBy="client", cascade={"remove"})
@@ -100,9 +100,9 @@ class Client extends User
     }
 
     /**
-     * @return ArrayCollection
+     * @return mixed
      */
-    public function getPurchases(): ArrayCollection
+    public function getPurchases()
     {
         return $this->purchases;
     }

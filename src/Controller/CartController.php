@@ -7,6 +7,7 @@ use App\Entity\BasketProduct;
 use App\Entity\Client;
 use App\Entity\Product;
 use App\Entity\PromoCode;
+use App\Entity\Purchase;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -14,6 +15,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 /**
  * @Route("/cart")
@@ -136,6 +139,57 @@ class CartController extends Controller
         if($user) {
             $em->refresh($basket);
         }
+
+        return new JsonResponse(["cart" => $basket->toArray()]);
+    }
+
+    /**
+     * @Route("/save-cart", name="save_cart")
+     */
+    public function saveCartAction(Request $request)
+    {
+        $user = $this->getUser();
+        /** @var Basket $basket */
+        $basket = $user ? $user->getBasket() : $this->getCartForGuest($request);
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+
+
+        /** @var BasketProduct $basketProductCookie */
+        foreach ($basket->getBasketProducts() as $basketProductCookie) {
+            $basketProduct = $basketProductCookie->getProduct();
+            $purchase = new Purchase(
+                $basketProduct,
+                $basketProductCookie->getCount(),
+                $user ? $user : null
+            );
+
+            $em->persist($purchase);
+
+            $em->remove($basketProductCookie);
+            $em->flush();
+        }
+
+        if($user) {
+            $em->refresh($basket);
+        }
+
+        return new JsonResponse(["cart" => []]);
+    }
+
+    /**
+     * @Route("/export-to-xls", name="export_to_xls")
+     */
+    public function exportToXlsAction(Request $request)
+    {
+        $user = $this->getUser();
+        /** @var Basket $basket */
+        $basket = $user ? $user->getBasket() : $this->getCartForGuest($request);
+
+        $spreadSheet = new Spreadsheet();
+        die;
+
+
 
         return new JsonResponse(["cart" => $basket->toArray()]);
     }

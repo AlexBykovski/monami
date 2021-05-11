@@ -22,6 +22,13 @@ class Purchase
     private $id;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $orderId;
+
+    /**
      * @var Product
      *
      * @ORM\ManyToOne(targetEntity="Product", inversedBy="purchases")
@@ -69,6 +76,22 @@ class Purchase
         }
 
         $this->createdAt = new DateTime();
+    }
+
+    /**
+     * @return string
+     */
+    public function getOrderId(): string
+    {
+        return $this->orderId;
+    }
+
+    /**
+     * @param string $orderId
+     */
+    public function setOrderId(string $orderId): void
+    {
+        $this->orderId = $orderId;
     }
 
     /**

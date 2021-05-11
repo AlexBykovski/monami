@@ -2,265 +2,281 @@
 
 {% block body %}
 
-<main class="main">
+	<main class="main">
 
-	<section id="header-slider-sect">
-		<div class="container">
-			<div class="row">
-				<div class="col-12">
-					<div class="header-slider">
+		<section id="header-slider-sect">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<div class="header-slider">
 
-						<div id="thumbnail-slider">
-							<div class="inner">
-								<ul>
-                                    {% for slide in slides %}
-										<li><a class="thumb" href="{{ image_url(slide.image) }}"></a></li>
-                                    {% endfor %}
+							<div id="thumbnail-slider">
+								<div class="inner">
+									<ul>
+										{% for slide in slides %}
+											<li class="prethumb"><a class="thumb" href="{{ image_url(slide.image) }}"></a></li>
+										{% endfor %}
+									</ul>
+								</div>
+							</div>
+
+							<div id="header-main-slider" class="flexslider">
+								<ul class="slides">
+									{% for slide in slides %}
+										<li><img style="max-height: 500px;" src="{{ image_url(slide.image) }}" alt=""></li>
+									{% endfor %}
 								</ul>
 							</div>
+
 						</div>
 
-						<div id="header-main-slider" class="flexslider">
-							<ul class="slides">
-                                {% for slide in slides %}
-									<li><img src="{{ image_url(slide.image) }}" alt=""></li>
-                                {% endfor %}
-							</ul>
-						</div>
+						{#<div class="header-slider">#}
+						{#<div id="thumbnail-slider">#}
+						{#<div class="inner">#}
+						{#<ul>#}
+						{#{% for slide in slides %}#}
+						{#<li>#}
+						{#<a class="thumb" href="{{ image_url(slide.image) }}"></a>#}
+						{#</li>#}
+						{#{% endfor %}#}
+						{#</ul>#}
+						{#</div>#}
+						{#</div>#}
 
+						{#<div id="ninja-slider">#}
+						{#<div class="slider-inner">#}
+						{#<ul>#}
+						{#{% for slide in slides %}#}
+						{#<li>#}
+						{#<a href="{{ slide.link }}"><span class="ns-img" style="cursor: pointer; background-image: url({{ image_url(slide.image) }})"></span></a>#}
+						{#</li>#}
+						{#{% endfor %}#}
+						{#</ul>#}
+						{#</div>#}
+						{#</div>#}
+						{#</div>#}
+
+						{#<div class="header-slider">#}
+						{#<div id="thumbnail-slider">#}
+						{#<div class="inner">#}
+						{#<ul>#}
+						{#<li>#}
+						{#<a class="thumb" href="{{ image_url("default/header-slider-img1.jpg") }}"></a>#}
+						{#</li>#}
+						{#<li>#}
+						{#<a class="thumb" href="{{ image_url("default/header-slider-img1.jpg") }}"></a>#}
+						{#</li>#}
+						{#<li>#}
+						{#<a class="thumb" href="{{ image_url("default/header-slider-img1.jpg") }}"></a>#}
+						{#</li>#}
+						{#<li>#}
+						{#<a class="thumb" href="{{ image_url("default/header-slider-img1.jpg") }}"></a>#}
+						{#</li>#}
+						{#<li>#}
+						{#<a class="thumb" href="{{ image_url("default/header-slider-img1.jpg") }}"></a>#}
+						{#</li>#}
+						{#<li>#}
+						{#<a class="thumb" href="{{ image_url("default/header-slider-img1.jpg") }}"></a>#}
+						{#</li>#}
+						{#<li>#}
+						{#<a class="thumb" href="{{ image_url("default/header-slider-img1.jpg") }}"></a>#}
+						{#</li>#}
+						{#</ul>#}
+						{#</div>#}
+						{#</div>#}
+
+						{#<div id="ninja-slider">#}
+						{#<div class="slider-inner">#}
+						{#<ul>#}
+						{#<li><a class="ns-img" href="{{ image_url("default/header-slider-img1.jpg") }}"></a></li>#}
+						{#<li><a class="ns-img" href="{{ image_url("default/header-slider-img1.jpg") }}"></a></li>#}
+						{#<li><a class="ns-img" href="{{ image_url("default/header-slider-img1.jpg") }}"></a></li>#}
+						{#<li><a class="ns-img" href="{{ image_url("default/header-slider-img1.jpg") }}"></a></li>#}
+						{#<li><a class="ns-img" href="{{ image_url("default/header-slider-img1.jpg") }}"></a></li>#}
+						{#<li><a class="ns-img" href="{{ image_url("default/header-slider-img1.jpg") }}"></a></li>#}
+						{#<li><a class="ns-img" href="{{ image_url("default/header-slider-img1.jpg") }}"></a></li>#}
+						{#</ul>#}
+						{#</div>#}
+						{#</div>#}
+						{#</div>#}
 					</div>
-
-					{#<div class="header-slider">#}
-						{#<div id="thumbnail-slider">#}
-							{#<div class="inner">#}
-								{#<ul>#}
-									{#{% for slide in slides %}#}
-										{#<li>#}
-											{#<a class="thumb" href="{{ image_url(slide.image) }}"></a>#}
-										{#</li>#}
-									{#{% endfor %}#}
-								{#</ul>#}
-							{#</div>#}
-						{#</div>#}
-
-						{#<div id="ninja-slider">#}
-							{#<div class="slider-inner">#}
-								{#<ul>#}
-                                    {#{% for slide in slides %}#}
-										{#<li>#}
-											{#<a href="{{ slide.link }}"><span class="ns-img" style="cursor: pointer; background-image: url({{ image_url(slide.image) }})"></span></a>#}
-										{#</li>#}
-									{#{% endfor %}#}
-								{#</ul>#}
-							{#</div>#}
-						{#</div>#}
-					{#</div>#}
-
-					{#<div class="header-slider">#}
-						{#<div id="thumbnail-slider">#}
-							{#<div class="inner">#}
-								{#<ul>#}
-									{#<li>#}
-										{#<a class="thumb" href="{{ image_url("default/header-slider-img1.jpg") }}"></a>#}
-									{#</li>#}
-									{#<li>#}
-										{#<a class="thumb" href="{{ image_url("default/header-slider-img1.jpg") }}"></a>#}
-									{#</li>#}
-									{#<li>#}
-										{#<a class="thumb" href="{{ image_url("default/header-slider-img1.jpg") }}"></a>#}
-									{#</li>#}
-									{#<li>#}
-										{#<a class="thumb" href="{{ image_url("default/header-slider-img1.jpg") }}"></a>#}
-									{#</li>#}
-									{#<li>#}
-										{#<a class="thumb" href="{{ image_url("default/header-slider-img1.jpg") }}"></a>#}
-									{#</li>#}
-									{#<li>#}
-										{#<a class="thumb" href="{{ image_url("default/header-slider-img1.jpg") }}"></a>#}
-									{#</li>#}
-									{#<li>#}
-										{#<a class="thumb" href="{{ image_url("default/header-slider-img1.jpg") }}"></a>#}
-									{#</li>#}
-								{#</ul>#}
-							{#</div>#}
-						{#</div>#}
-
-						{#<div id="ninja-slider">#}
-							{#<div class="slider-inner">#}
-								{#<ul>#}
-									{#<li><a class="ns-img" href="{{ image_url("default/header-slider-img1.jpg") }}"></a></li>#}
-									{#<li><a class="ns-img" href="{{ image_url("default/header-slider-img1.jpg") }}"></a></li>#}
-									{#<li><a class="ns-img" href="{{ image_url("default/header-slider-img1.jpg") }}"></a></li>#}
-									{#<li><a class="ns-img" href="{{ image_url("default/header-slider-img1.jpg") }}"></a></li>#}
-									{#<li><a class="ns-img" href="{{ image_url("default/header-slider-img1.jpg") }}"></a></li>#}
-									{#<li><a class="ns-img" href="{{ image_url("default/header-slider-img1.jpg") }}"></a></li>#}
-									{#<li><a class="ns-img" href="{{ image_url("default/header-slider-img1.jpg") }}"></a></li>#}
-								{#</ul>#}
-							{#</div>#}
-						{#</div>#}
-					{#</div>#}
 				</div>
 			</div>
-		</div>
-	</section>
+		</section>
 
-	<section id="all-categories-sect">
-		<div class="container">
-			<div class="row">
-				<div class="col-12">
+		<section id="all-categories-sect">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
 
-					<div class="categories-nav-list">
-						<button class="category-nav-btn bttn bttn-md bttn-rounded bttn-sky-blue-gradient bttn-border">Хиты продаж</button>
-						<button class="category-nav-btn bttn bttn-md bttn-rounded bttn-sky-blue-gradient bttn-border">Акции</button>
-						<button class="category-nav-btn bttn bttn-md bttn-rounded bttn-sky-blue-gradient bttn-border">Новинки</button>
+						<div class="categories-nav-list">
+							<button class="category-nav-btn bttn bttn-md bttn-rounded bttn-sky-blue-gradient bttn-border">
+								<a href="/catalog/type/hit">Хиты продаж</a>
+							</button>
+							<button class="category-nav-btn bttn bttn-md bttn-rounded bttn-sky-blue-gradient bttn-border">
+								<a href="/catalog/type/disc">Акции</a>
+							</button>
+							<button class="category-nav-btn bttn bttn-md bttn-rounded bttn-sky-blue-gradient bttn-border">
+								<a href="/catalog/type/new">Новинки</a>
+							</button>
+						</div>
+
+						<div id="all-categories-title-wrap">
+							<div class="divider"></div>
+							<h5 id="all-categories-title">Все категории</h5>
+							<div class="divider"></div>
+						</div>
+
+						<div class="categories-list">
+							<div class="row">
+								{% for baseGroup in baseGroups %}
+									<div class="category-col col-sm-6 col-lg-4">
+
+										<div class="category-item">
+											<a href="{{ group_url(baseGroup) }}">
+												<div class="category-image" style="background-image: url({{ baseGroup.photo }});"></div>
+											</a>
+
+											<h4 class="category-title">{{ baseGroup.name }}</h4>
+
+											<div class="category-descr">
+												<a href="{{ group_url(baseGroup) }}" class="subcategories-title">{{ baseGroup.name }}</a>
+
+												<ul class="subcategories-list">
+													{% for childGroup in baseGroup.childrenGroups|slice(0, 6) %}
+														<li class="subcat-item"><a href="{{ group_url(childGroup) }}">{{ childGroup.name }}</a></li>
+													{% endfor %}
+												</ul>
+
+												{% set leftCount = (baseGroup.childrenGroups | length > 6) ? (baseGroup.childrenGroups | length - 6) : 0 %}
+
+												{% if leftCount %}
+													<div class="category-link"><a href="{{ group_url(baseGroup) }}">ещё {{ leftCount }} <i class="fa fa-angle-right"></i></a></div>
+												{% endif %}
+											</div>
+										</div>
+
+									</div>
+								{% endfor %}
+							</div>
+						</div>
+
 					</div>
+				</div>
+			</div>
+		</section>
 
-					<div id="all-categories-title-wrap">
-						<div class="divider"></div>
-						<h5 id="all-categories-title">Все категории</h5>
-						<div class="divider"></div>
+		<section id="bestsellers-intro-sect">
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-7">
+
+						<h5 id="bestsellers-title">Хиты продаж</h5>
+						<p id="bestsellers-subtitle">наш ассортимент товаров вас приятно порадует</p>
+
 					</div>
+					<div class="col-xs-5 col-lg-3 offset-lg-2 mt-2 mt-xs-0 text-xs-right">
 
-					<div class="categories-list">
-						<div class="row">
-							{% for baseGroup in baseGroups %}
-							<div class="category-col col-sm-6 col-lg-4">
+						<a href="/catalog/type/hit" id="bestsellers-see-all-link">Смотреть все &nbsp; <i class="fa fa-angle-right"></i></a>
 
-								<div class="category-item">
-									<a href="{{ group_url(baseGroup) }}">
-										<div class="category-image" style="background-image: url({{ baseGroup.photo }});"></div>
-									</a>
+					</div>
+				</div>
+			</div>
+		</section>
 
-									<h4 class="category-title">{{ baseGroup.name }}</h4>
+		<section id="bestsellers-sect">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
 
-									<div class="category-descr">
-										<a href="{{ group_url(baseGroup) }}" class="subcategories-title">{{ baseGroup.name }}</a>
+						<div class="products-list products-list-tiles">
+							<script>
+								console.log({{ hits|json_encode() }});
+							</script>
+								<div class="product-item" ng-repeat="product in {{hits|json_encode()}}">
+									<div class="product-code" ng-bind="product.apiId"></div>
 
-										<ul class="subcategories-list">
-											{% for childGroup in baseGroup.childrenGroups|slice(0, 6) %}
-												<li class="subcat-item"><a href="{{ group_url(childGroup) }}">{{ childGroup.name }}</a></li>
-											{% endfor %}
-										</ul>
+									<a href="#" class="product-image" style="background-image: url({{ '{{ product.photo }}' }});"></a>
 
-										{% set leftCount = (baseGroup.childrenGroups | length > 6) ? (baseGroup.childrenGroups | length - 6) : 0 %}
+									<div class="product-descr-wrap">
+										<a ng-href="/product/{{ '{{ product.id }}' }}" class="product-name"
+										   ng-bind="product.name">{{ '{{ product.name }}' }}</a>
 
-										{% if leftCount %}
-											<div class="category-link"><a href="{{ group_url(baseGroup) }}">ещё {{ leftCount }} <i class="fa fa-angle-right"></i></a></div>
+										<div class="product-short-descr" ng-bind="product.description">></div>
+
+										<div class="product-full-descr">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore numquam illo omnis! Quod expedita, eligendi natus quidem necessitatibus blanditiis veritatis, perferendis eos veniam dolorem odio ipsum distinctio sit odio ipsum distinctio sit ipsum distinctio sit distinctio sit ipsum distinctio sit</div>
+
+										<div class="product-origin-text">Производитель: Китай</div>
+									</div>
+
+									<div class="product-price-wrap">
+										{% if userSale %}
+											<div class="strike-price">
+												<div class="product-price" ng-bind="product.rozcost + ' BYN'"></div>
+											</div>
+											<br/>
+											С учётом персональной скидки
 										{% endif %}
+										<div class="product-price" ng-bind="(product.{{ (user == null ) ? 'cost' : 'rozcost' }} * {{ (100 - userSale)/100 }}).toFixed(2) + ' BYN'"></div>
+
+										<div class="product-controls">
+											<button class="product-add-to-cart-btn bttn bttn-xs bttn-sky-blue-gradient bttn-border"
+													ng-click="app.CartService.addToCart(product.id, product.count)"><i class="fa fa-shopping-cart"></i> &nbsp; В корзину</button>
+
+											<span class="product-quantity-input-wrap" ng-init="product.count = 1">
+											<span class="decrem-quant" ng-click="product.count === 1 ? 1 : product.count = product.count - 1">-</span>
+											<input type="text" class="quant-input" ng-model="product.count" value="1">
+											<span class="increm-quant" ng-click="product.count = product.count - (-1)">+</span>
+										</span>
+											</span>
+										</div>
 									</div>
 								</div>
-
-							</div>
-							{% endfor %}
 						</div>
+
 					</div>
-
 				</div>
 			</div>
-		</div>
-	</section>
+		</section>
 
-	<section id="bestsellers-intro-sect">
-		<div class="container">
-			<div class="row">
-				<div class="col-xs-7">
+		<section id="advantages-sect">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
 
-					<h5 id="bestsellers-title">Хиты продаж</h5>
-					<p id="bestsellers-subtitle">наш ассортимент товаров вас приятно порадует</p>
-
-				</div>
-				<div class="col-xs-5 col-lg-3 offset-lg-2 mt-2 mt-xs-0 text-xs-right">
-
-					<a href="#" id="bestsellers-see-all-link">Смотреть все &nbsp; <i class="fa fa-angle-right"></i></a>
-
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<section id="bestsellers-sect">
-		<div class="container">
-			<div class="row">
-				<div class="col-12">
-
-					<div class="products-list products-list-tiles">
-						{% for product in hits %}
-						<div class="product-item">
-							<div class="product-code">{{ product.apiId }}</div>
-
-							<a href="#" class="product-image" style="background-image: url({{ product.photo }});"></a>
-
-							<div class="product-descr-wrap">
-								<a href="#" class="product-name">{{ product.name }}</a>
-
-								<div class="product-short-	descr">{{ product.description }}</div>
-
-								<div class="product-full-descr">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore numquam illo omnis! Quod expedita, eligendi natus quidem necessitatibus blanditiis veritatis, perferendis eos veniam dolorem odio ipsum distinctio sit odio ipsum distinctio sit ipsum distinctio sit distinctio sit ipsum distinctio sit</div>
-
-								<div class="product-origin-text">Производитель: Китай</div>
+						<div class="advanatages-list">
+							<div class="advantage-item">
+								<img src="{{ image_url('default/icons/advantages/wallet-icon.png') }}" class="adv-icon" alt="">
+								<h4 class="adv-title">Выгодные покупки</h4>
+								<div class="adv-subscr">Наши цены вас приятно удивят</div>
 							</div>
 
-							<div class="product-price-wrap">
-								<div class="product-price">{{ product.cost }} BYN</div>
+							<div class="advantage-item">
+								<img src="{{ image_url('default/icons/advantages/startup-icon.png') }}" class="adv-icon" alt="">
+								<h4 class="adv-title">Быстрая доставка</h4>
+								<div class="adv-subscr">Ваш заказ долетит к вам быстро</div>
+							</div>
 
-								<div class="product-controls">
-									<button class="product-add-to-cart-btn bttn bttn-xs bttn-sky-blue-gradient bttn-border"
-											ng-click="app.CartService.addToCart('{{ product.id }}', count_{{ product.id }})"><i class="fa fa-shopping-cart"></i> &nbsp; В корзину</button>
+							<div class="advantage-item">
+								<img src="{{ image_url('default/icons/advantages/shield-icon.png') }}" class="adv-icon" alt="">
+								<h4 class="adv-title">Гарантия защиты</h4>
+								<div class="adv-subscr">Мы защищаем товар с момента покупки и до момента доставки</div>
+							</div>
 
-									<span class="product-quantity-input-wrap" ng-init="count_{{ product.id }} = 1">
-										<span class="decrem-quant" ng-click="count_{{ product.id }} === 1 ? 1 : count_{{ product.id }} = count_{{ product.id }} - 1">-</span>
-										<input type="text" class="quant-input" ng-model="count_{{ product.id }}" disabled>
-										<span class="increm-quant" ng-click="count_{{ product.id }} = count_{{ product.id }} + 1">+</span>
-									</span>
-								</div>
+							<div class="advantage-item">
+								<img src="{{ image_url('default/icons/advantages/support-icon.png') }}" class="adv-icon" alt="">
+								<h4 class="adv-title">Помощь 24/7</h4>
+								<div class="adv-subscr">Круглосуточная поддержка покупателей</div>
 							</div>
 						</div>
-						{% endfor %}
-					</div>
 
+					</div>
 				</div>
 			</div>
-		</div>
-	</section>
+		</section>
 
-	<section id="advantages-sect">
-		<div class="container">
-			<div class="row">
-				<div class="col-12">
+		{% include 'search-form.html.twig' %}
 
-					<div class="advanatages-list">
-						<div class="advantage-item">
-							<img src="{{ image_url('default/icons/advantages/wallet-icon.png') }}" class="adv-icon" alt="">
-							<h4 class="adv-title">Выгодные покупки</h4>
-							<div class="adv-subscr">Наши цены вас приятно удивят</div>
-						</div>
-
-						<div class="advantage-item">
-							<img src="{{ image_url('default/icons/advantages/startup-icon.png') }}" class="adv-icon" alt="">
-							<h4 class="adv-title">Быстрая доставка</h4>
-							<div class="adv-subscr">Ваш заказ долетит к вам быстро</div>
-						</div>
-
-						<div class="advantage-item">
-							<img src="{{ image_url('default/icons/advantages/shield-icon.png') }}" class="adv-icon" alt="">
-							<h4 class="adv-title">Гарантия защиты</h4>
-							<div class="adv-subscr">Мы защищаем товар с момента покупки и до момента доставки</div>
-						</div>
-
-						<div class="advantage-item">
-							<img src="{{ image_url('default/icons/advantages/support-icon.png') }}" class="adv-icon" alt="">
-							<h4 class="adv-title">Помощь 24/7</h4>
-							<div class="adv-subscr">Круглосуточная поддержка покупателей</div>
-						</div>
-					</div>
-
-				</div>
-			</div>
-		</div>
-	</section>
-
-    {% include 'search-form.html.twig' %}
-
-</main>
+	</main>
 
 {% endblock %}

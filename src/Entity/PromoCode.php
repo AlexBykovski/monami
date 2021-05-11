@@ -23,128 +23,132 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  */
 class PromoCode
 {
-    /**
-     * @var integer
-     *
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+	/**
+	 * @var integer
+	 *
+	 * @ORM\Id
+	 * @ORM\GeneratedValue(strategy="AUTO")
+	 * @ORM\Column(type="integer")
+	 */
+	private $id;
 
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(type="string")
-     */
-    private $code;
+	/**
+	 * @var string|null
+	 *
+	 * @ORM\Column(type="string")
+	 */
+	private $code;
 
-    /**
-     * @var float|null
-     *
-     * @ORM\Column(type="decimal", scale=2)
-     */
-    private $discount;
+	/**
+	 * @var float|null
+	 *
+	 * @ORM\Column(type="decimal", scale=2)
+	 */
+	private $discount;
 
-    /**
-     * @var DateTime
-     *
-     * @ORM\Column(type="datetime")
-     */
-    private $createdAt;
+	/**
+	 * @var DateTime
+	 *
+	 * @ORM\Column(type="datetime")
+	 */
+	private $createdAt;
 
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(type="boolean", options={"default" : false})
-     */
-    private $isUsed = false;
+	/**
+	 * @var boolean
+	 *
+	 * @ORM\Column(type="boolean", options={"default" : false})
+	 */
+	private $isUsed = false;
 
-    /**
-     * PromoCode constructor.
-     */
-    public function __construct()
-    {
-        $this->createdAt = new DateTime();
-    }
+	/**
+	 * PromoCode constructor.
+	 */
+	public function __construct()
+	{
+		$this->createdAt = new DateTime();
+	}
 
-    /**
-     * @return int
-     */
-    public function getId(): int
-    {
-        return $this->id;
-    }
+	/**
+	 * @return int
+	 */
+	public function getId(): int
+	{
+		return $this->id;
+	}
 
-    /**
-     * @param int $id
-     */
-    public function setId(int $id): void
-    {
-        $this->id = $id;
-    }
+	/**
+	 * @param int $id
+	 */
+	public function setId(int $id): void
+	{
+		$this->id = $id;
+	}
 
-    /**
-     * @return null|string
-     */
-    public function getCode(): ?string
-    {
-        return $this->code;
-    }
+	/**
+	 * @return null|string
+	 */
+	public function getCode(): ?string
+	{
+		return $this->code;
+	}
 
-    /**
-     * @param null|string $code
-     */
-    public function setCode(?string $code): void
-    {
-        $this->code = $code;
-    }
+	/**
+	 * @param null|string $code
+	 */
+	public function setCode(?string $code): void
+	{
+		$this->code = $code;
+	}
 
-    /**
-     * @return float|null
-     */
-    public function getDiscount(): ?float
-    {
-        return $this->discount;
-    }
+	/**
+	 * @return float|null
+	 */
+	public function getDiscount(): ?float
+	{
+		return $this->discount;
+	}
 
-    /**
-     * @param float|null $discount
-     */
-    public function setDiscount(?float $discount): void
-    {
-        $this->discount = $discount;
-    }
+	/**
+	 * @param float|null $discount
+	 */
+	public function setDiscount(?float $discount): void
+	{
+		$this->discount = $discount;
+	}
 
-    /**
-     * @return DateTime
-     */
-    public function getCreatedAt(): DateTime
-    {
-        return $this->createdAt;
-    }
+	public function incUsages()
+	{
+	}
 
-    /**
-     * @param DateTime $createdAt
-     */
-    public function setCreatedAt(DateTime $createdAt): void
-    {
-        $this->createdAt = $createdAt;
-    }
+	/**
+	 * @return DateTime
+	 */
+	public function getCreatedAt(): DateTime
+	{
+		return $this->createdAt;
+	}
 
-    /**
-     * @return bool
-     */
-    public function isUsed(): bool
-    {
-        return $this->isUsed;
-    }
+	/**
+	 * @param DateTime $createdAt
+	 */
+	public function setCreatedAt(DateTime $createdAt): void
+	{
+		$this->createdAt = $createdAt;
+	}
 
-    /**
-     * @param bool $isUsed
-     */
-    public function setIsUsed(bool $isUsed): void
-    {
-        $this->isUsed = $isUsed;
-    }
+	/**
+	 * @return bool
+	 */
+	public function isUsed(): bool
+	{
+		return $this->isUsed;
+	}
+
+	/**
+	 * @param bool $isUsed
+	 */
+	public function setIsUsed(bool $isUsed): void
+	{
+		$this->isUsed = $isUsed;
+	}
 }

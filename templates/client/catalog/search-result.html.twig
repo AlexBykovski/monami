@@ -93,7 +93,24 @@
                                 </div>
 
                                 <div class="product-price-wrap">
-                                    <div class="product-price" ng-bind="product.cost + ' BYN'"></div>
+                                    {% if userSale %}
+                                        <div class="strike-price">
+                                            <div class="product-price"
+                                                 ng-bind="product.sale > 0 ? product.oldcost + ' BYN' : product.rozcost + ' BYN'"></div>
+                                        </div>
+                                        <span ng-if="product.sale == 0">С учётом персональной скидки</span>
+                                    {% else %}
+
+                                        <div ng-if="product.sale > 0" class="strike-price">
+                                            <div class="product-price"
+                                                 ng-bind="product.sale > 0 ? product.oldcost + ' BYN' : product.rozcost + ' BYN'"></div>
+                                        </div>
+                                    {% endif %}
+
+                                    <div class="product-price" ng-bind="(product.{{ (user == null ) ? 'cost' : 'rozcost' }} * {{ (100 - userSale)/100 }}).toFixed(2) + ' BYN'"></div>
+                                    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                                        <div class="descr-item" ng-bind="'Осталось: ' + product.leftCount"></div>
+                                    {% endif %}
 
                                     <div class="product-controls">
                                         <button class="product-add-to-cart-btn bttn bttn-xs bttn-sky-blue-gradient bttn-border"

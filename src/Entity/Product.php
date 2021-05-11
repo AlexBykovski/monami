@@ -64,6 +64,13 @@ class Product
      *
      * @ORM\Column(type="decimal", scale=2)
      */
+    private $rozCost;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(type="decimal", scale=2)
+     */
     private $cost;
 
     /**
@@ -88,6 +95,20 @@ class Product
     private $description;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(type="text")
+     */
+    private $textDescription;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(type="decimal", scale=2)
+     */
+    private $oldcost;
+
+    /**
      * @var ArrayCollection
      *
      * One Product has Many Purchases.
@@ -102,8 +123,10 @@ class Product
      * @param string $name
      * @param string $photo
      * @param float $cost
+     * @param float $rozCost
      * @param int $leftCount
      * @param string description
+     * @param string $textDescription
      */
     public function __construct(
         string $apiId,
@@ -111,17 +134,21 @@ class Product
         string $name,
         string $photo,
         float $cost,
+        float $rozCost,
         int $leftCount,
-        string $description
-    )
-    {
+        string $description,
+        string $textDescription = null
+    ) {
         $this->apiId = $apiId;
         $this->simaCode = $simaCode;
         $this->name = $name;
         $this->photo = $photo;
         $this->cost = $cost;
+        $this->rozCost = $rozCost;
         $this->leftCount = $leftCount;
         $this->description = $description;
+        $this->textDescription = $textDescription;
+        $this->oldcost = 0;
 
         $this->purchases = new ArrayCollection();
         $this->createdAt = new DateTime();
@@ -231,12 +258,45 @@ class Product
         return $this->cost;
     }
 
+
     /**
      * @param float $cost
      */
     public function setCost(float $cost): void
     {
         $this->cost = $cost;
+    }
+
+    /**
+     * @return float
+     */
+    public function getRozCost(): float
+    {
+        return $this->rozCost;
+    }
+
+    /**
+     * @param float $rozCost
+     */
+    public function setRozCost(float $rozCost): void
+    {
+        $this->rozCost = $rozCost;
+    }
+
+    /**
+     * @return float
+     */
+    public function getOldCost(): float
+    {
+        return $this->cost;
+    }
+
+    /**
+     * @param float $oldCost
+     */
+    public function setOldCost(float $oldCost): void
+    {
+        $this->oldcost = $oldCost;
     }
 
     /**
@@ -303,6 +363,23 @@ class Product
         $this->description = $description;
     }
 
+    /**
+     * @return string
+     */
+    public function getTextDescription(): string
+    {
+        return $this->textDescription;
+    }
+
+    /**
+     * @param string $textDescription
+     */
+    public function setTextDescription(string $textDescription): void
+    {
+        $this->textDescription = $textDescription;
+    }
+
+
     public function addCount($count)
     {
         $this->leftCount += $count;
@@ -319,6 +396,8 @@ class Product
             "photo" => $this->photo,
             "name" => $this->name,
             "cost" => $this->cost,
+            'oldcost' => $this->oldcost,
+            'rozcost' => $this->rozCost,
             "apiId" => $this->apiId,
             "id" => $this->id,
             "description" => $this->description,

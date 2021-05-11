@@ -16,4 +16,24 @@ class ProductGroupRepository extends EntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findByField($field, $value)
+    {
+        $qb = $this->createQueryBuilder('a');
+        $qb->where($qb->expr()->eq('a.'.$field, '?1'));
+        $qb->setParameter(1, $value);
+
+        return $qb->getQuery()
+            ->getResult();
+    }
+
+    public function findByNot($field, $value)
+    {
+        $qb = $this->createQueryBuilder('a');
+        $qb->where($qb->expr()->not($qb->expr()->eq('a.'.$field, '?1')));
+        $qb->setParameter(1, $value);
+
+        return $qb->getQuery()
+            ->getResult();
+    }
 }

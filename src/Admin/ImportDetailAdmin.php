@@ -14,26 +14,26 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class ImportDetailAdmin extends AbstractAdmin
 {
-    protected function configureFormFields(FormMapper $formMapper)
-    {
-        $formMapper->add('name', TextType::class, ['label' => 'Название настройки:']);
-        $formMapper->add('url', TextType::class, ['label' => 'Url адрес Xml:']);
-        $formMapper->add('imagesUrl', TextType::class, ['label' => 'Url папки с картинками:']);
+	protected function configureFormFields(FormMapper $formMapper)
+	{
+		$formMapper->add('name', TextType::class, ['label' => 'Название настройки:']);
+		$formMapper->add('url', TextType::class, ['label' => 'Url адрес Xml:']);
+		$formMapper->add('imagesUrl', TextType::class, ['label' => 'Url папки с картинками:']);
 //        $formMapper->add('interval', IntegerType::class, ['label' => 'Интервал импорта (мин):']);
-    }
+	}
 
-    protected function configureListFields(ListMapper $listMapper)
-    {
-        $listMapper->addIdentifier('name', 'text', ['label' => 'Название настройки', 'sortable' => false])
-            ->add('_action', null, [
-                'actions' => [
-                    'edit' => [],
-                ]
-            ]);
-    }
+	protected function configureListFields(ListMapper $listMapper)
+	{
+		$listMapper->addIdentifier('name', 'text', ['label' => 'Название настройки', 'sortable' => false])
+			->add('_action', null, [
+				'actions' => [
+					'edit' => [],
+				]
+			]);
+	}
 
-    protected function configureRoutes(RouteCollection $collection)
-    {
-        $collection->clearExcept(['list', 'edit']);
-    }
+	protected function configureRoutes(RouteCollection $collection)
+	{
+		$collection->clearExcept(['list', 'edit']);
+	}
 }

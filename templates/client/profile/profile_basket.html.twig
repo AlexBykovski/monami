@@ -2,253 +2,355 @@
 
 {% block body %}
 
-<main class="main" ng-controller="CartCtrl as cart" ng-init="cart.init()">
+    <main class="main" ng-controller="CartCtrl as cart" ng-init="cart.init()">
 
-	<section id="account-header-sect">
-		<div class="container">
-			<div class="row">
-				<div class="col-12">
+        <section id="account-header-sect">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
 
-					<div class="sect-title">
-						<div class="row">
-							<div class="col-md-4 text-md-left">
+                        <div class="sect-title">
+                            <div class="row">
+                                <div class="col-md-4 text-md-left">
 
-								<a href="/" class="to-home-btn bttn bttn-xs bttn-sky-blue-gradient bttn-border"><span id="reply-icon"></span>На главную</a>
+                                    <a href="/"
+                                       class="to-home-btn bttn bttn-xs bttn-sky-blue-gradient bttn-border"><span
+                                                id="reply-icon"></span>На главную</a>
 
-							</div>
-							<div class="col-md-4 mt-4 mt-md-0">
+                                </div>
+                                <div class="col-md-4 mt-4 mt-md-0">
 
-								<h3>Личный кабинет</h3>
+                                    <h3>Личный кабинет</h3>
 
-							</div>
-						</div>
-					</div>
-
-					<div class="account-nav-list">
-						<a href="{{ path("show_profile_personal") }}" class="account-nav-item card-box">
-							<span class="nav-icon" style="background-image: url({{ image_url('default/icons/account/account-profile-icon.png') }});"></span>
-							<h6 class="nav-title">Персональные данные</h6>
-						</a>
-
-						<a href="{{ path("show_profile_basket") }}" class="account-nav-item card-box active">
-							<span class="nav-icon" style="background-image: url({{ image_url('default/icons/account/account-shop-cart-icon.png') }});"></span>
-							<h6 class="nav-title">Корзина</h6>
-						</a>
-
-						<a href="{{ path("show_profile_orders") }}" class="account-nav-item card-box">
-							<span class="nav-icon" style="background-image: url({{ image_url('default/icons/account/account-orders-history-icon.png') }});"></span>
-							<h6 class="nav-title">История заказов</h6>
-						</a>
-
-						<a href="{{ path("show_profile_feedback") }}" class="account-nav-item card-box">
-							<span class="nav-icon" style="background-image: url({{ image_url('default/icons/account/account-feedback-icon.png') }});"></span>
-							<h6 class="nav-title">Обратная связь</h6>
-						</a>
-					</div>
-
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<section id="account-basket-sect">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-8 col-lg-3 offset-md-2 offset-lg-0">
-
-					<div class="account-basket-summary-block card-box">
-						<h6 id="full-price-text">Общая стоимость:</h6>
-
-						<ul class="price-cheque">
-							<li>
-								<div class="cheque-name">Товары</div>
-								<div class="cheque-value"><span ng-bind="app.CartService.getCart().sum"></span> <span class="cur">BYN</span></div>
-							</li>
-
-							<li>
-								<div class="cheque-name">Доставка</div>
-								<div class="cheque-value">0 <span class="cur">BYN</span></div>
-							</li>
-						</ul>
-
-						<h6 id="summary-text">Итого:</h6>
-						<div id="summary-price"><span ng-bind="app.CartService.getCart().sumDiscounted"></span> <span class="cur">BYN</span></div>
-
-						<form class="basket-order-form">
-							<input type="text" id="promo-input" ng-model="promocode" ng-init="promocode = ''" placeholder="Введите промокод">
-							<button id="make-order-btn" class="bttn bttn-sm bttn-block bttn-sky-blue-gradient" ng-click="app.CartService.usePromocode(promocode); promocode = ''">Использовать</button>
-							<div id="discount-text">Ваша скидка - <span id="discount-sum" ng-bind="app.CartService.getCart().discount + '%'"></span></div>
-							<button id="make-order-btn" ng-click="app.CartService.saveCart();" class="bttn bttn-sm bttn-block bttn-sky-blue-gradient">Оформить заказ</button>
-							{#<a href="#" id="buy-at-retail-btn" class="bttn bttn-sm bttn-block bttn-crimson-gradient">Купить в розницу</a>#}
-							<div id="save-to-excell-btn" ng-click="app.CartService.exportToXls();"><img src="{{ image_url('default/icons/excell-icon.png') }}" id="excell-icon" alt=""> Сохранить товары в .xls</div>
-						</form>
-					</div>
-
-				</div>
-				<div class="col-lg-9 mt-5 mt-lg-0">
-
-					<div class="products-list-utilites-bar card-box">
-						<div class="sort-by-wrap">
-							{#<div class="sort-by-text">Сортировать:</div>#}
-
-							<ul class="sort-by-list">
-								<li class="sort-by-item" ng-class="{'active' : cart.filters.sort === 'cost'}">
-									<a href="" ng-click="cart.filters.sort = 'cost'; cart.updateProducts();">По цене</a>
-								</li>
-								<li class="sort-by-item" ng-class="{'active' : cart.filters.sort === 'createdAt'}">
-									<a href="" ng-click="cart.filters.sort = 'createdAt'; cart.updateProducts();">По новизне</a>
-								</li>
-								<li class="sort-by-item" ng-class="{'active' : cart.filters.sort === 'name'}">
-									<a href="" ng-click="cart.filters.sort = 'name'; cart.updateProducts();">По алфавиту</a>
-								</li>
-							</ul>
-						</div>
-
-						<div class="sort-by-wrap">
-							{#<div class="sort-by-text">Показывать:</div>#}
-
-							<ul class="sort-by-list">
-								<li class="sort-by-item" ng-class="{'active' : cart.filters.count === 16}">
-									<a href="" ng-click="cart.filters.page = 1; cart.filters.count = 16; cart.updateProducts();">16</a>
-								</li>
-								<li class="sort-by-item" ng-class="{'active' : cart.filters.count === 32}">
-									<a href="" ng-click="cart.filters.page = 1; cart.filters.count = 32; cart.updateProducts();">32</a>
-								</li>
-								<li class="sort-by-item" ng-class="{'active' : cart.filters.count === 64}">
-									<a href="" ng-click="cart.filters.page = 1; cart.filters.count = 64; cart.updateProducts();">64</a>
-								</li>
-								<li class="sort-by-item" ng-class="{'active' : cart.filters.count === 128}">
-									<a href="" ng-click="cart.filters.page = 1; cart.filters.count = 128; cart.updateProducts();">128</a>
-								</li>
-								<li class="sort-by-item" ng-class="{'active' : cart.filters.count === 256}">
-									<a href="" ng-click="cart.filters.page = 1; cart.filters.count = 256; cart.updateProducts();">256</a>
-								</li>
-								<li class="sort-by-item" ng-class="{'active' : cart.filters.count > 256}">
-									<a href="" ng-click="cart.filters.page = 1; cart.filters.count = cart.maxCount; cart.updateProducts();">Все</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-
-					<div class="products-list products-list-standart">
-
+                                </div>
+                            </div>
+                        </div>
                         {% if not app.user %}
-							<div class="feedback-form-box">
-								<form class="feedback-form">
-									<fieldset class="form-group">
-										<div class="row">
-											<div class="col-xs-12">
+                            <div class="account-nav-list">
+                                <a  href="#" data-toggle="modal" data-target="#exampleModal" class="account-nav-item card-box">
+                                <span class="nav-icon"
+                                      style="background-image: url({{ image_url('default/icons/account/account-profile-icon.png') }});"></span>
+                                    <h6 class="nav-title">Персональные данные</h6>
+                                </a>
 
-												<input type="text" class="fg-input input-block" placeholder="Ваше имя*">
+                                <a href="{{ path("show_profile_basket") }}" class="account-nav-item card-box active">
+                                <span class="nav-icon"
+                                      style="background-image: url({{ image_url('default/icons/account/account-shop-cart-icon.png') }});"></span>
+                                    <h6 class="nav-title">Корзина</h6>
+                                </a>
 
-											</div>
-										</div>
-									</fieldset>
+                                <a  href="#" data-toggle="modal" data-target="#exampleModal" class="account-nav-item card-box">
+                                <span class="nav-icon"
+                                      style="background-image: url({{ image_url('default/icons/account/account-orders-history-icon.png') }});"></span>
+                                    <h6 class="nav-title">История заказов</h6>
+                                </a>
 
-									<fieldset class="form-group">
-										<div class="row">
-											<div class="col-xs-12">
+                                <a  href="#" data-toggle="modal" data-target="#exampleModal" class="account-nav-item card-box">
+                                <span class="nav-icon"
+                                      style="background-image: url({{ image_url('default/icons/account/account-feedback-icon.png') }});"></span>
+                                    <h6 class="nav-title">Обратная связь</h6>
+                                </a>
+                            </div>
+                        {% else %}
+                            <div class="account-nav-list">
+                                <a href="{{ path("show_profile_personal") }}" class="account-nav-item card-box">
+                                <span class="nav-icon"
+                                      style="background-image: url({{ image_url('default/icons/account/account-profile-icon.png') }});"></span>
+                                    <h6 class="nav-title">Персональные данные</h6>
+                                </a>
 
-												<input type="text" class="fg-input input-block" placeholder="Ваш Email">
+                                <a href="{{ path("show_profile_basket") }}" class="account-nav-item card-box active">
+                                <span class="nav-icon"
+                                      style="background-image: url({{ image_url('default/icons/account/account-shop-cart-icon.png') }});"></span>
+                                    <h6 class="nav-title">Корзина</h6>
+                                </a>
 
-											</div>
-										</div>
-									</fieldset>
+                                <a href="{{ path("show_profile_orders") }}" class="account-nav-item card-box">
+                                <span class="nav-icon"
+                                      style="background-image: url({{ image_url('default/icons/account/account-orders-history-icon.png') }});"></span>
+                                    <h6 class="nav-title">История заказов</h6>
+                                </a>
 
-									<fieldset class="form-group">
-										<div class="row">
-											<div class="col-xs-12">
-
-												<input type="text" class="fg-input input-block" placeholder="Контактный телефон*">
-
-											</div>
-										</div>
-									</fieldset>
-
-									<fieldset class="form-group">
-										<div class="row">
-											<div class="col-xs-12">
-
-												<input type="text" class="fg-input input-block" placeholder="Пункт разгрузки товара*">
-
-											</div>
-										</div>
-									</fieldset>
-
-									<fieldset class="form-group">
-										<div class="row">
-											<div class="col-xs-12">
-
-												<textarea class="fg-input input-block" rows="10" placeholder="Комментарий"></textarea>
-
-											</div>
-										</div>
-									</fieldset>
-
-									<div class="feedback-submit-btn-wrap">
-										<button class="feedback-submit-btn bttn bttn-xs bttn-sky-blue-gradient bttn-border">Отправить</button>
-									</div>
-								</form>
-							</div>
+                                <a href="{{ path("show_profile_feedback") }}" class="account-nav-item card-box">
+                                <span class="nav-icon"
+                                      style="background-image: url({{ image_url('default/icons/account/account-feedback-icon.png') }});"></span>
+                                    <h6 class="nav-title">Обратная связь</h6>
+                                </a>
+                            </div>
                         {% endif %}
+                    </div>
+                </div>
+            </div>
+        </section>
 
-						<div class="product-item" ng-repeat="product in cart.products">
+        <section id="account-basket-sect">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-lg-3 offset-md-2 offset-lg-0">
 
-							<div class="product-code">
-								<span ng-bind="product.apiId"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<span style="color: red; cursor: pointer" ng-click="app.CartService.removeFromCart(product.id); cart.updateProducts()">X</span>
-							</div>
-							<a href="/product/{{ '{{ product.id }}' }}" class="product-image" style="background-image: url({{ '{{ image_directory + product.photo}}' }});"></a>
+                        <div class="account-basket-summary-block card-box">
+                            <h6 id="full-price-text">Общая стоимость:</h6>
 
-							<div class="product-descr-wrap">
-								<a href="#" class="product-name" ng-bind="product.name"></a>
+                            <ul class="price-cheque">
+                                <li>
+                                    <div class="cheque-name">Товары</div>
+                                    <div class="cheque-value"><span ng-bind="app.CartService.getCart().sum"></span>
+                                        <span class="cur">BYN</span></div>
+                                </li>
 
-								<div class="product-full-descr" ng-bind="product.description"></div>
+                                <li>
+                                    <div class="cheque-name">Доставка</div>
+                                    <div class="cheque-value">0 <span class="cur">BYN</span></div>
+                                </li>
+                            </ul>
 
-								<div class="product-origin-text">Производитель: Китай</div>
+                            <h6 id="summary-text">Итого:</h6>
+                            <div id="summary-price"><span ng-bind="app.CartService.getCart().sumDiscounted"></span>
+                                <span class="cur">BYN</span></div>
 
-								<div class="product-quantity-text">В упаковке 5 губок</div>
-							</div>
+                            <form name="formc" class="basket-order-form">
+                                {% if not app.user %}
+                                    <fieldset class="form-group" style="margin-top: 10px">
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <input ng-model="username" required="true"
+                                                       type="text" class="fg-input input-block"
+                                                       placeholder="Ваше имя*">
 
-							<div class="product-price-wrap">
-								<div class="product-price" ng-bind="product.cost + ' BYN'"> BYN</div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
 
-								<div class="basket-quant-text">в корзине <span class="quant" ng-bind="product.count + ' штук'"></span></div>
-							</div>
-						</div>
-					</div>
-					<nav class="offset-md-5 col-md-2" aria-label="Page navigation example">
-						<ul class="pagination">
-							<li class="page-item" ng-class="{'disabled' : cart.filters.page < 3}">
-								<a class="page-link" href="" ng-click="cart.toPage(cart.filters.page - 2);" aria-label="Previous">
-									<span aria-hidden="true">&laquo;</span>
-									<span class="sr-only">Previous</span>
-								</a>
-							</li>
-							<li class="page-item" ng-show="cart.filters.page > 1">
-								<a class="page-link" href="" ng-click="cart.toPage(cart.filters.page - 1);" ng-bind="cart.filters.page - 1"></a>
-							</li>
-							<li class="page-item active">
-								<a class="page-link" href="" ng-bind="cart.filters.page"></a>
-							</li>
-							<li class="page-item" ng-show="cart.filters.page < cart.countPages && cart.countPages > 1">
-								<a class="page-link" href="" ng-click="cart.toPage(cart.filters.page + 1);" ng-bind="cart.filters.page + 1"></a>
-							</li>
-							<li class="page-item"  ng-class="{'disabled' : cart.filters.page > cart.countPages - 2}">
-								<a class="page-link" href="" aria-label="Next" ng-click="cart.toPage(cart.filters.page + 2);">
-									<span aria-hidden="true">&raquo;</span>
-									<span class="sr-only">Next</span>
-								</a>
-							</li>
-						</ul>
-					</nav>
-				</div>
-			</div>
-		</div>
-	</section>
+                                    <fieldset class="form-group">
+                                        <div class="row">
+                                            <div class="col-xs-12">
 
-    {% include 'search-form.html.twig' %}
+                                                <input ng-model="email"
+                                                       required="true" type="email" class="fg-input input-block"
+                                                       placeholder="Ваш Email">
 
-</main>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+
+                                    <fieldset class="form-group">
+                                        <div class="row">
+                                            <div class="col-xs-12">
+
+                                                <input ng-model="phone" required="true"
+                                                       type="text" class="fg-input input-block"
+                                                       placeholder="Контактный телефон*">
+
+                                            </div>
+                                        </div>
+                                    </fieldset>
+
+                                    <fieldset class="form-group">
+                                        <div class="row">
+                                            <div class="col-xs-12">
+
+                                                <textarea required="true" ng-model="address" type="text"
+                                                          class="fg-input input-block"
+                                                          placeholder="Пункт разгрузки товара*" rows="5"></textarea>
+
+                                            </div>
+                                        </div>
+                                    </fieldset>
+
+                                    <fieldset class="form-group">
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                    <textarea ng-model="info"
+                                                              class="fg-input input-block" rows="5"
+                                                              placeholder="Комментарий"></textarea>
+
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                {% endif %}
+                                <input type="text" id="promo-input" ng-model="promocode" ng-init="promocode = ''"
+                                       placeholder="Введите промокод">
+                                <button id="make-order-btn" class="bttn bttn-sm bttn-block bttn-sky-blue-gradient"
+                                        ng-click="app.CartService.usePromocode(promocode); promocode = ''">Использовать
+                                </button>
+                                <div id="discount-text">Ваша скидка - <span id="discount-sum"
+                                                                            ng-bind="app.CartService.getCart().discount + '%'"></span>
+                                </div>
+                                {% if not app.user %}
+                                    <button id="make-order-btn" ng-click="formc.$valid && app.CartService.saveCart(
+                                {
+                                  username,
+                                  address,
+                                  phone,
+                                  email,
+                                  info
+
+                                }
+                                );"
+                                            class="make-order-btn bttn bttn-sm bttn-block bttn-sky-blue-gradient">
+                                        Оформить
+                                        заказ
+                                    </button>
+                                {% else %}
+                                    <button id="make-order-btn" ng-click="formc.$valid && app.CartService.saveCart({});"
+                                            class="make-order-btn bttn bttn-sm bttn-block bttn-sky-blue-gradient">
+                                        Оформить
+                                        заказ
+                                    </button>
+                                {% endif %}
+                                {#<a href="#" id="buy-at-retail-btn" class="bttn bttn-sm bttn-block bttn-crimson-gradient">Купить в розницу</a>#}
+                                <a id="save-to-excell-btn" href="/cart/export-to-xls" target="_blank"><img
+                                            src="{{ image_url('default/icons/excell-icon.png') }}" id="excell-icon"
+                                            alt=""> Сохранить товары в .xls</a>
+                            </form>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-9 mt-5 mt-lg-0">
+                        <div class="products-list-utilites-bar card-box">
+                            <div class="sort-by-wrap">
+                                {#<div class="sort-by-text">Сортировать:</div>#}
+
+                                <ul class="sort-by-list">
+                                    <li class="sort-by-item" ng-class="{'active' : cart.filters.sort === 'cost'}">
+                                        <a href="" ng-click="cart.filters.sort = 'cost'; cart.updateProducts();">По
+                                            цене</a>
+                                    </li>
+                                    <li class="sort-by-item" ng-class="{'active' : cart.filters.sort === 'createdAt'}">
+                                        <a href="" ng-click="cart.filters.sort = 'createdAt'; cart.updateProducts();">По
+                                            новизне</a>
+                                    </li>
+                                    <li class="sort-by-item" ng-class="{'active' : cart.filters.sort === 'name'}">
+                                        <a href="" ng-click="cart.filters.sort = 'name'; cart.updateProducts();">По
+                                            алфавиту</a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="sort-by-wrap">
+                                {#<div class="sort-by-text">Показывать:</div>#}
+
+                                <ul class="sort-by-list">
+                                    <li class="sort-by-item" ng-class="{'active' : cart.filters.count === 16}">
+                                        <a href=""
+                                           ng-click="cart.filters.page = 1; cart.filters.count = 16; cart.updateProducts();">16</a>
+                                    </li>
+                                    <li class="sort-by-item" ng-class="{'active' : cart.filters.count === 32}">
+                                        <a href=""
+                                           ng-click="cart.filters.page = 1; cart.filters.count = 32; cart.updateProducts();">32</a>
+                                    </li>
+                                    <li class="sort-by-item" ng-class="{'active' : cart.filters.count === 64}">
+                                        <a href=""
+                                           ng-click="cart.filters.page = 1; cart.filters.count = 64; cart.updateProducts();">64</a>
+                                    </li>
+                                    <li class="sort-by-item" ng-class="{'active' : cart.filters.count === 128}">
+                                        <a href=""
+                                           ng-click="cart.filters.page = 1; cart.filters.count = 128; cart.updateProducts();">128</a>
+                                    </li>
+                                    <li class="sort-by-item" ng-class="{'active' : cart.filters.count === 256}">
+                                        <a href=""
+                                           ng-click="cart.filters.page = 1; cart.filters.count = 256; cart.updateProducts();">256</a>
+                                    </li>
+                                    <li class="sort-by-item" ng-class="{'active' : cart.filters.count > 256}">
+                                        <a href=""
+                                           ng-click="cart.filters.page = 1; cart.filters.count = cart.maxCount; cart.updateProducts();">Все</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="products-list products-list-standart">
+
+                            <div class="product-item" ng-repeat="product in cart.products">
+
+                                <div class="product-code">
+                                    <span ng-bind="product.apiId"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <span style="color: red; cursor: pointer"
+                                          ng-click="app.CartService.removeFromCart(product.id);cart.updateProducts();">X</span>
+                                </div>
+                                <a href="/product/{{ '{{ product.id }}' }}" class="product-image"
+                                   style="background-image: url({{ '{{ image_directory + product.photo}}' }});"></a>
+
+                                <div class="product-descr-wrap">
+                                    <a href="#" class="product-name" ng-bind="product.name"></a>
+
+                                    <div class="product-full-descr" ng-bind="product.description"></div>
+
+                                    <div class="product-origin-text">Производитель: Китай</div>
+
+                                </div>
+
+                                <div class="product-price-wrap">
+                                    {% if userSale %}
+                                        <div class="strike-price">
+                                            <div class="product-price" ng-bind="product.rozcost + ' BYN'"></div>
+                                        </div>
+                                        <br/>
+                                        С учётом персональной скидки
+                                    {% endif %}
+                                    <div class="product-price"
+                                         ng-bind="(product.{{ (user == null ) ? 'cost' : 'rozcost' }} * {{ (100 - userSale)/100 }}).toFixed(2) + ' BYN'"></div>
+                                    <div class="basket-quant-text">в корзине
+                                        <span class="quant product-quantity-input-wrap" ng-init="product.count">
+											<span class="decrem-quant"
+                                                  ng-click="product.count === 1 ? 1 : product.count = product.count - 1; app.CartService.removeFromCart(product.id, product.count);cart.updateProducts();">-</span>
+											<input type="text"
+                                                   ng-change="product.count >= 1 ? app.CartService.removeFromCart(product.id, product.count) : ''; cart.updateProducts();"
+                                                   class="quant-input" ng-model="product.count" value="1">
+											<span class="increm-quant" ng-click="
+											product.count = product.count - (-1);
+											app.CartService.removeFromCart(product.id, product.count);cart.updateProducts();
+                                            ">+</span>
+										</span>
+                                        <span class="quant">штук</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <nav class="offset-md-5 col-md-2" aria-label="Page navigation example">
+                            <ul class="pagination">
+                                <li class="page-item" ng-class="{'disabled' : cart.filters.page < 3}">
+                                    <a class="page-link" href="" ng-click="cart.toPage(cart.filters.page - 2);"
+                                       aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                </li>
+                                <li class="page-item" ng-show="cart.filters.page > 1">
+                                    <a class="page-link" href="" ng-click="cart.toPage(cart.filters.page - 1);"
+                                       ng-bind="cart.filters.page - 1"></a>
+                                </li>
+                                <li class="page-item active">
+                                    <a class="page-link" href="" ng-bind="cart.filters.page"></a>
+                                </li>
+                                <li class="page-item"
+                                    ng-show="cart.filters.page < cart.countPages && cart.countPages > 1">
+                                    <a class="page-link" href="" ng-click="cart.toPage(cart.filters.page + 1);"
+                                       ng-bind="cart.filters.page + 1"></a>
+                                </li>
+                                <li class="page-item" ng-class="{'disabled' : cart.filters.page > cart.countPages - 2}">
+                                    <a class="page-link" href="" aria-label="Next"
+                                       ng-click="cart.toPage(cart.filters.page + 2);">
+                                        <span aria-hidden="true">&raquo;</span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        {% include 'search-form.html.twig' %}
+
+    </main>
+
+
+    <script>
+
+        function checkForm() {
+        }
+    </script>
+
 
 {% endblock %}

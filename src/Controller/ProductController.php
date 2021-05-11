@@ -17,8 +17,11 @@ class ProductController extends Controller
      */
     public function showProductAction(Request $request, Product $product)
     {
+
         return $this->render('client/product/product.html.twig', [
-            "product" => $product
+            "product" => $product,
+            'user' => $this->getUser(),
+            'previousUrl' => $request->headers->get('referer'),
         ]);
     }
 }

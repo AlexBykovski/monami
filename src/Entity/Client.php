@@ -28,6 +28,13 @@ class Client extends User
      */
     private $contrAgent;
 
+	/**
+	 * @var string|null
+	 *
+	 * @ORM\Column(type="float", nullable=true)
+	 */
+	private $discount;
+
     /**
      * @var Purchase[]
      *
@@ -52,8 +59,9 @@ class Client extends User
      * @param string $login
      * @param Manager|null $manager
      * @param null|string $contrAgent
+	 * @param float $discount
      */
-    public function __construct(string $apiId, string $phone, string $email, string $login, ?Manager $manager, ?string $contrAgent)
+    public function __construct(string $apiId, string $phone, string $email, string $login, ?Manager $manager, ?string $contrAgent, $discount = null)
     {
         parent::__construct();
 
@@ -64,6 +72,7 @@ class Client extends User
         $this->contrAgent = $contrAgent;
         // to prevent unique constraints
         $this->emailCanonical = $login;
+        $this->discount = $discount;
     }
 
 
@@ -122,6 +131,22 @@ class Client extends User
     {
         return $this->basket;
     }
+
+	/**
+	 * @param float|null $discount
+	 */
+	public function setDiscount($discount): void
+	{
+		$this->discount = $discount;
+	}
+
+	/**
+	 * @return float|null
+	 */
+	public function getDiscount()
+	{
+		return $this->discount;
+	}
 
     /**
      * @param Basket|null $basket

@@ -2,8 +2,16 @@
 
 namespace App\Controller;
 
+use App\Entity\AboutPage;
+use App\Entity\ConditionsPage;
 use App\Entity\ContactsPage;
+use App\Entity\DiscountedItemPage;
+use App\Entity\DiscountPage;
 use App\Entity\Manager;
+use App\Entity\ManagerSlider;
+use App\Entity\VacanciesPage;
+use App\Entity\Vacancy;
+use App\Entity\VacancyBlock;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,7 +23,9 @@ class StaticController extends Controller
      */
     public function showAboutAction(Request $request)
     {
-        return $this->render('client/static/about.html.twig', []);
+        return $this->render('client/static/about.html.twig', [
+            "page" => $this->getDoctrine()->getManager()->getRepository(AboutPage::class)->findAll()[0]
+        ]);
     }
 
     /**
@@ -23,7 +33,9 @@ class StaticController extends Controller
      */
     public function showConditionsAction(Request $request)
     {
-        return $this->render('client/static/conditions.html.twig', []);
+        return $this->render('client/static/conditions.html.twig', [
+            "page" => $this->getDoctrine()->getManager()->getRepository(ConditionsPage::class)->findAll()[0]
+        ]);
     }
 
     /**
@@ -34,7 +46,7 @@ class StaticController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         return $this->render('client/static/contacts.html.twig', [
-            "managers" => $em->getRepository(Manager::class)->findAll(),
+            "managers" => $em->getRepository(ManagerSlider::class)->findAll(),
             "page" => $em->getRepository(ContactsPage::class)->findAll()[0]
         ]);
     }
@@ -44,7 +56,9 @@ class StaticController extends Controller
      */
     public function showDiscountedAction(Request $request)
     {
-        return $this->render('client/static/discounted_goods.html.twig', []);
+        return $this->render('client/static/discounted_goods.html.twig', [
+            "page" => $this->getDoctrine()->getManager()->getRepository(DiscountedItemPage::class)->findAll()[0]
+        ]);
     }
 
     /**
@@ -52,6 +66,18 @@ class StaticController extends Controller
      */
     public function showVacanciesAction(Request $request)
     {
-        return $this->render('client/static/vacancies.html.twig', []);
+        $result = [];
+
+        $vacancy = $this->getDoctrine()->getManager()->getRepository(Vacancy::class)->findAll();
+
+        /** @var Vacancy $item */
+        foreach ($vacancy as $item) {
+            $result[$item->getTitle()] = $item->getVacancyBlocks();
+        }
+
+
+        return $this->render('client/static/vacancies.html.twig', [
+            "vacancies" => $result
+        ]);
     }
 }

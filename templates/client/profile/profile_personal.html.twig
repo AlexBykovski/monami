@@ -62,51 +62,51 @@
 								<div class="col-6 col-md-3">
 									
 									<b>ФИО</b>
-									<p>Иванов Иван Иванович</p>
+									<p>{{ user.username }}</p>
 
 								</div>
 								<div class="col-6 col-md-3">
 									
 									<b>Телефон</b>
-									<p>+375 (29) 355-33-32</p>
+									<p>{{ user.phone }}</p>
 
 								</div>
-								<div class="col-6 col-md-3 mt-3">
+								<div class="col-6 col-md-3">
 									
 									<b>Дата рождения</b>
-									<p>24.12.1990</p>
+									<p>{{ 'Отсутствует' }}</p>
 
 								</div>
-								<div class="col-6 col-md-3 mt-3">
-									
+								<div class="col-6 col-md-3">
+
 									<b>Email</b>
-									<p>ivan@mail.ru</p>
+									<p>{{ user.email ?: 'Отсутствует' }}</p>
 
 								</div>
 							</div>
 
-							<h6 class="highlight-text mt-4">Адрес доставки</h6>
+							{#<h6 class="highlight-text mt-4">Адрес доставки</h6>#}
 
-							<div class="row mt-4">
-								<div class="col-4 col-md-2">
-									
-									<b>Город</b>
-									<p>Иваново</p>
+							{#<div class="row mt-4">#}
+								{#<div class="col-4 col-md-2">#}
+									{##}
+									{#<b>Город</b>#}
+									{#<p>Иваново</p>#}
 
-								</div>
-								<div class="col-4 col-md-2">
-									
-									<b>Адрес</b>
-									<p>ул.Угловая, д.61</p>
+								{#</div>#}
+								{#<div class="col-4 col-md-2">#}
+									{##}
+									{#<b>Адрес</b>#}
+									{#<p>ул.Угловая, д.61</p>#}
 
-								</div>
-								<div class="col-4 col-md-2">
-									
-									<b>Индекс</b>
-									<p>223927</p>
+								{#</div>#}
+								{#<div class="col-4 col-md-2">#}
+									{##}
+									{#<b>Индекс</b>#}
+									{#<p>223927</p>#}
 
-								</div>
-							</div>
+								{#</div>#}
+							{#</div>#}
 
 						</div>
 					</div>

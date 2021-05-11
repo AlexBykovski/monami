@@ -8,16 +8,16 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-12">
-							
+
 							<div class="sect-title">
 								<div class="row">
 									<div class="col-md-4 text-md-left">
-										
+
 										<a href="/" class="to-home-btn bttn bttn-xs bttn-sky-blue-gradient bttn-border"><span id="reply-icon"></span>На главную</a>
 
 									</div>
 									<div class="col-md-4 mt-4 mt-md-0">
-										
+
 										<h3>Контакты</h3>
 
 									</div>
@@ -30,33 +30,14 @@
 								<div class="our-workers-carousel owl-carousel">
 									{% for manager in managers %}
 										<div class="our-worker-item card-box">
-											<div class="worker-photo" style="background-image: url({{ manager.image ?: '' }});"></div>
+											<div class="worker-photo" style="background-image: url({{ manager.image ?: '' }});background-size: cover;
+													width: 100%;
+													height: 250px;"></div>
 										<h6 class="worker-name">{{ manager.fullName }}</h6>
 										<div class="worker-position">менеджер</div>
 										<div class="worker-phone"><i class="fa fa-phone"></i> {{ manager.phone }}</div>
 									</div>
 									{% endfor %}
-
-									<div class="our-worker-item card-box">
-										<div class="worker-photo" style="background-image: url({{ image_url('default/worker-photo.png') }});"></div>
-										<h6 class="worker-name">Буцан Денис Александрович</h6>
-										<div class="worker-position">менеджер</div>
-										<div class="worker-phone"><i class="fa fa-phone"></i> 291-90-85</div>
-									</div>
-
-									<div class="our-worker-item card-box">
-										<div class="worker-photo" style="background-image: url({{ image_url('default/worker-photo.png') }});"></div>
-										<h6 class="worker-name">Буцан Денис Александрович</h6>
-										<div class="worker-position">менеджер</div>
-										<div class="worker-phone"><i class="fa fa-phone"></i> 291-90-85</div>
-									</div>
-
-									<div class="our-worker-item card-box">
-										<div class="worker-photo" style="background-image: url({{ image_url('default/worker-photo.png') }});"></div>
-										<h6 class="worker-name">Буцан Денис Александрович</h6>
-										<div class="worker-position">менеджер</div>
-										<div class="worker-phone"><i class="fa fa-phone"></i> 291-90-85</div>
-									</div>
 								</div>
 
 								<div class="contacts-info">
@@ -71,13 +52,11 @@
 
                                             {{ page.requisites | raw }}
 
-											<h6 class="mt-4 highlight-text text-center">Схема проезда</h6>
 
-                                            {{ page.map | raw }}
 										</div>
 									</div>
 								</div>
-					
+
 							</div>
 
 						</div>
@@ -86,7 +65,11 @@
 			</section>
 
 			<section id="contact-map-sect">
-				<div id="contact-map"></div>
+				<div id="contact-map">
+				    <h6 class="mt-4 highlight-text text-center">Схема проезда</h6>
+
+                                            {{ page.map | raw }}
+				</div>
 			</section>
 
 		</main>

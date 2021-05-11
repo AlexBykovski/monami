@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+{% block title %}Login!{% endblock %}
+{% block body %}
+    <form action="/login_check" method="post">
+        <label for="username">Имя пользователя</label>
+        <input type="text" id="username" name="_username" value="" required="required" autocomplete="username">
+
+        <label for="password">Пароль</label>
+        <input type="password" id="password" name="_password" required="required" autocomplete="current-password">
+
+        <input type="checkbox" id="remember_me" name="_remember_me" value="on">
+        <label for="remember_me">Запомнить меня</label>
+
+        <input type="submit" id="_submit" name="_submit" value="Войти">
+    </form>
+{% endblock %}

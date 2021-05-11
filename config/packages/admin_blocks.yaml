@@ -1,21 +1,9 @@
 services:
-    admin.general.vacancy:
-        class: App\Admin\VacancyAdmin
-        arguments: [~, App\Entity\Vacancy, ~]
-        tags:
-            - { name: sonata.admin, group: Общее, manager_type: orm, label: Вакансии }
-        public: true
     admin.general.main_page:
         class: App\Admin\MainPageAdmin
         arguments: [~, App\Entity\MainPage, ~, "@app.file_upload"]
         tags:
             - { name: sonata.admin, group: Общее, manager_type: orm, label: Главная }
-        public: true
-    admin.general.contacts_page:
-        class: App\Admin\ContactsPageAdmin
-        arguments: [~, App\Entity\ContactsPage, ~]
-        tags:
-            - { name: sonata.admin, group: Общее, manager_type: orm, label: Контакты }
         public: true
     admin.general.promocode:
         class: App\Admin\PromoCodeAdmin
@@ -23,11 +11,24 @@ services:
         tags:
             - { name: sonata.admin, group: Товары, manager_type: orm, label: Промокод }
         public: true
+
     admin.general.cooperation:
         class: App\Admin\CooperationAdmin
-        arguments: [~, App\Entity\Cooperation, ~]
+        arguments: [~, App\Entity\ConditionsPage, ~]
         tags:
             - { name: sonata.admin, group: Общее, manager_type: orm, label: Сотрудничество }
+        public: true
+    admin.general.contacts_page:
+        class: App\Admin\ContactsPageAdmin
+        arguments: [~, App\Entity\ContactsPage, ~]
+        tags:
+            - { name: sonata.admin, group: Общее, manager_type: orm, label: Контакты }
+        public: true
+    admin.general.aboutpage:
+        class: App\Admin\AboutPageAdmin
+        arguments: [~, App\Entity\AboutPage, ~]
+        tags:
+            - { name: sonata.admin, group: Общее, manager_type: orm, label: О нас }
         public: true
     admin.general.discounted_item_page:
         class: App\Admin\DiscountedItemPageAdmin
@@ -35,9 +36,29 @@ services:
         tags:
             - { name: sonata.admin, group: Общее, manager_type: orm, label: Уценённый товар }
         public: true
+    admin.general.vacancy:
+        class: App\Admin\VacancyAdmin
+        arguments: [~, App\Entity\Vacancy, ~]
+        tags:
+            - { name: sonata.admin, group: Общее, manager_type: orm, label: Вакансии }
+        public: true
     admin.import.import_items:
-      class: App\Admin\ImportDetailAdmin
-      arguments: [~, App\Entity\ImportDetail, ~]
-      tags:
-          - { name: sonata.admin, group: Импорт, manager_type: orm, label: Импорт }
-      public: true
+        class: App\Admin\ImportDetailAdmin
+        arguments: [~, App\Entity\ImportDetail, ~]
+        calls:
+            - [setTemplate, ['list', 'client/admin/list.html.twig']]
+        tags:
+            - { name: sonata.admin, group: Импорт, manager_type: orm, label: Импорт }
+        public:
+    admin.general.managers:
+        class: App\Admin\ManagersSliderPageAdmin
+        arguments: [~, App\Entity\ManagerSlider, ~]
+        tags:
+            - { name: sonata.admin, group: Общее, manager_type: orm, label: Слайдер контактов }
+        public: true
+    admin.general.managers_slider:
+        class: App\Admin\ManagersPageAdmin
+        arguments: [~, App\Entity\Manager, ~]
+        tags:
+            - { name: sonata.admin, group: Общее, manager_type: orm, label: Менеджеры }
+        public: true

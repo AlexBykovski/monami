@@ -28,7 +28,7 @@
 					<div class="container">
                         <div class="sect-title">
                             <div class="col-md-4 text-md-left">
-                                <a href="#" onclick="history.go(-1);" class="to-home-btn bttn bttn-xs bttn-sky-blue-gradient bttn-border"><span
+                                <a href="#" onclick="window.history.go(-1); return false;" class="to-home-btn bttn bttn-xs bttn-sky-blue-gradient bttn-border"><span
                                             id="reply-icon"></span>Назад</a>
                             </div>
                         </div>
@@ -44,7 +44,11 @@
 									<h2 class="product-title">{{ product.name }}</h2>
 
 									<ul class="product-descr-list">
-										<li class="descr-item" ng-bind="'Осталось: ' + leftCount"></li>
+										{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+											<li class="descr-item">
+												 Осталось: {{ product.leftCount }}
+											</li>
+										{% endif %}
 										<li class="descr-item">Код товара: {{ product.apiId }}</li>
 									</ul>
 
@@ -55,7 +59,7 @@
 									<!-- <div class="product-price">15.8 <span class="cur">BYN</span></div> -->
 
 									<div class="product-discount-price">
-										<div class="product-price">{{ product.cost }} BYN</div>
+										<div class="product-price">{{ (user == null ) ? product.cost : product.rozcost }} BYN</div>
 										{#<div class="new-price">#}
 											{#{{ product.cost }} <span class="cur">BYN</span>#}
 											{#<span class="discount-sum">-15%</span>#}
@@ -72,8 +76,8 @@
 
 										<span class="product-quantity-input-wrap" ng-init="count_{{ product.id }} = leftCount > 0 ? 1 : 0">
 											<span class="decrem-quant" ng-click="count_{{ product.id }} === 1 ? 1 : count_{{ product.id }} = count_{{ product.id }} - 1">-</span>
-											<input type="text" class="quant-input" ng-model="count_{{ product.id }}" value="1">
-											<span class="increm-quant" ng-click="count_{{ product.id }} = count_{{ product.id }} - (-1)">+</span>
+											<input type="text" min="0" max="100" class="quant-input" ng-model="count_{{ product.id }}" value="1">
+											<span class="increm-quant" ng-click="count_{{ product.id }} = leftCount > 1 ? count_{{ product.id }} - (-1) : count_{{ product.id }}">+</span>
 									</span>
 									</div>
 								</div>
@@ -87,19 +91,10 @@
 					<div class="container">
 						<div class="row">
 							<div class="col-12">
-
 								<h4 class="highlight-text text-center mb-4">ОПИСАНИЕ</h4>
-
 								<div class="row">
 									<div class="col-md-10 offset-md-1">
-
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
-										<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-										<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-										<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-										<p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
-										<p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem</p>
-
+										<p>{{ product.textDescription }}</p>
 									</div>
 								</div>
 

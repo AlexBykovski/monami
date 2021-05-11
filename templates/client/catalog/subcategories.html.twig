@@ -2,14 +2,15 @@
 {% import 'macros/recursive-group-navigation.html.twig' as myMacros %}
 
 {% block body %}
-
-		<main class="main">
+		<main class="main"
+			  ng-controller="FilterProductCtrl as filterCtrl"
+			  ng-init="filterCtrl.init('{{ childIds }}', '', '' , '{{ page }}')">
 
 			<section id="breadcrumbs-sect">
 				<div class="container">
 					<div class="row">
 						<div class="col-12">
-							
+
 							<ul class="breadcrumbs">
 								<li class="breadcrumbs-item"><a href="{{ path("homepage") }}">Главная</a></li>
 								{% if group %}
@@ -29,7 +30,7 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-12">
-							
+
 							<div class="sect-title">
 								<h3>{{ group ? group.name : "Каталог" }}</h3>
 							</div>
@@ -39,7 +40,7 @@
 									{% set showGroups = group ? group.childrenGroups : parentGroups %}
 									{% for childGroup in showGroups %}
 									<div class="col-xs-6 col-sm-4 col-md-3">
-										
+
 										<a href="{{ group_url(childGroup) }}" class="subcategory-item">
 											<div class="subcategory-image" style="background-image: url({{ childGroup.photo }});"></div>
 											<h4 class="subcategory-title">{{ childGroup.name }}</h4>
@@ -53,6 +54,218 @@
 						</div>
 					</div>
 				</div>
+			</section>
+
+			<section id="catalog-sect">
+				<div class="container">
+					<div class="row">
+						<div class="col-12">
+
+							<div class="sect-title">
+								<h3>{{ group ? group.name : "Каталог" }}</h3>
+							</div>
+
+							<div class="products-list-utilites-bar card-box">
+								<div class="sort-by-wrap">
+									<div class="sort-by-text">Сортировать:</div>
+
+									<ul class="sort-by-list">
+										<li class="sort-by-item" ng-class="{'active' : filterCtrl.filters.sort === 'cost'}">
+											<a href="" ng-click="filterCtrl.filters.sort = 'cost'; filterCtrl.updateProducts();">По цене</a>
+										</li>
+										<li class="sort-by-item" ng-class="{'active' : filterCtrl.filters.sort === 'createdAt'}">
+											<a href="" ng-click="filterCtrl.filters.sort = 'createdAt'; filterCtrl.updateProducts();">По новизне</a>
+										</li>
+										<li class="sort-by-item" ng-class="{'active' : filterCtrl.filters.sort === 'name'}">
+											<a href="" ng-click="filterCtrl.filters.sort = 'name'; filterCtrl.updateProducts();">По алфавиту</a>
+										</li>
+									</ul>
+								</div>
+
+								<div class="sort-by-wrap">
+									<div class="sort-by-text">Показывать:</div>
+
+									<ul class="sort-by-list">
+										<li class="sort-by-item" ng-class="{'active' : filterCtrl.filters.count === 16}">
+											<a href="" ng-click="filterCtrl.filters.count = 16; filterCtrl.filters.page = 1; filterCtrl.updateProducts();">16</a>
+										</li>
+										<li class="sort-by-item" ng-class="{'active' : filterCtrl.filters.count === 32}">
+											<a href="" ng-click="filterCtrl.filters.count = 32; filterCtrl.filters.page = 1; filterCtrl.updateProducts();">32</a>
+										</li>
+										<li class="sort-by-item" ng-class="{'active' : filterCtrl.filters.count === 64}">
+											<a href="" ng-click="filterCtrl.filters.count = 64; filterCtrl.filters.page = 1; filterCtrl.updateProducts();">64</a>
+										</li>
+										<li class="sort-by-item" ng-class="{'active' : filterCtrl.filters.count === 128}">
+											<a href="" ng-click="filterCtrl.filters.count = 128; filterCtrl.filters.page = 1; filterCtrl.updateProducts();">128</a>
+										</li>
+										<li class="sort-by-item" ng-class="{'active' : filterCtrl.filters.count === 256}">
+											<a href="" ng-click="filterCtrl.filters.count = 256; filterCtrl.filters.page = 1; filterCtrl.updateProducts();">256</a>
+										</li>
+										<li class="sort-by-item" ng-class="{'active' : filterCtrl.filters.count > 256}">
+											<a href="" ng-click="filterCtrl.filters.count = filterCtrl.maxCount; filterCtrl.filters.page = 1; filterCtrl.updateProducts();">Все</a>
+										</li>
+									</ul>
+								</div>
+
+								<ul class="products-list-view-selector">
+									<li id="products-list-tiles-select" class="view-item"><span class="view-icon"><i class="fa fa-th"></i></span></li>
+									<li id="products-list-standart-select" class="view-item"><span class="view-icon"><i class="fa fa-list-ul"></i></span></li>
+								</ul>
+							</div>
+
+							<div class="products-list products-list-standart">
+								<div class="product-item" ng-repeat="product in filterCtrl.products">
+									<div class="product-code" ng-bind="product.apiId"></div>
+
+									<a ng-href="/product/{{ '{{ product.id }}' }}" class="product-image" style="background-image: url({{ '{{ image_directory + product.photo}}' }});"></a>
+
+									<div class="product-descr-wrap">
+										<a ng-href="/product/{{ '{{ product.id }}' }}" class="product-name" ng-bind="product.name"></a>
+
+										<div class="product-short-descr" ng-bind="product.description"></div>
+
+										{#<div class="product-full-descr">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore numquam illo omnis! Quod expedita, eligendi natus quidem necessitatibus blanditiis veritatis, perferendis eos veniam dolorem odio ipsum distinctio sit odio ipsum distinctio sit ipsum distinctio sit distinctio sit ipsum distinctio sit</div>#}
+
+										<div class="product-origin-text">Производитель: Китай</div>
+									</div>
+
+									<div class="product-price-wrap">
+										{% if userSale %}
+											<div class="strike-price">
+												<div class="product-price"
+													 ng-bind="product.sale > 0 ? product.oldcost + ' BYN' : product.rozcost + ' BYN'"></div>
+											</div>
+											<span ng-if="product.sale == 0">С учётом персональной скидки</span>
+										{% else %}
+
+											<div ng-if="product.sale > 0" class="strike-price">
+												<div class="product-price"
+													 ng-bind="product.sale > 0 ? product.oldcost + ' BYN' : product.rozcost + ' BYN'"></div>
+											</div>
+										{% endif %}
+
+										<div class="product-price" ng-bind="(product.{{ (user == null ) ? 'cost' : 'rozcost' }} * {{ (100 - userSale)/100 }}).toFixed(2) + ' BYN'"></div>
+										{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+											<div class="descr-item" ng-bind="'Осталось: ' + product.leftCount"></div>
+										{% endif %}
+
+										<div class="product-controls">
+											<button class="product-add-to-cart-btn bttn bttn-xs bttn-sky-blue-gradient bttn-border"
+													ng-click="app.CartService.addToCart(product.id, product.count)">
+												<i class="fa fa-shopping-cart"></i> &nbsp; В корзину
+											</button>
+
+											<span class="product-quantity-input-wrap" ng-init="product.count = 1">
+											<span class="decrem-quant" ng-click="product.count === 1 ? 1 : product.count = product.count - 1">-</span>
+											<input type="text" class="quant-input" ng-model="product.count" value="1">
+											<span class="increm-quant" ng-click="product.count = product.count - (-1)">+</span>
+										</span>
+											</span>
+										</div>
+									</div>
+								</div>
+
+								{# @@todo this template for discounted product #}
+								{#<div class="product-item">#}
+								{#<div class="product-code">291229</div>#}
+								{##}
+								{#<a href="#" class="product-image" style="background-image: url({{ image_url('default/product-preview-img.png') }});"></a>#}
+
+								{#<div class="product-descr-wrap">#}
+								{#<a href="#" class="product-name">Губки СММ-155</a>#}
+								{##}
+								{#<div class="product-short-descr">губки для мытья посуды</div>#}
+								{##}
+								{#<div class="product-full-descr">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore numquam illo omnis! Quod expedita, eligendi natus quidem necessitatibus blanditiis veritatis, perferendis eos veniam dolorem odio ipsum distinctio sit odio ipsum distinctio sit ipsum distinctio sit distinctio sit ipsum distinctio sit</div>#}
+
+								{#<div class="product-origin-text">Производитель: Китай</div>#}
+								{#</div>#}
+								{##}
+								{#<div class="product-price-wrap">#}
+
+								{#<div class="product-discount-price">#}
+								{#<div class="new-price">#}
+								{#9.5 <span class="cur">BYN</span>#}
+								{#<span class="discount-sum">-15%</span>#}
+								{#</div>#}
+
+								{#<div class="old-price">14.5 <span class="cur">BYN</span></div>#}
+								{#</div>#}
+								{##}
+								{#<div class="product-controls">#}
+								{#<button class="product-add-to-cart-btn bttn bttn-xs bttn-sky-blue-gradient bttn-border"><i class="fa fa-shopping-cart"></i> &nbsp; В корзину</button>#}
+								{##}
+								{#<span class="product-quantity-input-wrap">#}
+								{#<span class="decrem-quant">-</span>#}
+								{#<input type="text" class="quant-input" value="1" disabled>#}
+								{#<span class="increm-quant">+</span>#}
+								{#</span>#}
+								{#</div>#}
+								{#</div>#}
+								{#</div>#}
+							</div>
+
+						</div>
+
+						<nav class="offset-md-5 col-md-2" aria-label="Page navigation example">
+							{% if group %}
+							<ul class="pagination">
+								<li class="page-item" ng-class="{'disabled' : filterCtrl.filters.page < 3}">
+									<a class="page-link" href="" ng-click="filterCtrl.toPage(filterCtrl.filters.page - 2);" aria-label="Previous">
+										<span aria-hidden="true">&laquo;</span>
+										<span class="sr-only">Previous</span>
+									</a>
+								</li>
+								{% if page > 1 %}
+									<li class="page-item" ng-show="filterCtrl.filters.page > 1">
+										<a class="page-link" href="/catalog/subcategories/{{ group.id }}?page={{ page - 1 }}">{{ page - 1 }}</a>
+									</li>
+								{% endif %}
+								<li class="page-item active">
+									<a class="page-link" href="" >{{ page }}</a>
+								</li>
+								<li class="page-item" ng-show="filterCtrl.filters.page < filterCtrl.countPages && filterCtrl.countPages > 1">
+									<a class="page-link" href="/catalog/subcategories/{{ group.id }}?page={{ page + 1 }}">{{ page + 1 }}</a>
+								</li>
+								<li class="page-item"  ng-class="{'disabled' : filterCtrl.filters.page > filterCtrl.countPages - 2}">
+									<a class="page-link" href="/catalog/subcategories/{{ group.id }}?page={{ page + 2 }}" aria-label="Next">
+										<span aria-hidden="true">&raquo;</span>
+										<span class="sr-only">Next</span>
+									</a>
+								</li>
+							</ul>
+							{% else %}
+								<ul class="pagination">
+									<li class="page-item" ng-class="{'disabled' : filterCtrl.filters.page < 3}">
+										<a class="page-link" href="" ng-click="filterCtrl.toPage(filterCtrl.filters.page - 2);" aria-label="Previous">
+											<span aria-hidden="true">&laquo;</span>
+											<span class="sr-only">Previous</span>
+										</a>
+									</li>
+									{% if page > 1 %}
+										<li class="page-item" ng-show="filterCtrl.filters.page > 1">
+											<a class="page-link" href="/catalog?page={{ page - 1 }}">{{ page - 1 }}</a>
+										</li>
+									{% endif %}
+									<li class="page-item active">
+										<a class="page-link" href="" >{{ page }}</a>
+									</li>
+									<li class="page-item" ng-show="filterCtrl.filters.page < filterCtrl.countPages && filterCtrl.countPages > 1">
+										<a class="page-link" href="/catalog?page={{ page + 1 }}">{{ page + 1 }}</a>
+									</li>
+									<li class="page-item"  ng-class="{'disabled' : filterCtrl.filters.page > filterCtrl.countPages - 2}">
+										<a class="page-link" href="/catalog?page={{ page + 2 }}" aria-label="Next">
+											<span aria-hidden="true">&raquo;</span>
+											<span class="sr-only">Next</span>
+										</a>
+									</li>
+								</ul>
+							{% endif %}
+						</nav>
+
+					</div>
+				</div>
+
 			</section>
 
             {% include 'search-form.html.twig' %}

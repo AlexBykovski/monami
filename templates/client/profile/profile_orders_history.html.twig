@@ -2,111 +2,153 @@
 
 {% block body %}
 
-		<main class="main">
+    <style>
+        .info {
+            width: 100%;
+            margin-top: 1%;
+            margin-bottom: 2%;
+        }
 
-			<section id="account-header-sect">
-				<div class="container">
-					<div class="row">
-						<div class="col-12">
-							
-							<div class="sect-title">
-								<div class="row">
-									<div class="col-md-4 text-md-left">
-										
-										<a href="/" class="to-home-btn bttn bttn-xs bttn-sky-blue-gradient bttn-border"><span id="reply-icon"></span>На главную</a>
+        .info div {
+            margin-left: 10%;
+        }
 
-									</div>
-									<div class="col-md-4 mt-4 mt-md-0">
-										
-										<h3>Личный кабинет</h3>
+        .product-order-quant:hover {
+            color: #0089ad;
+            font-size: larger;
+        }
+    </style>
 
-									</div>
-								</div>
-							</div>
+    <main class="main">
 
-							<div class="account-nav-list">
-								<a href="{{ path("show_profile_personal") }}" class="account-nav-item card-box">
-									<span class="nav-icon" style="background-image: url({{ image_url('default/icons/account/account-profile-icon.png') }});"></span>
-									<h6 class="nav-title">Персональные данные</h6>
-								</a>
+        <section id="account-header-sect">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
 
-								<a href="{{ path("show_profile_basket") }}" class="account-nav-item card-box">
-									<span class="nav-icon" style="background-image: url({{ image_url('default/icons/account/account-shop-cart-icon.png') }});"></span>
-									<h6 class="nav-title">Корзина</h6>
-								</a>
+                        <div class="sect-title">
+                            <div class="row">
+                                <div class="col-md-4 text-md-left">
 
-								<a href="{{ path("show_profile_orders") }}" class="account-nav-item card-box active">
-									<span class="nav-icon" style="background-image: url({{ image_url('default/icons/account/account-orders-history-icon.png') }});"></span>
-									<h6 class="nav-title">История заказов</h6>
-								</a>
+                                    <a href="/"
+                                       class="to-home-btn bttn bttn-xs bttn-sky-blue-gradient bttn-border"><span
+                                                id="reply-icon"></span>На главную</a>
 
-								<a href="{{ path("show_profile_feedback") }}" class="account-nav-item card-box">
-									<span class="nav-icon" style="background-image: url({{ image_url('default/icons/account/account-feedback-icon.png') }});"></span>
-									<h6 class="nav-title">Обратная связь</h6>
-								</a>
-							</div>
+                                </div>
+                                <div class="col-md-4 mt-4 mt-md-0">
 
-						</div>
-					</div>
-				</div>
-			</section>
+                                    <h3>Личный кабинет</h3>
 
-			<section id="account-orders-history-sect">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-10 offset-lg-1">
-							
-							<div class="products-list-utilites-bar card-box">
-								<div class="sort-by-wrap">
-									<div class="sort-by-text">Показывать:</div>
-									
-									<ul class="sort-by-list">
-										<li class="sort-by-item active"><a href="#">16</a></li>
-										<li class="sort-by-item"><a href="#">32</a></li>
-										<li class="sort-by-item"><a href="#">64</a></li>
-										<li class="sort-by-item"><a href="#">128</a></li>
-										<li class="sort-by-item"><a href="#">256</a></li>
-										<li class="sort-by-item"><a href="#">Все</a></li>
-									</ul>
-								</div>
-							</div>
+                                </div>
+                            </div>
+                        </div>
 
-							<div class="products-list products-list-standart">
+                        <div class="account-nav-list">
+                            <a href="{{ path("show_profile_personal") }}" class="account-nav-item card-box">
+                                <span class="nav-icon"
+                                      style="background-image: url({{ image_url('default/icons/account/account-profile-icon.png') }});"></span>
+                                <h6 class="nav-title">Персональные данные</h6>
+                            </a>
 
-								{% for purchase in purchases %}
-									<div class="product-item">
-									<div class="product-code">{{ purchase.product.id }}</div>
+                            <a href="{{ path("show_profile_basket") }}" class="account-nav-item card-box">
+                                <span class="nav-icon"
+                                      style="background-image: url({{ image_url('default/icons/account/account-shop-cart-icon.png') }});"></span>
+                                <h6 class="nav-title">Корзина</h6>
+                            </a>
 
-									<div class="product-order-time">Дата заказа: {{ purchase.createdAt|date('Y-m-d') }}</div>
-									
-									<a href="#" class="product-image" style="background-image: url('{{ purchase.product.photo }}');"></a>
+                            <a href="{{ path("show_profile_orders") }}" class="account-nav-item card-box active">
+                                <span class="nav-icon"
+                                      style="background-image: url({{ image_url('default/icons/account/account-orders-history-icon.png') }});"></span>
+                                <h6 class="nav-title">История заказов</h6>
+                            </a>
 
-									<div class="product-descr-wrap">
-										<a href="#" class="product-name">{{ purchase.product.name }}</a>
-																				
-										<div class="product-full-descr">{{ purchase.product.description }}</div>
+                            <a href="{{ path("show_profile_feedback") }}" class="account-nav-item card-box">
+                                <span class="nav-icon"
+                                      style="background-image: url({{ image_url('default/icons/account/account-feedback-icon.png') }});"></span>
+                                <h6 class="nav-title">Обратная связь</h6>
+                            </a>
+                        </div>
 
-										{#<div class="product-origin-text">Производитель: Китай</div>#}
+                    </div>
+                </div>
+            </div>
+        </section>
 
-										{#<div class="product-quantity-text">В упаковке 5 губок</div>#}
-									</div>
-									
-									<div class="product-price-wrap">
-										<div class="product-price">{{ purchase.product.cost * purchase.count }} BYN</div>
-										
-										<div class="basket-quant-text">в корзине <span class="quant">{{ purchase.count }} штук</span></div>
-									</div>
-								</div>
-								{% endfor %}
-							</div>
+        <section id="account-orders-history-sect">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-10 offset-lg-1">
 
-						</div>
-					</div>
-				</div>
-			</section>
+                        <div class="products-list-utilites-bar card-box">
+                            <div class="sort-by-wrap">
+                                <div class="sort-by-text">Показывать:</div>
 
-            {% include 'search-form.html.twig' %}
-		
-		</main>
+                                <ul class="sort-by-list">
+                                    <li class="sort-by-item active"><a href="#">16</a></li>
+                                    <li class="sort-by-item"><a href="#">32</a></li>
+                                    <li class="sort-by-item"><a href="#">64</a></li>
+                                    <li class="sort-by-item"><a href="#">128</a></li>
+                                    <li class="sort-by-item"><a href="#">256</a></li>
+                                    <li class="sort-by-item"><a href="#">Все</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="products-list products-list-standart">
+
+                            {% for order in orders %}
+                                <div class="product-item row">
+                                    <div class="info row">
+                                        <div class="product-order-title">
+                                            Номер заказа: {{ order['id'] }}
+                                        </div>
+                                        <div class="product-order-date">Дата
+                                            заказа: {{ order['date']|date('Y-m-d') }}
+                                        </div>
+                                        <div class="product-order-quant">
+                                            <a
+
+                                                    class="basket-quant-text quant"
+                                                    style="cursor: pointer"
+                                                    ng-click="app.CartService.addItemsToCart({{ order['items']|json_encode() }})">
+                                                Повторить заказ
+                                            </a>
+                                        </div>
+                                    </div>
+                                    {% for purchase in order['purchases'] %}
+                                        <div class="product-item" style="width: 100%;">
+                                            <div class="product-code">{{ purchase.product.id }}</div>
+
+                                            <a href="#" class="product-image"
+                                               style="background-image: url('{{ purchase.product.photo }}');"></a>
+
+                                            <div class="product-descr-wrap">
+                                                <a href="#" class="product-name">{{ purchase.product.name }}</a>
+
+                                                <div class="product-full-descr">{{ purchase.product.description }}</div>
+                                            </div>
+
+                                            <div class="product-price-wrap">
+                                                <div class="product-price">{{ (user == null ) ? (purchase.product.cost * purchase.count) : (purchase.product.rozcost * purchase.count) }}
+                                                    BYN
+                                                </div>
+
+                                                <div class="basket-quant-text">в корзине <span
+                                                            class="quant">{{ purchase.count }} штук</span></div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        {% include 'search-form.html.twig' %}
+
+    </main>
 
 {% endblock %}

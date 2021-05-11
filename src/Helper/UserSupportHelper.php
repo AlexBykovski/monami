@@ -39,7 +39,7 @@ class UserSupportHelper
 
         $message = (new \Swift_Message('Support User Question'))
             ->setFrom($fromAddress)
-            ->setTo("Kirillooo888@gmail.kom")
+            ->setTo("Kirillooo888@gmail.com")
             ->setBody(
                 $feedback->getMessage()
             );

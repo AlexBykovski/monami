@@ -13,31 +13,37 @@ use Symfony\Component\Validator\Constraints\NotNull;
 
 class PromoCodeAdmin extends AbstractAdmin
 {
-    protected function configureFormFields(FormMapper $formMapper)
-    {
-        $formMapper->add('code', TextType::class, [
-            'label' => 'Код',
-            'constraints' => [
-                new NotNull(['message' => 'Введите код']),
-            ]
-        ]);
-        $formMapper->add('discount', MoneyType::class, [
-            'label' => 'Скидка',
-            'constraints' => [
-                new NotNull(['message' => 'Введите скидку']),
-            ],
-            'scale' => 2,
-            'currency' => false
-        ]);
-    }
+	protected function configureFormFields(FormMapper $formMapper)
+	{
+		$formMapper->add('code', TextType::class, [
+			'label' => 'Код',
+			'constraints' => [
+				new NotNull(['message' => 'Введите код']),
+			]
+		]);
+		$formMapper->add('discount', MoneyType::class, [
+			'label' => 'Скидка',
+			'constraints' => [
+				new NotNull(['message' => 'Введите скидку']),
+			],
+			'scale' => 2,
+			'currency' => false
+		]);
+	}
 
-    protected function configureListFields(ListMapper $listMapper)
-    {
-        $listMapper->addIdentifier('code', 'text', ['label' => 'Код', 'sortable' => false]);
-    }
+	protected function configureListFields(ListMapper $listMapper)
+	{
+		$listMapper->addIdentifier('code', 'text', ['label' => 'Код', 'sortable' => false])
+			->addIdentifier('isUsed', 'boolean', ['label' => 'Использован', 'sortable' => false])
+			->add('_action', null, [
+				'actions' => [
+					'delete' => [],
+				]
+			]);
+	}
 
-    protected function configureRoutes(RouteCollection $collection)
-    {
-        $collection->clearExcept(['list', 'edit', 'create', 'delete']);
-    }
+	protected function configureRoutes(RouteCollection $collection)
+	{
+		$collection->clearExcept(['list', 'edit', 'create', 'delete']);
+	}
 }

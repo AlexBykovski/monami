@@ -13,8 +13,10 @@ class DiscountedItemPageAdmin extends AbstractAdmin
 {
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $formMapper->add('title', TextType::class, ['label' => 'Заголовок']);
-        $formMapper->add('description', CKEditorType::class, ['label' => 'Описание']);
+        $formMapper->add('title', CKEditorType::class, ['label' => 'Заголовок',
+            'attr' => array('style' => 'width:100%;height:200px;', 'class'=>'ckeditor'),]);
+        $formMapper->add('description', CKEditorType::class, ['label' => 'Описание',
+            'attr' => array('style' => 'width:100%;height:200px;', 'class'=>'ckeditor'),]);
     }
 
     protected function configureListFields(ListMapper $listMapper)

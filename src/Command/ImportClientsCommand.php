@@ -27,6 +27,7 @@ class ImportClientsCommand extends ContainerAwareCommand
     const PHONES = "телефоны";
     const MANAGER = "Менеджер";
     const CODE_MANAGER = "КодМенеджера";
+    const DISCOUNT = "Скидка";
 
     /** @var EntityManagerInterface $em */
     private $em;
@@ -59,9 +60,11 @@ class ImportClientsCommand extends ContainerAwareCommand
         }
 
         //import groups and products
-        foreach ($data[self::ELEMENT] as $index => $datum){
+        foreach (array_reverse($data[self::ELEMENT]) as $index => $datum){
             //$output->writeln($index  . '/' . count($data[self::ELEMENT]));
             $element = $datum[self::ATTRIBUTES];
+
+            var_dump($element);
 
             if(!is_array($element)){
 
@@ -81,6 +84,7 @@ class ImportClientsCommand extends ContainerAwareCommand
         $email = $element[self::EMAIL];
         $phones = $element[self::PHONES];
         $login = $element[self::LOGIN];
+        $discount = $element[self::DISCOUNT] > 0 ? $element[self::DISCOUNT]: 0.00;
         $manager = $this->getManager($element);
 
         $client = $this->em->getRepository(Client::class)->findOneBy(["apiId" => $code]);
@@ -97,6 +101,7 @@ class ImportClientsCommand extends ContainerAwareCommand
             $client->setManager($manager);
             $client->setEmailCanonical($login);
             $client->addRole(User::ROLE_CLIENT);
+            $client->setDiscount($discount);
 
             if(!$client->getBasket()){
                 $cart = new Basket($client);
@@ -113,7 +118,8 @@ class ImportClientsCommand extends ContainerAwareCommand
                 $email,
                 $login,
                 $manager,
-                $contrAgent
+                $contrAgent,
+				$discount
             );
 
             $this->em->persist($client);

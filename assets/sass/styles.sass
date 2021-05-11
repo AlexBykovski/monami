@@ -3,6 +3,13 @@
 
 // ------- MAIN HEADER ------- //
 
+.container
+	@media (min-width: 992px)
+		max-width: 990px
+	@media (min-width: 992px)
+		max-width: 1330px
+
+
 // Header top
 .header-top
 	padding: 18px 0
@@ -13,14 +20,29 @@
 
 // Logo
 .logo
+	height: 95px
 	display: inline-block
-	width: 105px
-	height: 60px
+	width: 145px
 	vertical-align: middle
 	background-image: url(/images/default/logo.png)
 	background-size: contain
 	background-repeat: no-repeat
 	background-position: center center
+
+.strike-price
+	color: red
+	margin-bottom: 10px
+	.product-price
+		font-size: 20px !important
+		&::after
+			content: ''
+			position: absolute
+			top: 10px
+			left: 0
+			width: 100%
+			height: 1px
+			background: red
+			transform: rotate(7deg)
 
 // Header contact info
 .header-contact-info
@@ -488,7 +510,7 @@
 .categories-list
 	.category-item
 		width: 100%
-		height: 100%
+		height: 300px
 	.category-col
 		margin-top: 40px
 
@@ -504,7 +526,8 @@
 		width: 100%
 		height: 100%
 		border-radius: 20px
-		background-size: cover
+		background-color: #fff
+		background-size: contain
 		background-position: top center
 		background-repeat: no-repeat
 	.category-title
@@ -527,6 +550,7 @@
 		+mt(.23s)
 	.category-descr
 		padding: 15px 20px 40px 30px
+		height: 100%
 		transform: scaleY(0)
 		background-color: rgba(0, 164, 219, .85)
 		border-radius: 20px
@@ -675,20 +699,21 @@
 .products-list-standart
 	.product-item
 		display: flex
-		margin-bottom: 25px
-		padding: 30px 15px 35px 30px
+		margin-bottom: 7px
+		padding: 0 15px 0 30px
 		.product-descr-wrap
 			flex: 0 0 40%
 			margin-left: 25px
+			padding-top: 25px
 		.product-price-wrap
 			margin-left: auto
 			padding-top: 25px
 			text-align: center
 		.product-image
-			flex: 0 0 20%
-			width: 165px
-			height: 100px
-			margin-top: 10px
+			flex: 0 0 18%
+			width: 180px
+			height: 150px
+			background-color: #fff
 			background-size: contain
 			background-position: center center
 			background-repeat: no-repeat
@@ -703,6 +728,8 @@
 		.product-full-descr
 			font-size: 12px
 		.product-price
+			position: relative
+			display: inline-block
 			font-size: 30px
 			font-weight: 600
 		.product-controls
@@ -722,7 +749,7 @@
 		&:not(:nth-child(4n))
 			margin-right: 20px
 		.product-image
-			height: 70px
+			height: 125px
 			background-size: contain
 			background-position: center center
 			background-repeat: no-repeat
@@ -739,9 +766,14 @@
 		.product-origin-text
 			display: none
 		.product-price
-			margin-top: 7px
-			font-size: 18px
+			margin-top: 8px
 			font-weight: 600
+		.strike-price
+			margin: 0
+			.product-price
+				position: relative
+				display: inline-block
+				font-size: 16px !important
 		.product-discount-price
 			margin-top: 7px
 			.new-price
@@ -803,7 +835,7 @@
 			i
 				color: $sky-blue
 	.quant-input
-		width: 18px
+		width: 35px
 		margin: 0 5px
 		font-size: 16px
 		font-weight: 600
@@ -974,7 +1006,7 @@
 		background-color: #fff
 		border-color: $sky-blue
 		.nav-icon
-			background-position: center -52px	
+			background-position: center -52px
 		.nav-title
 			color: $sky-blue
 	.nav-icon
@@ -1179,7 +1211,7 @@
 .product-full-image
 	height: 335px
 	padding: 20px
-	background-size: 55%
+	background-size: contain
 	background-position: center center
 	background-repeat: no-repeat
 	background-color: #fff
@@ -1211,232 +1243,10 @@
 					i
 						color: $sky-blue
 			.quant-input
-				width: 30px
+				width: 65px
 				margin: 0 2px
 				font-size: 24px
 				font-weight: 600
 				background: none
 				border: none
-				text-align: center
-
-.product-title
-	color: $sky-blue
-
-.product-descr-list
-	margin: 0
-	padding: 0
-	list-style-type: none
-	.descr-item
-		&:not(:last-child)
-			margin-bottom: 5px
-
-.product-price
-	font-size: 30px
-	font-weight: 600
-	.cur
-		font-weight: 700
-// -------------------------------- //
-
-
-// --------- SUBCATEGORIES --------- //
-#subcategories-sect
-	.sect-title
-		margin-bottom: 0
-
-// Subcategories list
-.subcategories-list
-	.subcategory-item
-		margin-top: 40px
-
-// Subcategory item
-.subcategory-item
-	position: relative
-	display: block
-	.subcategory-image
-		height: 120px
-		border-radius: 20px
-		background-size: cover
-		background-position: top center
-		background-repeat: no-repeat
-	.subcategory-title
-		display: flex
-		align-items: center
-		justify-content: center
-		position: absolute
-		bottom: 0
-		left: 0
-		width: 100%
-		height: 40px
-		margin: 0
-		padding: 17px 0
-		color: #fff
-		background-color: rgba(0, 164, 219, .85)
-		font-size: 14px
-		font-weight: 600
-		text-align: center
-		border-bottom-left-radius: 20px
-		border-bottom-right-radius: 20px
-		+mt(.23s)
-// --------------------------------- //
-
-
-// ----------- CONTACTS ----------- //
-
-// Our workers carousel
-.our-workers-carousel
-	position: relative
-	padding-bottom: 37px
-	.owl-nav
-		display: block !important
-		position: absolute
-		bottom: 0
-		left: 50%
-		transform: translateX(-50%)
-		.owl-prev, .owl-next
-			display: inline-flex
-			align-items: center
-			justify-content: center
-			width: 30px
-			height: 30px
-			margin: 0 10px
-			background-color: $sky-blue
-			border-radius: 100%
-			opacity: .5
-			i
-				position: relative
-				color: #fff
-				font-size: 28px
-			&:hover
-				opacity: 1
-		.owl-prev
-			i
-				right: 1px
-		.owl-next
-			i
-				left: 3px
-
-// Our worker
-.our-worker-item
-	margin: 10px
-	padding: 10px 20px
-	background-color: #fff
-	text-align: center
-	.worker-photo
-		display: inline-block
-		width: 125px
-		height: 125px
-		border-radius: 100%
-		background-size: cover
-		background-position: top center
-		background-repeat: no-repeat
-	.worker-name
-		margin-top: 12px
-		font-size: 16px
-	.worker-position
-		margin-top: 8px
-		color: $sky-blue
-		font-size: 16px
-		font-weight: 600
-	.worker-phone
-		margin-top: 8px
-		color: $sky-blue
-		font-size: 16px
-		font-weight: 600
-
-#contact-map-sect
-	padding: 0
-
-// Contact map
-#contact-map
-	height: 370px
-// -------------------------------- //
-
-
-// ---------- ABOUT US ---------- //
-.about-us-intro-box
-	padding-left: 75px
-	padding-right: 75px
-// ------------------------------ //
-
-
-// --------- CONDITIONS --------- //
-#working-time-block
-	position: relative
-	padding-left: 48px
-	#working-time-icon
-		position: absolute
-		top: 5px
-		left: 0
-
-#working-time-icon
-	display: inline-block
-	width: 35px
-// ------------------------------ //
-
-
-// --------- FOOTER --------- //
-.main-footer
-
-.footer-main
-	padding: 25px 0
-	color: 3f
-	background-color: $dark-slate-blue
-
-.footer-bottom
-	padding: 20px 0 12px
-	color: #fff
-	background-color: $dark-blue
-	text-align: center
-	.footer-copyright
-		margin-top: 11px
-
-// Footer column
-.footer-column
-	.column-title
-		margin: 0
-		margin-bottom: 20px
-		color: #fff
-		font-size: 16px
-		font-weight: 600
-
-// Footer nav
-.footer-nav
-	margin: 0
-	padding: 0
-	list-style-type: none
-	.nav-item
-		a
-			color: #fff
-			font-size: 16px
-			text-decoration: none
-			+mt(.2s)
-			&:hover
-				color: darken(#fff, 15%)
-		&:not(:last-child)
-			margin-bottom: 12px
-
-.footer-contacts-wrap
-	.footer-contact-info
-		margin-bottom: 12px
-
-// Footer contact info
-.footer-contact-info
-	display: flex
-	align-items: center
-	.info-icon
-		i
-			color: $sky-blue
-			font-size: 22px
-	.info-content
-		margin-left: 18px
-		color: #fff
-		a
-			color: #fff
-
-#old-phone-icon
-	width: 22px
-// -------------------------- //
-	
-
-// Media queries
-@import "media"
+				text-alig

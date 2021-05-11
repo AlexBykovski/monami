@@ -20,11 +20,44 @@
     <link rel="stylesheet" href="/build/css/bower_components.css">
     <link rel="stylesheet" href="/build/css/styles.min.css">
     <link rel="stylesheet" href="/build/css/slider.min.css">
-
+    <script src="//code.jivosite.com/widget/09lrVP6ygg" async></script>
+    <link href="//db.onlinewebfonts.com/c/2c6d794b5cfbe2958da38a4c6aeddde9?family=flexslider-icon" rel="stylesheet" type="text/css"/>
 </head>
 
 {% set cart = app.user != null ? app.user.basket.toArray() | json_encode : app.request.cookies.get("guest-cart") %}
 <body ng-controller="AppCtrl as app" ng-init="app.CartService.init('{{ cart }}', '{{ app.user ? 0 : 1  }}'); ">
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Вход</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="error" style="color: red"></div>
+                <form action="/login_check" class="my-login-form" method="post">
+                    <label for="username">Имя пользователя</label>
+                    <br/>
+                    <input type="text" id="username" name="_username" value="" required="required" autocomplete="username">
+                    <br/>
+                    <label for="password">Пароль</label>
+                    <br/>
+                    <input type="password" id="password" name="_password" required="required" autocomplete="current-password">
+                    <br/>
+                    <input type="checkbox" id="remember_me" name="_remember_me" value="on">
+                    <label for="remember_me">Запомнить меня</label>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                <button type="submit" id="_submit" name="_submit" class="btn btn-primary">Войти</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 <div id="main-wrap" class="main-wrapper">
 
@@ -36,17 +69,25 @@
                     <div class="col-5 col-lg-2 order-lg-1">
 
                         <div class="logo-wrapper">
-                            <a href="/" class="logo"></a>
+                            <a style="height: 95px;" href="/" class="logo"></a>
                         </div>
 
                     </div>
+
+
                     <div class="col-7 col-lg-2 order-lg-5">
                         <ul class="user-interface-nav">
                             <li class="nav-item">
-
-                                <a href="{{ app.user == null ? path('fos_user_security_login') : path('show_profile_basket') }}">
-                                    <span class="nav-icon"><span class="icon-img" style="background-image: url({{ image_url('default/icons/user-icon.png') }});"></span></span>
-                                </a>
+                                {% if app.user == null %}
+                                    <a href="#" data-toggle="modal" data-target="#exampleModal">
+                                        <span class="nav-icon"><span class="icon-img" style="background-image: url({{ image_url('default/icons/user-icon.png') }});"></span></span>
+                                    </a>
+                                {% else %}
+                                    {{ app.user.username }}
+                                    <a href="{{ app.user == null ? path('fos_user_security_login') : path('show_profile_basket') }}">
+                                        <span class="nav-icon"><span class="icon-img" style="background-image: url({{ image_url('default/icons/user-icon.png') }});"></span></span>
+                                    </a>
+                                {% endif %}
                             </li>
 
                             <li class="nav-item">
@@ -66,6 +107,14 @@
                                 </a>
 
                             </li>
+
+                            {% if app.user %}
+                                <li class="nav-item">
+                                    <a href="/logout" alt="Выход">
+                                        <span class="nav-icon"><span class="icon-img" style="background-size: background-image: url({{ image_url('default/icons/exit-icon.png') }});"></span></span>
+                                    </a>
+                                </li>
+                            {% endif %}
                         </ul>
 
                     </div>
@@ -340,6 +389,31 @@
 <script type="text/javascript" src="/build/js/libs/jquery.flexslider.js"></script>
 <script type="text/javascript" src="/build/js/client.min.js"></script>
 <!-- endbuild -->
+
+<script>
+    $(document).ready(function(){
+        $('#_submit').click(function(e){
+            $('.error').html('');
+            e.preventDefault();
+            $.ajax({
+                type        : $('form').attr( 'method' ),
+                url         : '{{ path("check_login_new") }}',
+                data        : $('form').serialize(),
+                dataType    : "json",
+                success     : function(data, status, object) {
+                    if(data.error.length > 0){
+                        $('.error').html(data.error + '</br></br>');
+                    } else {
+                        $('.my-login-form').submit();
+                    }
+                },
+                error: function(data, status, object){
+                    console.log(data.message);
+                }
+            });
+        });
+    });
+</script>
 
 </body>
 </html>

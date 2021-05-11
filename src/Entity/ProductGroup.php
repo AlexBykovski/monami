@@ -83,18 +83,42 @@ class ProductGroup
     private $parentGroup;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $type;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(type="integer")
+     */
+    private $sale;
+
+    /**
      * ProductGroup constructor.
      * @param string $apiId
      * @param string $simaCode
      * @param string $name
      * @param string $photo
+     * @param string $type
+     * @param string $sale
      */
-    public function __construct(string $apiId, string $simaCode, string $name, string $photo)
-    {
+    public function __construct(
+        string $apiId,
+        string $simaCode,
+        string $name,
+        string $photo,
+        string $type = null,
+        string $sale = null
+    ) {
         $this->apiId = $apiId;
         $this->simaCode = $simaCode;
         $this->name = $name;
         $this->photo = $photo;
+        $this->type = $type;
+        $this->sale = $sale;
 
         $this->products = new ArrayCollection();
         $this->childrenGroups = new ArrayCollection();
@@ -179,6 +203,39 @@ class ProductGroup
     public function setName(string $name): void
     {
         $this->name = $name;
+    }
+
+    /**
+     * @return integer
+     */
+    public function getSale(): string
+    {
+        return $this->sale;
+    }
+
+    /**
+     * @param integer $sale
+     */
+    public function setSale(int $sale): void
+    {
+        $this->sale = $sale;
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param string $type
+     */
+    public function setType(string $type): void
+    {
+        $this->type = $type;
     }
 
     /**

@@ -27,7 +27,10 @@ class ProfileController extends Controller
     public function showProfileBasketAction(Request $request)
     {
         return $this->render('client/profile/profile_basket.html.twig', [
-            "cart" => $this->getCartForGuest($request)
+            "cart" => $this->getCartForGuest($request),
+            'user' => $this->getUser(),
+			'userSale' => $this->getUser() ? $this->getUser()->getDiscount() : 0,
+
         ]);
     }
 
@@ -38,7 +41,7 @@ class ProfileController extends Controller
      */
     public function showProfileFeedbackAction(Request $request)
     {
-        return $this->render('client/profile/profile_feedback.html.twig', []);
+        return $this->render('client/profile/profile_feedback.html.twig', ['user' => $this->getUser()]);
     }
 
     /**
@@ -52,8 +55,30 @@ class ProfileController extends Controller
         $user = $this->getUser();
         $purchases = $user->getPurchases();
 
+        $orders = [];
+		foreach ($purchases as $purchase){
+			$orders[$purchase->getOrderId()] = [
+				'purchases' => [],
+				'items' => [],
+			];
+		}
+
+		krsort($orders);
+
+        foreach ($purchases as $purchase){
+        	$orders[$purchase->getOrderId()]['purchases'][] = $purchase;
+			$orders[$purchase->getOrderId()]['items'][] = [
+				'productId' =>	$purchase->getProduct()->getId(),
+				'count' => $purchase->getCount(),
+			];
+			$orders[$purchase->getOrderId()]['id'] = '№ W' . str_pad($purchase->getOrderId(), 5, '0', STR_PAD_LEFT);
+			$orders[$purchase->getOrderId()]['date'] = $purchase->getCreatedAt();
+		}
+
         return $this->render('client/profile/profile_orders_history.html.twig', [
-            'purchases' => $purchases,
+            'orders' => $orders,
+            'user' => $this->getUser(),
+			'userSale' => $this->getUser() ? $this->getUser()->getDiscount() : 0,
         ]);
     }
 
@@ -64,7 +89,15 @@ class ProfileController extends Controller
      */
     public function showProfilePersonalAction(Request $request)
     {
-        return $this->render('client/profile/profile_personal.html.twig', []);
+        $user = $this->getUser();
+
+        return $this->render(
+            'client/profile/profile_personal.html.twig',
+            [
+                'user' => $user,
+				'userSale' => $this->getUser() ? $this->getUser()->getDiscount() : 0,
+            ]
+        );
     }
 
     private function getCartForGuest(Request $request)
@@ -73,6 +106,16 @@ class ProfileController extends Controller
         $cartCookies = $request->cookies->get("guest-cart");
 
         $cart = new Basket(new Client("", "", "", "", null, null));
+
+		foreach ($_COOKIE as $key => $cookie){
+			if($cookie == 'free'){
+				/** @var PromoCode $promocode */
+				$promocode = $em->getRepository(PromoCode::class)->findOneBy(["code" => $key]);
+				if($promocode) {
+					$cart->setDiscount($promocode->getDiscount());
+				}
+			}
+		}
 
         if(!$cartCookies){
             return $cart;

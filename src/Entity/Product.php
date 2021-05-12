@@ -48,7 +48,7 @@ class Product
      * Many Product have One ProductGroup.
      *
      * @ORM\ManyToOne(targetEntity="ProductGroup", inversedBy="products")
-     * @ORM\JoinColumn(name="group_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="group_id", referencedColumnName="id", onDelete="SET NULL" )
      */
     private $productGroup;
 

@@ -54,7 +54,7 @@ class ImportProductsCommand extends ContainerAwareCommand
 		$data = $importer->importData($importDetail);
 
 		if (!is_array($data) || !array_key_exists(self::ELEMENT, $data) || !count($data[self::ELEMENT])) {
-			//$output->writeln("<comment>Empty import file!</comment>");
+			$output->writeln("<comment>Empty import file!</comment>");
 			return false;
 		}
 
@@ -92,7 +92,7 @@ class ImportProductsCommand extends ContainerAwareCommand
 				$groups[$element[self::GROUP]] : null;
 
 			if (array_key_exists(self::GROUP, $element) && !$group) {
-				//$output->writeln("<error>No exist group: " . $element[self::GROUP] . "</error>");
+				$output->writeln("<error>No exist group: " . $element[self::GROUP] . "</error>");
 
 				continue;
 			} elseif (!array_key_exists(self::GROUP, $element)) {
@@ -113,7 +113,7 @@ class ImportProductsCommand extends ContainerAwareCommand
 //
 		$em->flush();
 
-		//$output->writeln("<info>Imported products and groups</info>");
+		$output->writeln("<info>Imported products and groups</info>");
 	}
 
 	protected function createProductGroup(
@@ -126,7 +126,16 @@ class ImportProductsCommand extends ContainerAwareCommand
 		$name = $element[self::NAME];
 		$simaCode = $element[self::SIMA_CODE];
 		$photo = trim($element[self::PHOTO]) ? $imageUrl . $this->encodeUrlImage(trim($element[self::PHOTO])) : "";
-		$sale = trim($element[self::GROUP_DISCOUNT]) != '0' ? trim($element[self::GROUP_DISCOUNT]) : 0;
+		if(isset($element[self::GROUP_DISCOUNT])){
+            if (trim($element[self::GROUP_DISCOUNT]) != '0') {
+                $sale = trim($element[self::GROUP_DISCOUNT]);
+            } else{
+              $sale = 0;
+            }
+        } else{
+		    $sale = 0;
+        }
+//		$sale = trim($element[self::GROUP_DISCOUNT]) != '0' ? trim($element[self::GROUP_DISCOUNT]) : 0;
 
 		$group = $em->getRepository(ProductGroup::class)->findOneBy(["apiId" => $code]);
 
@@ -156,67 +165,69 @@ class ImportProductsCommand extends ContainerAwareCommand
 		return $group;
 	}
 
-	protected function createProduct(EntityManagerInterface $em, array $element, ?ProductGroup $group, $imageUrl)
-	{
-		$code = $element[self::CODE];
-		$name = $element[self::NAME];
-		$simaCode = $element[self::SIMA_CODE];
-		$photo = trim($element[self::PHOTO]) ? $imageUrl . $this->encodeUrlImage(trim($element[self::PHOTO])) : "";
-		$cost = (float)str_replace(',', '.', $element[self::COST]);
-		$rozCost = (float)str_replace(',', '.', $element[self::ROZ_COST]);
-		$leftCount = (int)$element[self::LEFT_COUNT];
-		$description = array_key_exists(self::DESCRIPTION, $element) ? $element[self::DESCRIPTION] : "";
-		$textDescription = array_key_exists(self::TEXT_DESCRIPTION, $element) ? $element[self::TEXT_DESCRIPTION] : "";
+    protected function createProduct(EntityManagerInterface $em, array $element, ?ProductGroup $group, $imageUrl)
+    {
+        $code = $element[self::CODE];
+        $name = $element[self::NAME];
+        $simaCode = $element[self::SIMA_CODE];
+        $photo = trim($element[self::PHOTO]) ? $imageUrl . $this->encodeUrlImage(trim($element[self::PHOTO])) : "";
+//      $cost = (float)str_replace(',', '.', $element[self::COST]);
+        $cost = isset($element[self::COST]) ? str_replace(',', '.', $element[self::COST]): 0;
+//      $rozCost = (float)str_replace(',', '.', $element[self::ROZ_COST]);
+        $rozCost = isset($element[self::ROZ_COST]) ? str_replace(',', '.', $element[self::ROZ_COST]): 0;
+        $leftCount = (int)$element[self::LEFT_COUNT];
+        $description = array_key_exists(self::DESCRIPTION, $element) ? $element[self::DESCRIPTION] : "";
+        $textDescription = array_key_exists(self::TEXT_DESCRIPTION, $element) ? $element[self::TEXT_DESCRIPTION] : "";
 
-		$product = $em->getRepository(Product::class)->findOneBy(["apiId" => $code]);
+        $product = $em->getRepository(Product::class)->findOneBy(["apiId" => $code]);
 
-		if ($cost > 0) {
-			if ($product instanceof Product) {
-				$product->setName($name);
-				$product->setSimaCode($simaCode);
-				$product->setPhoto($photo);
-				$product->setCost($cost);
-				$product->setRozCost(
-					$rozCost > 0 ? $rozCost : ($product->getRozCost() != 0 ? $product->getRozCost() : $cost)
-				);
-				$product->setLeftCount($leftCount);
-				$product->setDescription($description);
-				$product->setTextDescription($textDescription);
-				$product->setOldCost($product->getOldCost() ? $product->getOldCost() : 0);
-			} else {
-				$product = new Product(
-					$code,
-					$simaCode,
-					$name,
-					$photo,
-					$cost,
-					$rozCost ? $rozCost : $cost,
-					$leftCount,
-					$description,
-					$textDescription
-				);
+        if ($cost > 0) {
+            if ($product instanceof Product) {
+                $product->setName($name);
+                $product->setSimaCode($simaCode);
+                $product->setPhoto($photo);
+                $product->setCost($cost);
+                $product->setRozCost(
+                    $rozCost > 0 ? $rozCost : ($product->getRozCost() != 0 ? $product->getRozCost() : $cost)
+                );
+                $product->setLeftCount($leftCount);
+                $product->setDescription($description);
+                $product->setTextDescription($textDescription);
+                $product->setOldCost($product->getOldCost() ? $product->getOldCost() : 0);
+            } else {
+                $product = new Product(
+                    $code,
+                    $simaCode,
+                    $name,
+                    $photo,
+                    $cost,
+                    $rozCost ? $rozCost : $cost,
+                    $leftCount,
+                    $description,
+                    $textDescription
+                );
 
-				$em->persist($product);
-				$em->flush();
-			}
-		}
+                $em->persist($product);
+                $em->flush();
+            }
+        }
 
-		$product->setProductGroup($group);
+        $product->setProductGroup($group);
 
-		$productGroup = $product->getProductGroup();
+        $productGroup = $product->getProductGroup();
 
-		if ($productGroup->getSale() > 0) {
-			$product->setOldCost($product->getCost());
-			$product->setCost($product->getCost() * (100 - $productGroup->getSale()) / 100);
+        if ($productGroup->getSale() > 0) {
+            $product->setOldCost($product->getCost());
+            $product->setCost($product->getCost() * (100 - $productGroup->getSale()) / 100);
 
-			$em->persist($product);
-			$em->flush();
-		}
+            $em->persist($product);
+            $em->flush();
+        }
 
-		$this->currentProducts[] = $product->getId();
+        $this->currentProducts[] = $product->getId();
 
-		return $product;
-	}
+        return $product;
+    }
 
 	protected function encodeUrlImage($imageStr)
 	{

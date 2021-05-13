@@ -54,14 +54,14 @@ class ImportClientsCommand extends ContainerAwareCommand
         $data = $importer->importData($importDetail);
 
         if(!is_array($data) || !array_key_exists(self::ELEMENT, $data) || !count($data[self::ELEMENT])){
-            //$output->writeln("<comment>Empty import file!</comment>");
+//            $output->writeln("<comment>Empty import file!</comment>");
 
             return false;
         }
 
         //import groups and products
         foreach (array_reverse($data[self::ELEMENT]) as $index => $datum){
-            //$output->writeln($index  . '/' . count($data[self::ELEMENT]));
+//            $output->writeln($index  . '/' . count($data[self::ELEMENT]));
             $element = $datum[self::ATTRIBUTES];
 
             var_dump($element);
@@ -84,7 +84,10 @@ class ImportClientsCommand extends ContainerAwareCommand
         $email = $element[self::EMAIL];
         $phones = $element[self::PHONES];
         $login = $element[self::LOGIN];
-        $discount = $element[self::DISCOUNT] > 0 ? $element[self::DISCOUNT]: 0.00;
+
+        $disc = str_replace(",", ".", $element[self::DISCOUNT]);
+        $discount = (float)$disc;
+
         $manager = $this->getManager($element);
 
         $client = $this->em->getRepository(Client::class)->findOneBy(["apiId" => $code]);

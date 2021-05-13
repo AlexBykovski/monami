@@ -43,7 +43,7 @@ class ImportManagersCommand extends ContainerAwareCommand
         $data = $importer->importData($importDetail);
 
         if(!is_array($data) || !array_key_exists(self::ELEMENT, $data) || !count($data[self::ELEMENT])){
-            //$output->writeln("<comment>Empty import file!</comment>");
+//            $output->writeln("<comment>Empty import file!</comment>");
             return false;
         }
 
@@ -61,7 +61,7 @@ class ImportManagersCommand extends ContainerAwareCommand
 
         $em->flush();
 
-        //$output->writeln("<info>Imported managers</info>");
+//        $output->writeln("<info>Imported managers</info>");
     }
 
     protected function createManager(EntityManagerInterface $em, array $element, $imageUrl)

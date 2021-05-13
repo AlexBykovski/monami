@@ -54,7 +54,7 @@ class ImportProductsCommand extends ContainerAwareCommand
 		$data = $importer->importData($importDetail);
 
 		if (!is_array($data) || !array_key_exists(self::ELEMENT, $data) || !count($data[self::ELEMENT])) {
-			$output->writeln("<comment>Empty import file!</comment>");
+//			$output->writeln("<comment>Empty import file!</comment>");
 			return false;
 		}
 
@@ -92,7 +92,7 @@ class ImportProductsCommand extends ContainerAwareCommand
 				$groups[$element[self::GROUP]] : null;
 
 			if (array_key_exists(self::GROUP, $element) && !$group) {
-				$output->writeln("<error>No exist group: " . $element[self::GROUP] . "</error>");
+//				$output->writeln("<error>No exist group: " . $element[self::GROUP] . "</error>");
 
 				continue;
 			} elseif (!array_key_exists(self::GROUP, $element)) {
@@ -110,10 +110,9 @@ class ImportProductsCommand extends ContainerAwareCommand
 
 		$em->getRepository(Product::class)->updateNotIds($this->currentProducts);
 		$em->getRepository(ProductGroup::class)->deleteNotIds($this->currentGroups);
-//
 		$em->flush();
 
-		$output->writeln("<info>Imported products and groups</info>");
+//		$output->writeln("<info>Imported products and groups</info>");
 	}
 
 	protected function createProductGroup(
@@ -126,16 +125,12 @@ class ImportProductsCommand extends ContainerAwareCommand
 		$name = $element[self::NAME];
 		$simaCode = $element[self::SIMA_CODE];
 		$photo = trim($element[self::PHOTO]) ? $imageUrl . $this->encodeUrlImage(trim($element[self::PHOTO])) : "";
+
 		if(isset($element[self::GROUP_DISCOUNT])){
-            if (trim($element[self::GROUP_DISCOUNT]) != '0') {
-                $sale = trim($element[self::GROUP_DISCOUNT]);
-            } else{
-              $sale = 0;
-            }
+            $sale = trim($element[self::GROUP_DISCOUNT]);
         } else{
 		    $sale = 0;
         }
-//		$sale = trim($element[self::GROUP_DISCOUNT]) != '0' ? trim($element[self::GROUP_DISCOUNT]) : 0;
 
 		$group = $em->getRepository(ProductGroup::class)->findOneBy(["apiId" => $code]);
 
@@ -171,9 +166,7 @@ class ImportProductsCommand extends ContainerAwareCommand
         $name = $element[self::NAME];
         $simaCode = $element[self::SIMA_CODE];
         $photo = trim($element[self::PHOTO]) ? $imageUrl . $this->encodeUrlImage(trim($element[self::PHOTO])) : "";
-//      $cost = (float)str_replace(',', '.', $element[self::COST]);
         $cost = isset($element[self::COST]) ? str_replace(',', '.', $element[self::COST]): 0;
-//      $rozCost = (float)str_replace(',', '.', $element[self::ROZ_COST]);
         $rozCost = isset($element[self::ROZ_COST]) ? str_replace(',', '.', $element[self::ROZ_COST]): 0;
         $leftCount = (int)$element[self::LEFT_COUNT];
         $description = array_key_exists(self::DESCRIPTION, $element) ? $element[self::DESCRIPTION] : "";

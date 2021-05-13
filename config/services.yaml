@@ -63,3 +63,8 @@ services:
         class:  App\Helper\UserSupportHelper
         arguments: ['@doctrine.orm.entity_manager', '@mailer']
         public: true
+
+
+
+    security.acl.permission.map:
+        class: Sonata\AdminBundle\Security\Acl\Permission\AdminPermissionMap

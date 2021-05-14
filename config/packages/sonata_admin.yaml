@@ -1,5 +1,4 @@
 sonata_admin:
-
     title: 'Панель администратора'
     dashboard:
         blocks:
@@ -10,11 +9,10 @@ sonata_admin:
 #              position: right
 #              type: sonata.block.service.text
 
-    security:
-        handler: sonata.admin.security.handler.role
+#    security:
+#        handler: sonata.admin.security.handler.role
 
-        role_super_admin: ROLE_SUPER_ADMIN
-#        acl_user_manager: App\Manager\AclUserManager
+#        role_super_admin: ROLE_SUPER_ADMIN
 
 #    assets:
 #        extra_stylesheets:

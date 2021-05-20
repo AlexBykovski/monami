@@ -38,24 +38,24 @@ class ProductRepository extends EntityRepository
             ->getSingleScalarResult();
     }
 
-	public function findNew($limit = 100, $offset = 0, $sort = ['p.id', 'DESC'])
-	{
-		$date = (new \DateTime())->modify('-1 month')->format('Y-m-d H:i:s');
+    public function findNew($limit = 100, $offset = 0, $sort = ['p.id', 'DESC'])
+    {
+        $date = (new \DateTime())->modify('-1 month')->format('Y-m-d H:i:s');
 
-		$result = $this->createQueryBuilder('p')
-			->select('p')
-			->where('p.createdAt > :date_to')
+        $result = $this->createQueryBuilder('p')
+            ->select('p')
+            ->where('p.createdAt > :date_to')
             ->andWhere('p.leftCount > 0')
-			->setParameter("date_to", "" . $date . "")
-			->orderBy('p.id', 'DESC')
-			->getQuery()
-			->getResult();
-            
-		return $result;
-	}
+            ->setParameter("date_to", "" . $date . "")
+            ->orderBy('p.id', 'DESC')
+            ->getQuery()
+            ->getResult();
+
+        return $result;
+    }
 
 
-	public function findByTextAndParams($count, $sort, $text, $page = 1)
+    public function findByTextAndParams($count, $sort, $text, $page = 1)
     {
         $page = $page > 0 ? $page : 1;
         $orderType = $sort === "createdAt" ? "DESC" : "ASC";
@@ -93,19 +93,19 @@ class ProductRepository extends EntityRepository
     public function findByDisc($productGroup, $sort, $count, $page = 1)
     {
         $page = $page > 0 ? $page : 1;
-        
+        $orderType = $sort === "createdAt" ? "DESC" : "ASC";
         //var_dump($productGroup);
         return $this->createQueryBuilder('p')
             ->select('p')
             ->where("p.leftCount > 0 AND (p.productGroup = 193 OR p.productGroup = 194 OR p.productGroup = 195 OR p.productGroup = 196 OR p.productGroup = 197)")
-            
-            
+
+
             ->setMaxResults($count)
             ->setFirstResult($count * ($page - 1))
-            
+            ->orderBy("p." . $sort, $orderType)
             ->getQuery()
             ->getResult();
 
-       
+
     }
 }

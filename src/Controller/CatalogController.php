@@ -299,16 +299,24 @@ class CatalogController extends Controller
             $products = array_slice($products, ($page - 1) * $count, $count);
         } else {
             //var_dump($count);
-            $products = $this->getDoctrine()->getRepository(Product::class)->findByDisc(
+            if (is_array($idGroup)){
+                $req = implode(" OR p.productGroup = ", $idGroup);
+            } else {
+                $req = $idGroup;
+            }
+            $products[] = $this->getDoctrine()->getRepository(Product::class)->findByDisc(
                 ['productGroup' => $group],
+                $req,
                 $sort,
+                $orderType,
                 $count,
                 $page
             );
+            }
             $fullCount = count($this->getDoctrine()->getRepository(Product::class)->findBy(
                 ["productGroup" => $group]
             ));
-        }
+
 
         $countPages = (int)($fullCount % $count === 0 ? $fullCount / $count : $fullCount / $count + 1);
 
@@ -317,13 +325,11 @@ class CatalogController extends Controller
         /** @var Product $product */
         foreach ($products as $product) {
             if ($product->getLeftCount() > 0) {
-
                 $productGroup = $product->getProductGroup()->getId();
                 $product = $product->toArray();
                 $product['sale'] = $salesGroups[$productGroup];
                 //array_push($parsedProducts,$product);
                 $parsedProducts[] = $product;
-
             }
         }
         //var_dump($parsedProducts);

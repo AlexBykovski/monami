@@ -90,19 +90,18 @@ class ProductRepository extends EntityRepository
         die;
     }
 
-    public function findByDisc($productGroup, $sort, $count, $page = 1)
+    public function findByDisc($productGroup, $group, $sort, $orderBy, $count, $page = 1)
     {
         $page = $page > 0 ? $page : 1;
-        $orderType = $sort === "createdAt" ? "DESC" : "ASC";
+
         //var_dump($productGroup);
         return $this->createQueryBuilder('p')
             ->select('p')
-            ->where("p.leftCount > 0 AND (p.productGroup = 193 OR p.productGroup = 194 OR p.productGroup = 195 OR p.productGroup = 196 OR p.productGroup = 197)")
-
-
+//            ->where("p.leftCount > 0 AND (p.productGroup = 193 OR p.productGroup = 194 OR p.productGroup = 195 OR p.productGroup = 196 OR p.productGroup = 197)")
+            ->where("p.leftCount > 0 AND (p.productGroup = " . $group . ')')
             ->setMaxResults($count)
             ->setFirstResult($count * ($page - 1))
-            ->orderBy("p." . $sort, $orderType)
+            ->orderBy('p.' . $sort, $orderBy)
             ->getQuery()
             ->getResult();
 

@@ -279,7 +279,6 @@ class CatalogController extends Controller
 
         $productIds = array_unique($productIds);
 
-
         if (isset($params['type']) && $params['type'] == 'hit') {
             $products = $this->getDoctrine()->getRepository(Product::class)->findBy(
                 ['id' => $productIds],
@@ -298,14 +297,12 @@ class CatalogController extends Controller
 
             $products = array_slice($products, ($page - 1) * $count, $count);
         } else {
-            //var_dump($count);
             if (is_array($idGroup)){
                 $req = implode(" OR p.productGroup = ", $idGroup);
             } else {
                 $req = $idGroup;
             }
-            $products[] = $this->getDoctrine()->getRepository(Product::class)->findByDisc(
-                ['productGroup' => $group],
+            $products = $this->getDoctrine()->getRepository(Product::class)->findByDisc(
                 $req,
                 $sort,
                 $orderType,
@@ -336,7 +333,6 @@ class CatalogController extends Controller
 
         return new JsonResponse([
             "products" => $parsedProducts,
-
             "countPages" => $countPages,
             'test' => $request->getUri(),
             'page' => isset($_GET['page']) ? $_GET['page'] : 1

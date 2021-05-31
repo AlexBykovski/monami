@@ -122,7 +122,7 @@ class ImportClientsCommand extends ContainerAwareCommand
                 $login,
                 $manager,
                 $contrAgent,
-				$discount
+                $discount
             );
 
             $this->em->persist($client);

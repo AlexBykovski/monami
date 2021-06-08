@@ -286,9 +286,9 @@ class CatalogController extends Controller
                 40
             );
 
-            $products = array_slice($products, ($page - 1) * $count, $count);
+            $products = array_slice($products, ($page - 1) * $count, $page + 1 * $count);
 
-            $fullCount = count($this->getDoctrine()->getRepository(Purchase::class)->findAll());
+            $fullCount = count($products);
         } elseif (isset($params['type']) && $params['type'] == 'new') {
             $products = $this->getDoctrine()->getRepository(Product::class)
                 ->findNew(100, 0, ['p.' . $sort, $orderType]);
@@ -309,14 +309,17 @@ class CatalogController extends Controller
                 $count,
                 $page
             );
-            }
-            $fullCount = count($this->getDoctrine()->getRepository(Product::class)->findBy(
-                ["productGroup" => $group]
-            ));
 
+            $products = array_slice($products, ($page - 1) * $count, $page + 1 * $count);
 
+            $fullCount = count($products);
+        }
+
+        $fullCount = count($this->getDoctrine()->getRepository(Product::class)->findBy(
+            ["productGroup" => $group]
+        ));
+        
         $countPages = (int)($fullCount % $count === 0 ? $fullCount / $count : $fullCount / $count + 1);
-
         $parsedProducts = [];
 
         /** @var Product $product */

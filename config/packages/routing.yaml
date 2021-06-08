@@ -1,3 +1,3 @@
-framework:
-    router:
-        strict_requirements: ~
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index

@@ -277,7 +277,6 @@ class CatalogController extends Controller
 
         $productIds = array_unique($productIds);
 
-
         if (isset($params['type']) && $params['type'] == 'hit') {
             $products = $this->getDoctrine()->getRepository(Product::class)->findBy(
                 ['id' => $productIds],
@@ -285,16 +284,10 @@ class CatalogController extends Controller
                 40
             );
 
-//            $products = array_slice($products, ($page - 1) * $count, $page + 1 * $count);
-//
-//            $fullCount = count($products);
         } elseif (isset($params['type']) && $params['type'] == 'new') {
             $products = $this->getDoctrine()->getRepository(Product::class)
                 ->findNew(100, 0, ['p.' . $sort, $orderType]);
 
-//            $fullCount = count($products);
-//
-//            $products = array_slice($products, ($page - 1) * $count, $count);
         } else {
             if (is_array($idGroup)){
                 $req = implode(" OR p.productGroup = ", $idGroup);
@@ -308,26 +301,23 @@ class CatalogController extends Controller
             );
         }
         $fullCount = count($products);
-        $products = array_slice($products, ($page - 1) * $count, $count);
 
+        $products = array_slice($products, ($page - 1) * $count, $count);
         $countPages = (int)($fullCount % $count === 0 ? $fullCount / $count : $fullCount / $count + 1);
         $parsedProducts = [];
 
         /** @var Product $product */
         foreach ($products as $product) {
             if ($product->getLeftCount() > 0) {
-
                 $productGroup = $product->getProductGroup()->getId();
                 $product = $product->toArray();
                 $product['sale'] = $salesGroups[$productGroup];
-                //array_push($parsedProducts,$product);
                 $parsedProducts[] = $product;
-
             }
         }
+
         return new JsonResponse([
             "products" => $parsedProducts,
-
             "countPages" => $countPages,
             'test' => $request->getUri(),
             'page' => isset($_GET['page']) ? $_GET['page'] : 1

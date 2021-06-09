@@ -100,7 +100,5 @@ class ProductRepository extends EntityRepository
             ->orderBy('p.' . $sort, $orderBy)
             ->getQuery()
             ->getResult();
-
-       
     }
 }

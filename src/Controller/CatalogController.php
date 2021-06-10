@@ -285,16 +285,10 @@ class CatalogController extends Controller
                 40
             );
 
-//            $products = array_slice($products, ($page - 1) * $count, $page + 1 * $count);
-//
-//            $fullCount = count($products);
         } elseif (isset($params['type']) && $params['type'] == 'new') {
             $products = $this->getDoctrine()->getRepository(Product::class)
                 ->findNew(100, 0, ['p.' . $sort, $orderType]);
 
-//            $fullCount = count($products);
-//
-//            $products = array_slice($products, ($page - 1) * $count, $count);
         } else {
             if (is_array($idGroup)){
                 $req = implode(" OR p.productGroup = ", $idGroup);
@@ -320,7 +314,6 @@ class CatalogController extends Controller
                 $productGroup = $product->getProductGroup()->getId();
                 $product = $product->toArray();
                 $product['sale'] = $salesGroups[$productGroup];
-                //array_push($parsedProducts,$product);
                 $parsedProducts[] = $product;
 
             }

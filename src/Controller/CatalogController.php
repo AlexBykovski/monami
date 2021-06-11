@@ -277,6 +277,11 @@ class CatalogController extends Controller
 
         $productIds = array_unique($productIds);
 
+        if (is_array($idGroup)){
+            $req = implode(" OR p.productGroup = ", $idGroup);
+        } else {
+            $req = $idGroup;
+        }
 
         if (isset($params['type']) && $params['type'] == 'hit') {
             $products = $this->getDoctrine()->getRepository(Product::class)->findBy(
@@ -290,11 +295,6 @@ class CatalogController extends Controller
                 ->findNew(100, 0, ['p.' . $sort, $orderType]);
 
         } else {
-            if (is_array($idGroup)){
-                $req = implode(" OR p.productGroup = ", $idGroup);
-            } else {
-                $req = $idGroup;
-            }
             $products = $this->getDoctrine()->getRepository(Product::class)->findByDisc(
                 $req,
                 $sort,

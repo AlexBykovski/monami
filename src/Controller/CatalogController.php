@@ -298,11 +298,14 @@ class CatalogController extends Controller
             $products = $this->getDoctrine()->getRepository(Product::class)->findByDisc(
                 $req,
                 $sort,
-                $orderType
+                $orderType,
+                $page,
+                $count
+            );
+            $fullCount = $this->getDoctrine()->getRepository(Product::class)->calcCount(
+                $req
             );
         }
-        $fullCount = count($products);
-        $products = array_slice($products, ($page - 1) * $count, $count);
 
         $countPages = (int)($fullCount % $count === 0 ? $fullCount / $count : $fullCount / $count + 1);
         $parsedProducts = [];

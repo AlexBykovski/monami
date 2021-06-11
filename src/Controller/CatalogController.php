@@ -302,12 +302,10 @@ class CatalogController extends Controller
                 $page,
                 $count
             );
-            $fullCount = $this->getDoctrine()->getRepository(Product::class)->calcCount(
-                $req
-            );
         }
-
+        $fullCount = $this->getDoctrine()->getRepository(Product::class)->calcCount($req);
         $countPages = (int)($fullCount % $count === 0 ? $fullCount / $count : $fullCount / $count + 1);
+
         $parsedProducts = [];
 
         /** @var Product $product */

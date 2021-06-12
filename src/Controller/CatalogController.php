@@ -188,7 +188,6 @@ class CatalogController extends Controller
         }
 
         $childs = implode(', ', $ids);
-
         $user = $this->getUser();
 
         if (!$childs) {
@@ -263,7 +262,6 @@ class CatalogController extends Controller
         $sort = $params["sort"];
         $orderType = $sort === "createdAt" ? "DESC" : "ASC";
         $page = array_key_exists("page", $params) ? (int)$params["page"] : 1;
-
         $sales = $this
             ->getDoctrine()
             ->getRepository(Purchase::class)
@@ -279,6 +277,12 @@ class CatalogController extends Controller
 
         $productIds = array_unique($productIds);
 
+        if (is_array($idGroup)){
+            $req = implode(" OR p.productGroup = ", $idGroup);
+        } else {
+            $req = $idGroup;
+        }
+
         if (isset($params['type']) && $params['type'] == 'hit') {
             $products = $this->getDoctrine()->getRepository(Product::class)->findBy(
                 ['id' => $productIds],
@@ -286,56 +290,38 @@ class CatalogController extends Controller
                 40
             );
 
-            $products = array_slice($products, ($page - 1) * $count, $page + 1 * $count);
-
-            $fullCount = count($products);
         } elseif (isset($params['type']) && $params['type'] == 'new') {
             $products = $this->getDoctrine()->getRepository(Product::class)
                 ->findNew(100, 0, ['p.' . $sort, $orderType]);
 
-            $fullCount = count($products);
-
-            $products = array_slice($products, ($page - 1) * $count, $count);
         } else {
-            if (is_array($idGroup)){
-                $req = implode(" OR p.productGroup = ", $idGroup);
-            } else {
-                $req = $idGroup;
-            }
             $products = $this->getDoctrine()->getRepository(Product::class)->findByDisc(
                 $req,
                 $sort,
                 $orderType,
-                $count,
-                $page
+                $page,
+                $count
             );
-
-            $products = array_slice($products, ($page - 1) * $count, $page + 1 * $count);
-
-            $fullCount = count($products);
         }
-
-        $fullCount = count($this->getDoctrine()->getRepository(Product::class)->findBy(
-            ["productGroup" => $group]
-        ));
-        
+        $fullCount = $this->getDoctrine()->getRepository(Product::class)->calcCount($req);
         $countPages = (int)($fullCount % $count === 0 ? $fullCount / $count : $fullCount / $count + 1);
+
         $parsedProducts = [];
 
         /** @var Product $product */
         foreach ($products as $product) {
             if ($product->getLeftCount() > 0) {
+
                 $productGroup = $product->getProductGroup()->getId();
                 $product = $product->toArray();
                 $product['sale'] = $salesGroups[$productGroup];
-                //array_push($parsedProducts,$product);
                 $parsedProducts[] = $product;
+
             }
         }
-        //var_dump($parsedProducts);
-
         return new JsonResponse([
             "products" => $parsedProducts,
+
             "countPages" => $countPages,
             'test' => $request->getUri(),
             'page' => isset($_GET['page']) ? $_GET['page'] : 1

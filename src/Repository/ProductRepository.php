@@ -90,20 +90,25 @@ class ProductRepository extends EntityRepository
         die;
     }
 
-    public function findByDisc($group, $sort, $orderBy, $count, $page = 1)
+    public function findByDisc($group, $sort, $orderBy = "ASC", $page = 1, $count = 16)
     {
-        $page = $page > 0 ? $page : 1;
 
-        //var_dump($productGroup);
         return $this->createQueryBuilder('p')
             ->select('p')
             ->where("p.leftCount > 0 AND (p.productGroup = " . $group . ')')
+            ->orderBy('p.' . $sort, $orderBy)
             ->setMaxResults($count)
             ->setFirstResult($count * ($page - 1))
-            ->orderBy('p.' . $sort, $orderBy)
             ->getQuery()
             ->getResult();
+    }
 
-
+    public function calcCount($group)
+    {
+        return $this->createQueryBuilder('p')
+            ->select('count(p)')
+            ->where("p.leftCount > 0 AND (p.productGroup = " . $group . ')')
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 }

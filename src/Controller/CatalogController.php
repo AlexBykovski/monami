@@ -287,7 +287,7 @@ class CatalogController extends Controller
             $products = $this->getDoctrine()->getRepository(Product::class)->findBy(
                 ['id' => $productIds],
                 [$sort => $orderType],
-                40
+                $count
             );
 
         } elseif (isset($params['type']) && $params['type'] == 'new') {

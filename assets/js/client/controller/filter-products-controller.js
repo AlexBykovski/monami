@@ -32,10 +32,10 @@
                     self.filters.page = parseInt(page);
                 }
 
-                updateProducts();
+                updateProducts(idGroup);
             }
 
-            function updateProducts() {
+            function updateProducts(idGroup) {
                 let url = '/catalog/' + idGroup + '/filter/';
 
                 if (self.filters.text) {

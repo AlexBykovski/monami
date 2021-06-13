@@ -532,7 +532,7 @@ class CartController extends Controller
         $content = json_decode($request->getContent(), true);
         $code = $content["code"];
 
-        if (!$code) {
+        if (!($code)) {
             return new JsonResponse(["cart" => $basket->toArray(), 'message' => 'Промокод не распостраняется']);
         }
 

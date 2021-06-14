@@ -157,7 +157,7 @@ class ManagerSlider
     }
 
     /**
-     * @return string
+     * @return null|string
      */
     public function getApiId()
     {

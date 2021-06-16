@@ -41,7 +41,7 @@ class ManagerSlider
      *
      * @ORM\Column(type="string", nullable=true)
      */
-    private $apiId = 999;
+    private $apiId;
 
     /**
      * @var string
@@ -165,7 +165,7 @@ class ManagerSlider
     }
 
     /**
-     * @param string $apiId
+     * @param null|string $apiId
      */
     public function setApiId(string $apiId): void
     {

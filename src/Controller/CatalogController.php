@@ -301,11 +301,11 @@ class CatalogController extends Controller
         }
         if (isset($params['type']) && $params['type'] == 'hit') {
             $fullCount = $this->getDoctrine()->getRepository(Product::class)->calcCountHits($date);
-            $fullCount = $fullCount > 100 ? $fullCount = 100 : $fullCount;
+            $fullCount = $fullCount > 100 ? 100 : $fullCount;
 
         } elseif (isset($params['type']) && $params['type'] == 'new') {
             $fullCount = $this->getDoctrine()->getRepository(Product::class)->calcCountNew();
-            $fullCount = $fullCount > 100 ? $fullCount = 100 : $fullCount;
+            $fullCount = $fullCount > 100 ? 100 : $fullCount;
 
         } elseif ((int)$idGroup == 0){
             $fullCount = 0;
@@ -316,10 +316,10 @@ class CatalogController extends Controller
 
         $countPages = (int)($fullCount % $count === 0 ? $fullCount / $count : $fullCount / $count + 1);
 
-        if ((isset($params['type']) && $params['type'] == 'hit') || (isset($params['type']) && $params['type'] == 'new')) {
-            if (($page * $count) > 100){
-                $products = array_slice($products, 0, $count - ($page * $count - 100));
-            }
+        if (((isset($params['type']) && $params['type'] == 'hit') || (isset($params['type']) && $params['type'] == 'new'))
+            && (($page * $count) > 100))
+        {
+            $products = array_slice($products, 0, $count - ($page * $count - 100));
         }
 
         $parsedProducts = [];

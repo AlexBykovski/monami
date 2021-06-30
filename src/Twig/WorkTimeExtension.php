@@ -8,7 +8,7 @@ use App\Entity\AboutPage;
 use Twig\TwigFunction;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
-class BaseExtension extends AbstractExtension
+class WorkTimeExtension extends AbstractExtension
 {
     private $em;
 

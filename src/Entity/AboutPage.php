@@ -41,6 +41,29 @@ class AboutPage
     private $map;
 
     /**
+     * @var string|null
+     *
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $timeWork;
+
+    /**
+     * @return string|null
+     */
+    public function getTimeWork(): ?string
+    {
+        return $this->timeWork;
+    }
+
+    /**
+     * @param string|null $timeWork
+     */
+    public function setTimeWork(?string $timeWork): void
+    {
+        $this->timeWork = $timeWork;
+    }
+
+    /**
      * @return int
      */
     public function getId(): int

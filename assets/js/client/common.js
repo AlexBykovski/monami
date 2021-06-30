@@ -50,11 +50,6 @@ $(document).ready(function () {
 	});
 
 	// Product list view change
-
-	// if (JSON.parse(sessionStorage.getItem('product-list'))){
-	// 	$('#products-list-tiles-select').click(function () {JSON.parse(sessionStorage.getItem('product-list'))};
-	// }
-
 	$('#products-list-tiles-select').click(function () {
 		$('.products-list').attr('class', 'products-list products-list-tiles');
 		sessionStorage.setItem('product-list', 'titles');

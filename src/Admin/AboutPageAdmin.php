@@ -17,10 +17,18 @@ class AboutPageAdmin extends AbstractAdmin
             'label' => 'ООО "Мон Ами" поставщик сувенирной продукции и товаров для дома:',
             'attr' => array('style' => 'width:100%;height:200px;', 'class'=>'ckeditor'),
         ])->getFormBuilder()->getForm();
-        $formMapper->add('requisites', CKEditorType::class, ['label' => 'Сувениры оптом на каждый сезон:',
+
+        $formMapper->add('requisites', CKEditorType::class, [
+            'label' => 'Сувениры оптом на каждый сезон:',
             'attr' => array('style' => 'width:100%;height:200px;', 'class'=>'ckeditor')]);
-        $formMapper->add('map', CKEditorType::class, ['label' => 'Как мы это делаем?',
+
+        $formMapper->add('map', CKEditorType::class, [
+            'label' => 'Как мы это делаем?',
             'attr' => ['style' => 'width:100%;height:200px;', 'class'=>'ckeditor']]);
+
+        $formMapper->add('timeWork', CKEditorType::class, [
+            'label' => 'Время работы',
+            'attr' => ['style' => 'width:100%;height:100px;', 'class'=>'ckeditor']]);
     }
 
 

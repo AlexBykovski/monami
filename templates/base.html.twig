@@ -124,8 +124,7 @@
                             <span class="info-icon" style="background-image: url({{ image_url('default/icons/clock-icon.png') }});"></span>
 
                             <div id="header-time-info-content" class="info-content">
-                                <b>Пн - Пт</b> <br>
-                                9:00-18:00
+                                {{ get_time_work() | raw }}
                             </div>
                         </div>
 

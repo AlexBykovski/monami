@@ -19,6 +19,9 @@
 
             function init(idGroupS, textS, type, page) {
                 idGroup = idGroupS;
+                let savedSort = sessionStorage.getItem('filtres') ? JSON.parse(sessionStorage.getItem('filtres')).sort : null;
+                let savedCount = sessionStorage.getItem('filtres') ? JSON.parse(sessionStorage.getItem('filtres')).count : null;
+                let savedLocation = sessionStorage.getItem('location') ? sessionStorage.getItem('location') : null;
 
                 if (textS) {
                     self.filters.text = textS;
@@ -32,6 +35,14 @@
                     self.filters.page = parseInt(page);
                 }
 
+                if (savedSort && location.pathname === savedLocation) {
+                    self.filters.sort = savedSort;
+                }
+
+                if (savedCount && location.pathname === savedLocation) {
+                    self.filters.count = savedCount;
+                }
+
                 updateProducts();
             }
 
@@ -41,6 +52,9 @@
                 if (self.filters.text) {
                     url = '/catalog/search/results';
                 }
+
+                sessionStorage.setItem('filtres', JSON.stringify(self.filters));
+                sessionStorage.setItem('location', location.pathname);
 
                 $http({
                     method: 'GET',

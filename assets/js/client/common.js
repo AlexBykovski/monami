@@ -52,11 +52,22 @@ $(document).ready(function () {
 	// Product list view change
 	$('#products-list-tiles-select').click(function () {
 		$('.products-list').attr('class', 'products-list products-list-tiles');
+		sessionStorage.setItem('product-list', 'titles');
+		sessionStorage.setItem('locationFoType', location.pathname);
 	});
 
 	$('#products-list-standart-select').click(function () {
 		$('.products-list').attr('class', 'products-list products-list-standart');
+		sessionStorage.setItem('product-list', 'standart');
+		sessionStorage.setItem('locationFoType', location.pathname);
+
 	});
+
+	if (sessionStorage.getItem('product-list') === 'titles' && sessionStorage.getItem('locationFoType') === location.pathname){
+		$('#products-list-tiles-select').click();
+	} else if (sessionStorage.getItem('product-list') === 'standart' && sessionStorage.getItem('locationFoType') === location.pathname){
+		$('#products-list-standart-select').click();
+	}
 
 	var thumbnailSliderOptions = {
 		sliderId: "thumbnail-slider",

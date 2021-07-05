@@ -118,8 +118,9 @@
                         </ul>
 
                     </div>
-                    <div class="col-xs-3 col-lg-2 mt-4 mt-xs-2 mt-lg-0 order-lg-2">
 
+                    {% if get_time_work() %}
+                    <div class="col-xs-3 col-lg-2 mt-4 mt-xs-2 mt-lg-0 order-lg-2">
                         <div class="header-contact-info">
                             <span class="info-icon" style="background-image: url({{ image_url('default/icons/clock-icon.png') }});"></span>
 
@@ -127,8 +128,9 @@
                                 {{ get_time_work() | raw }}
                             </div>
                         </div>
-
                     </div>
+                    {% endif %}
+
                     <div class="col-xs-5 col-lg-3 mt-3 mt-xs-2 mt-lg-0 order-lg-3">
 
                         <div class="header-contact-info">

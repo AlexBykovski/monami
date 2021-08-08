@@ -3,7 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\Product;
+use App\Entity\Purchase;
 use Doctrine\ORM\EntityRepository;
+use DateTime;
+use Doctrine\ORM\Query\Expr\Join;
 
 class ProductRepository extends EntityRepository
 {
@@ -38,24 +41,40 @@ class ProductRepository extends EntityRepository
             ->getSingleScalarResult();
     }
 
-	public function findNew($limit = 100, $offset = 0, $sort = ['p.id', 'DESC'])
-	{
-		$date = (new \DateTime())->modify('-1 month')->format('Y-m-d H:i:s');
+    public function findNew($sort = 'cost', $orderBy = 'DESC', $count = 16, $page = 1)
+    {
+        $date = (new \DateTime())->modify('-1 month')->format('Y-m-d H:i:s');
 
-		$result = $this->createQueryBuilder('p')
-			->select('p')
-			->where('p.createdAt > :date_to')
+        $count = $count > 100 ? $count = 100 : $count;
+
+        $result = $this->createQueryBuilder('p')
+            ->select('p')
+            ->where('p.createdAt > :date_to')
             ->andWhere('p.leftCount > 0')
-			->setParameter("date_to", "" . $date . "")
-			->orderBy('p.id', 'DESC')
-			->getQuery()
-			->getResult();
-            
-		return $result;
-	}
+            ->setParameter("date_to", "" . $date . "")
+            ->orderBy('p.' . $sort, $orderBy)
+            ->setMaxResults($count)
+            ->setFirstResult($count * ($page - 1))
+            ->getQuery()
+            ->getResult();
 
+        return $result;
+    }
 
-	public function findByTextAndParams($count, $sort, $text, $page = 1)
+    public function calcCountNew()
+    {
+        $date = (new \DateTime())->modify('-1 month')->format('Y-m-d H:i:s');
+
+        return $this->createQueryBuilder('p')
+            ->select('p')
+            ->where('p.createdAt > :date_to')
+            ->andWhere('p.leftCount > 0')
+            ->setParameter("date_to", "" . $date . "")
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findByTextAndParams($count, $sort, $text, $page = 1)
     {
         $page = $page > 0 ? $page : 1;
         $orderType = $sort === "createdAt" ? "DESC" : "ASC";
@@ -90,22 +109,55 @@ class ProductRepository extends EntityRepository
         die;
     }
 
-    public function findByDisc($productGroup, $sort, $count, $page = 1)
+    public function findByDisc($group, $sort, $orderBy = "ASC", $page = 1, $count = 16)
     {
-        $page = $page > 0 ? $page : 1;
-        
-        //var_dump($productGroup);
+
         return $this->createQueryBuilder('p')
             ->select('p')
-            ->where("p.leftCount > 0 AND (p.productGroup = 193 OR p.productGroup = 194 OR p.productGroup = 195 OR p.productGroup = 196 OR p.productGroup = 197)")
-            
-            
+            ->where("p.leftCount > 0 AND (p.productGroup = " . $group . ')')
+            ->orderBy('p.' . $sort, $orderBy)
             ->setMaxResults($count)
             ->setFirstResult($count * ($page - 1))
-            
             ->getQuery()
             ->getResult();
+    }
 
-       
+    public function calcCount($group)
+    {
+        return $this->createQueryBuilder('p')
+            ->select('count(p)')
+            ->where("p.leftCount > 0 AND (p.productGroup = " . $group . ')')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function findByHits($date, $sort, $orderBy = "DESC", $count = 16, $page = 1)
+    {
+        $count = $count > 100 ? $count = 100 : $count;
+
+        return $this->createQueryBuilder('pr')
+            ->select("pr.id, COUNT(p.product) AS prodCount")
+            ->join(Purchase::class, 'p', Join::WITH, 'pr = p.product')
+            ->where('p.createdAt >= :date')
+            ->andWhere("pr.leftCount > 0")
+            ->setParameter("date", $date)
+            ->groupBy('p.product')
+            ->orderBy('pr.' . $sort, $orderBy)
+            ->setMaxResults($count)
+            ->setFirstResult($count * ($page - 1))
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function calcCountHits($date)
+    {
+        return $this->createQueryBuilder('pr')
+            ->select('count(pr)')
+            ->join(Purchase::class, 'p', Join::WITH, 'pr = p.product')
+            ->where('p.createdAt >= :date')
+            ->andWhere("pr.leftCount > 0")
+            ->setParameter("date", $date)
+            ->getQuery()
+            ->getResult();
     }
 }

@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use DateTime;
 
 /**
  * @Route("/catalog")
@@ -139,23 +140,9 @@ class CatalogController extends Controller
                 'page' => isset($_GET['page']) ? $_GET['page'] : 1
             ]);
         } elseif ($type == 'hit') {
-            $count = isset($_GET['count']) ? $_GET['count'] : 16;
-            $products = $this->getDoctrine()->getRepository(Purchase::class)
-                ->findBy([], ['count' => 'DESC'], $count);
-
             $childs = $this->getDoctrine()->getRepository(ProductGroup::class)->findAll();
 
-            $productIds = [];
-            $productGroups = [];
-
-            /** @var Purchase $product */
-            foreach ($products as $product) {
-                if ($product->getProduct()->getLeftCount() > 0) {
-                    $productIds[] = $product->getProduct()->getId();
-                    $productGroups[] = $product->getProduct()->getProductGroup()->getId();
-                    $productSales[$product->getProduct()->getId()] = $product->getProduct()->getProductGroup()->getSale();
-                }
-            }
+            $productGroups = [$childs[0]->getId()];
 
             /** @var ProductGroup $child */
             foreach ($childs as $child) {
@@ -172,7 +159,6 @@ class CatalogController extends Controller
                 'productSales' => $productSales,
                 'childIds' => $childs,
                 'type' => $type,
-                'productIds' => $productIds,
                 'user' => $this->getUser(),
                 'userSale' => $this->getUser() ? $this->getUser()->getDiscount() : 0,
                 'page' => isset($_GET['page']) ? $_GET['page'] : 1
@@ -186,22 +172,20 @@ class CatalogController extends Controller
         foreach ($childs as $child) {
             $ids[] = $child->getId();
         }
-
         $childs = implode(', ', $ids);
-
         $user = $this->getUser();
 
         if (!$childs) {
             return $this->render('client/catalog/type-zero.html.twig', [
                 "groupName" => $groupName,
                 "parentGroups" => $parentGroups,
-                'childIds' => $childs,
+                'childIds' => 0,
                 'type' => $type,
                 'user' => $user,
                 'page' => isset($_GET['page']) ? $_GET['page'] : 1
             ]);
         }
-        
+
         if ($type == 'disc') {
             return $this->render('client/catalog/type-disc.html.twig', [
                 "groupName" => $groupName,
@@ -263,7 +247,6 @@ class CatalogController extends Controller
         $sort = $params["sort"];
         $orderType = $sort === "createdAt" ? "DESC" : "ASC";
         $page = array_key_exists("page", $params) ? (int)$params["page"] : 1;
-
         $sales = $this
             ->getDoctrine()
             ->getRepository(Purchase::class)
@@ -272,65 +255,85 @@ class CatalogController extends Controller
 
         /** @var Purchase $product */
         foreach ($sales as $product) {
-            if($product->getProduct()->getLeftCount() > 0) {
+            if ($product->getProduct()->getLeftCount() > 0) {
                 $productIds[] = $product->getProduct()->getId();
             }
         }
 
         $productIds = array_unique($productIds);
 
-        
+        if (is_array($idGroup)) {
+            $req = implode(" OR p.productGroup = ", $idGroup);
+        } else {
+            $req = $idGroup;
+        }
+
         if (isset($params['type']) && $params['type'] == 'hit') {
-            $products = $this->getDoctrine()->getRepository(Product::class)->findBy(
-                ['id' => $productIds],
-                [$sort => $orderType],
-                40
-            );
+            $date = new DateTime("-1 month");
+            $productIdsCounts = $this->getDoctrine()->getRepository(Product::class)
+                ->findByHits($date,
+                    $sort,
+                    $orderType,
+                    $count,
+                    $page);
 
-            $products = array_slice($products, ($page - 1) * $count, $count);
+            $productHitsIds = [];
 
-            $fullCount = count($this->getDoctrine()->getRepository(Purchase::class)->findAll());
+            foreach ($productIdsCounts as $prod) {
+                $productHitsIds[] = $prod['id'];
+            }
+
+            $products = $this->getDoctrine()->getRepository(Product::class)
+                ->findBy(['id' => $productHitsIds], [$sort => $orderType]);
+
         } elseif (isset($params['type']) && $params['type'] == 'new') {
             $products = $this->getDoctrine()->getRepository(Product::class)
-                ->findNew(100, 0, ['p.' . $sort, $orderType]);
+                ->findNew($sort, $orderType, $count, $page);
 
-            $fullCount = count($products);
-
-            $products = array_slice($products, ($page - 1) * $count, $count);
         } else {
-            //var_dump($count);
             $products = $this->getDoctrine()->getRepository(Product::class)->findByDisc(
-                ['productGroup' => $group],
-                [$sort => $orderType],
-                $count,
-                $page
+                $req,
+                $sort,
+                $orderType,
+                $page,
+                $count
             );
-            $fullCount = count($this->getDoctrine()->getRepository(Product::class)->findBy(
-                ["productGroup" => $group]
-            ));
         }
-        
+        if (isset($params['type']) && $params['type'] == 'hit') {
+            $fullCount = $this->getDoctrine()->getRepository(Product::class)->calcCountHits($date);
+            $fullCount = $fullCount > 100 ? 100 : $fullCount;
+
+        } elseif (isset($params['type']) && $params['type'] == 'new') {
+            $fullCount = $this->getDoctrine()->getRepository(Product::class)->calcCountNew();
+            $fullCount = $fullCount > 100 ? 100 : $fullCount;
+
+        } elseif ((int)$idGroup == 0){
+            $fullCount = 0;
+
+        }else {
+            $fullCount = $this->getDoctrine()->getRepository(Product::class)->calcCount($req);
+        }
+
         $countPages = (int)($fullCount % $count === 0 ? $fullCount / $count : $fullCount / $count + 1);
 
+        if (((isset($params['type']) && $params['type'] == 'hit') || (isset($params['type']) && $params['type'] == 'new'))
+            && (($page * $count) > 100))
+        {
+            $products = array_slice($products, 0, $count - ($page * $count - 100));
+        }
+
         $parsedProducts = [];
-       
+
         /** @var Product $product */
         foreach ($products as $product) {
-            if ($product->getLeftCount() > 0) {
-                
-                $productGroup = $product->getProductGroup()->getId();
-                $product = $product->toArray();
-                $product['sale'] = $salesGroups[$productGroup];
-                //array_push($parsedProducts,$product);
-                $parsedProducts[] = $product;
-                
-            }
+            $productGroup = $product->getProductGroup()->getId();
+            $product = $product->toArray();
+            $product['sale'] = $salesGroups[$productGroup];
+            $parsedProducts[] = $product;
         }
-        //var_dump($parsedProducts);
 
         return new JsonResponse([
             "products" => $parsedProducts,
-            
             "countPages" => $countPages,
             'test' => $request->getUri(),
             'page' => isset($_GET['page']) ? $_GET['page'] : 1
